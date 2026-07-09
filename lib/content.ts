@@ -64,16 +64,100 @@ export const profile = {
   } as Localized,
   location: "Bogotá, Colombia",
   email: "alex.romer.av@gmail.com",
+  whatsapp: "+57 300 000 0000", // reemplaza por tu número real
+  whatsappUrl: "https://wa.me/573000000000", // formato: wa.me/<código+número sin signos>
+  photo: "", // ruta a tu foto en /public (ej. "/foto.jpg"); vacío muestra tus iniciales
   summary: {
     es: "Soy diseñador UX/UI con foco en producto digital. Combino investigación, diseño de interacción y sistemas de diseño con un uso avanzado de IA para acelerar el descubrimiento, la validación y la entrega. Este es un texto de ejemplo: reemplázalo por tu resumen profesional.",
     en: "I'm a UX/UI designer focused on digital product. I combine research, interaction design and design systems with advanced use of AI to speed up discovery, validation and delivery. This is placeholder text: replace it with your professional summary.",
   } as Localized,
   links: [
-    { label: "LinkedIn", url: "https://www.linkedin.com/in/tu-usuario" },
-    { label: "Behance", url: "https://www.behance.net/tu-usuario" },
-    { label: "Figma", url: "https://www.figma.com/@tu-usuario" },
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/tu-usuario", icon: "linkedin" },
+    { label: "Behance", url: "https://www.behance.net/tu-usuario", icon: "behance" },
+    { label: "Figma", url: "https://www.figma.com/@tu-usuario", icon: "figma" },
+    { label: "Instagram", url: "https://www.instagram.com/tu-usuario", icon: "instagram" },
   ],
 };
+
+// ---------------- EDUCACIÓN FORMAL (2 columnas) ----------------
+
+export const education: {
+  degree: Localized;
+  institution: string;
+  period: string;
+}[] = [
+  {
+    degree: { es: "Diseño Gráfico / Digital", en: "Graphic / Digital Design" },
+    institution: "Universidad Ejemplo",
+    period: "2014 — 2018",
+  },
+  {
+    degree: { es: "Especialización en UX", en: "UX Specialization" },
+    institution: "Institución Ejemplo",
+    period: "2019 — 2020",
+  },
+];
+
+// ---------------- EXPERIENCIA (línea de tiempo) ----------------
+
+export const experience: {
+  role: Localized;
+  company: string;
+  period: string;
+  summary: Localized;
+}[] = [
+  {
+    role: { es: "Diseñador UX/UI Senior", en: "Senior UX/UI Designer" },
+    company: "Bizagi",
+    period: "2022 — Actualidad",
+    summary: {
+      es: "Diseño de flujos de automatización complejos y sistemas de diseño. Texto de ejemplo.",
+      en: "Design of complex automation flows and design systems. Placeholder text.",
+    },
+  },
+  {
+    role: { es: "Diseñador UX/UI", en: "UX/UI Designer" },
+    company: "Empresa Anterior",
+    period: "2019 — 2022",
+    summary: {
+      es: "Producto digital fintech: research, UI y prototipado. Texto de ejemplo.",
+      en: "Fintech digital product: research, UI and prototyping. Placeholder text.",
+    },
+  },
+  {
+    role: { es: "Diseñador Junior", en: "Junior Designer" },
+    company: "Primer Empleo",
+    period: "2017 — 2019",
+    summary: {
+      es: "Primeros proyectos de diseño digital y branding. Texto de ejemplo.",
+      en: "First digital design and branding projects. Placeholder text.",
+    },
+  },
+];
+
+// ---------------- OTROS ESTUDIOS ----------------
+
+export const otherStudies: {
+  name: Localized;
+  institution: string;
+  year: string;
+}[] = [
+  {
+    name: { es: "Certificación en Design Systems", en: "Design Systems Certification" },
+    institution: "Plataforma Ejemplo",
+    year: "2023",
+  },
+  {
+    name: { es: "Curso de IA aplicada al diseño", en: "AI for Design course" },
+    institution: "Plataforma Ejemplo",
+    year: "2024",
+  },
+  {
+    name: { es: "Accesibilidad Web (WCAG)", en: "Web Accessibility (WCAG)" },
+    institution: "Plataforma Ejemplo",
+    year: "2022",
+  },
+];
 
 // ---------------- SKILLS ----------------
 
@@ -292,13 +376,18 @@ export const ui = {
   },
   home: {
     aboutTitle: { es: "Perfil", en: "About" },
-    skillsTitle: { es: "Capacidades", en: "Skills" },
+    skillsTitle: { es: "Skills y conocimiento", en: "Skills & knowledge" },
+    educationTitle: { es: "Formación académica", en: "Education" },
+    experienceTitle: { es: "Experiencia laboral", en: "Work experience" },
+    otherStudiesTitle: { es: "Otros estudios", en: "Other studies" },
+    contactCardTitle: { es: "Contacto", en: "Contact" },
     workTitle: { es: "Trayectoria", en: "Work" },
     workSubtitle: {
       es: "Empresas donde he trabajado. Entra a cada una para ver mi rol y los proyectos.",
       en: "Companies I've worked at. Open each one to see my role and projects.",
     },
     viewAll: { es: "Ver trayectoria completa", en: "View full work" },
+    viewPortfolio: { es: "Ver portafolio completo", en: "View full portfolio" },
   },
   work: {
     title: { es: "Trayectoria", en: "Work" },

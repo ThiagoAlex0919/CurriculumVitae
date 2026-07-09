@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import AppShell from "@/components/AppShell";
 
 export const metadata: Metadata = {
   title: "Alexander Romero — UX/UI Designer",
@@ -31,9 +30,7 @@ export default function RootLayout({
       </head>
       <body>
         <I18nProvider>
-          <Nav />
-          <main>{children}</main>
-          <Footer />
+          <AppShell>{children}</AppShell>
         </I18nProvider>
       </body>
     </html>
