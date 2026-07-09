@@ -484,9 +484,9 @@ p {
    ============================================================ */
 .sidebar {
   position: fixed;
-  top: 14px;
-  left: 14px;
-  bottom: 14px;
+  top: 24px;
+  left: 24px;
+  bottom: 24px;
   width: 244px;
   background: var(--card);
   border-radius: var(--radius);
@@ -502,12 +502,13 @@ p {
   width: 72px;
 }
 .app-main {
-  margin-left: 272px;
+  margin-left: 268px;
   min-height: 100vh;
+  padding: 24px;
   transition: margin-left 0.22s ease;
 }
 .app-shell[data-collapsed="true"] .app-main {
-  margin-left: 100px;
+  margin-left: 96px;
 }
 
 .sb-top {
@@ -626,25 +627,30 @@ p {
    DASHBOARD (home)
    ============================================================ */
 .dash {
-  padding: 26px 28px 40px;
+  width: 100%;
 }
 .dash-grid {
   display: grid;
   grid-template-columns: minmax(260px, 30%) 1fr;
-  gap: 22px;
+  gap: 24px;
   align-items: start;
 }
 .dash-side {
   position: sticky;
-  top: 26px;
+  top: 24px;
+  height: calc(100vh - 48px);
 }
 
 .profile-card {
   background: var(--card);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 30px 26px;
+  padding: 34px 26px;
   text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 .avatar {
   width: 104px;
@@ -703,6 +709,8 @@ p {
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-top: auto;
+  padding-top: 22px;
   margin-bottom: 22px;
 }
 .social-btn {
@@ -730,7 +738,7 @@ p {
 .dash-main {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 24px;
 }
 .dash-section {
   scroll-margin-top: 26px;
@@ -847,17 +855,22 @@ p {
   }
   .dash-side {
     position: static;
+    height: auto;
+  }
+  .profile-card {
+    overflow-y: visible;
+  }
+  .profile-socials {
+    margin-top: 22px;
   }
 }
 
 @media (max-width: 620px) {
   .app-main {
-    margin-left: 86px;
+    margin-left: 96px;
+    padding: 16px;
   }
   .app-shell[data-collapsed="true"] .app-main {
-    margin-left: 86px;
-  }
-  .dash {
-    padding: 20px 16px 32px;
+    margin-left: 96px;
   }
 }

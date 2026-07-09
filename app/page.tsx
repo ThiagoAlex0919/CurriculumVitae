@@ -22,7 +22,7 @@ export default function Home() {
   const { t } = useI18n();
 
   return (
-    <div className="container dash">
+    <div className="dash">
       <div className="dash-grid">
         {/* ---------- Columna 30% — perfil fijo ---------- */}
         <aside className="dash-side">
