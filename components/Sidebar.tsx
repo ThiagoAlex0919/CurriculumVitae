@@ -83,6 +83,11 @@ export default function Sidebar({
             EN
           </button>
         </div>
+        <p className="sb-rights">
+          © {new Date().getFullYear()} {profile.name}
+          <br />
+          {t(ui.footer.rights)}
+        </p>
       </div>
     </aside>
   );

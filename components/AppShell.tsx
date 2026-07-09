@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
-import Footer from "./Footer";
+import TopBar from "./TopBar";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -28,9 +28,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="app-shell" data-collapsed={collapsed} data-ready={ready}>
       <Sidebar collapsed={collapsed} onToggle={toggle} />
+      <TopBar />
       <div className="app-main">
         <main>{children}</main>
-        <Footer />
       </div>
     </div>
   );

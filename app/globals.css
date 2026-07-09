@@ -62,9 +62,10 @@ p {
 }
 
 .container {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding: 0 28px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
 }
 
 .eyebrow {
@@ -617,10 +618,76 @@ p {
 .sb-bottom {
   margin-top: 12px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.sb-rights {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink-mute);
+  text-align: center;
+  margin: 0;
 }
 .app-shell[data-collapsed="true"] .sb-bottom .lang {
   flex-direction: column;
+}
+.app-shell[data-collapsed="true"] .sb-rights {
+  display: none;
+}
+
+/* TOPBAR — aparece al hacer scroll */
+.topbar {
+  position: fixed;
+  top: 24px;
+  left: 292px;
+  right: 24px;
+  height: 54px;
+  background: var(--card);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 22px;
+  z-index: 90;
+  transform: translateY(-160%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.28s ease, opacity 0.2s ease, left 0.22s ease;
+}
+.topbar.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.app-shell[data-collapsed="true"] .topbar {
+  left: 120px;
+}
+.tb-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--ink);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 500;
+}
+.tb-name {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 500;
+}
+.tb-sep {
+  color: var(--ink-mute);
+}
+.tb-page {
+  font-size: 14.5px;
+  color: var(--ink-soft);
 }
 
 /* ============================================================
@@ -631,7 +698,7 @@ p {
 }
 .dash-grid {
   display: grid;
-  grid-template-columns: minmax(260px, 30%) 1fr;
+  grid-template-columns: clamp(280px, 30%, 360px) 1fr;
   gap: 24px;
   align-items: start;
 }
@@ -872,5 +939,14 @@ p {
   }
   .app-shell[data-collapsed="true"] .app-main {
     margin-left: 96px;
+  }
+  .topbar,
+  .app-shell[data-collapsed="true"] .topbar {
+    left: 112px;
+    right: 16px;
+  }
+  .tb-page,
+  .tb-sep {
+    display: none;
   }
 }
