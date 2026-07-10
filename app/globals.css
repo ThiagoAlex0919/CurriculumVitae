@@ -1030,6 +1030,283 @@ p {
   display: none;
 }
 
+/* ============================================================
+   SECCIONES NUEVAS (CV real)
+   ============================================================ */
+
+/* Fila de sección con acción a la derecha */
+.section-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.section-row .dash-h2 {
+  margin-bottom: 0;
+}
+.link-btn {
+  border: 0;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 13.5px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: box-shadow 0.15s ease;
+}
+.link-btn:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+/* Dos columnas genéricas */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* Premios */
+.award {
+  padding: 22px 24px;
+}
+.award-year {
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 8px;
+}
+.award-title {
+  font-size: 19px;
+  margin-bottom: 6px;
+}
+.award-org {
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+/* Frases */
+.quotes {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.quote {
+  margin: 0;
+}
+.quote blockquote {
+  margin: 0 0 6px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--ink);
+}
+.quote figcaption {
+  font-size: 13px;
+  color: var(--ink-mute);
+}
+
+/* Experiencia — tarjeta destacada (Bizagi) */
+.exp-featured {
+  background: var(--card);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 30px 32px;
+  margin-bottom: 18px;
+}
+.exp-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.exp-badge {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 13px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 500;
+}
+.exp-badge.sm {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16px;
+}
+.exp-head-text {
+  flex: 1;
+  min-width: 0;
+}
+.exp-company {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.exp-tag-recent {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.exp-role {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+.exp-period {
+  font-size: 13px;
+  color: var(--ink-mute);
+  white-space: nowrap;
+}
+.exp-featured .exp-period {
+  align-self: flex-start;
+}
+.exp-summary {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin: 0 0 20px;
+}
+.exp-fn-label {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 10px;
+}
+
+/* Experiencia — grilla de tarjetas */
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+.exp-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+.exp-card .exp-head {
+  margin-bottom: 12px;
+}
+.exp-card .exp-period {
+  margin-bottom: 14px;
+}
+
+/* Referencias */
+.ref-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ref-card {
+  padding: 20px 22px;
+}
+.ref-name {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+.ref-role {
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.ref-company {
+  font-size: 13.5px;
+  color: var(--ink-mute);
+  margin-top: 2px;
+}
+.ref-contact {
+  font-size: 12.5px;
+  color: var(--ink-mute);
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 21, 26, 0.42);
+  backdrop-filter: blur(2px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.modal-panel {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-hover);
+  width: 100%;
+  max-width: 640px;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 26px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.modal-close {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  background: var(--bg);
+  border-radius: 10px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover {
+  color: var(--ink);
+}
+.modal-body {
+  overflow-y: auto;
+  padding: 6px 26px 22px;
+}
+
+@media (max-width: 760px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 720px) {
   .sidebar,
   .topbar {

@@ -24,6 +24,15 @@ export default function ContactPage() {
 
           <div className="meta-row" style={{ marginTop: 40, gap: "14px 28px" }}>
             <span>{profile.location}</span>
+            {profile.phones.map((p) => (
+              <a key={p} href={`tel:+57${p.replace(/\s/g, "")}`}>
+                {p}
+              </a>
+            ))}
+            <span>{profile.address}</span>
+          </div>
+
+          <div className="meta-row" style={{ marginTop: 16, gap: "14px 28px" }}>
             {profile.links.map((l) => (
               <a key={l.label} href={l.url} target="_blank" rel="noreferrer">
                 {l.label} ↗

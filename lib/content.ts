@@ -53,29 +53,30 @@ export type LabEntry = {
 // ---------------- PERFIL / HOJA DE VIDA ----------------
 
 export const profile = {
-  name: "Alexander Romero",
+  name: "Alexander Romero Ávila",
   role: {
-    es: "Diseñador UX/UI Senior",
-    en: "Senior UX/UI Designer",
+    es: "Diseñador de Producto Senior",
+    en: "Senior Product Designer",
   } as Localized,
   tagline: {
-    es: "Diseño de producto centrado en las personas, potenciado con IA.",
-    en: "People-centered product design, powered by AI.",
+    es: "Diseño de producto con mentalidad AI First, de discovery a delivery.",
+    en: "AI-First product design, from discovery to delivery.",
   } as Localized,
   location: "Bogotá, Colombia",
+  address: "Calle 17 sur # 39-95, Bogotá", // se muestra solo en Contacto
   email: "alex.romer.av@gmail.com",
-  whatsapp: "+57 300 000 0000", // reemplaza por tu número real
-  whatsappUrl: "https://wa.me/573000000000", // formato: wa.me/<código+número sin signos>
+  phones: ["313 468 9786", "311 210 6075"],
+  whatsapp: "313 468 9786",
+  whatsappUrl: "https://wa.me/573134689786",
   photo: "", // ruta a tu foto en /public (ej. "/foto.jpg"); vacío muestra tus iniciales
   summary: {
-    es: "Soy diseñador UX/UI con foco en producto digital. Combino investigación, diseño de interacción y sistemas de diseño con un uso avanzado de IA para acelerar el descubrimiento, la validación y la entrega. Este es un texto de ejemplo: reemplázalo por tu resumen profesional.",
-    en: "I'm a UX/UI designer focused on digital product. I combine research, interaction design and design systems with advanced use of AI to speed up discovery, validation and delivery. This is placeholder text: replace it with your professional summary.",
+    es: "Diseñador de Producto Senior con más de 10 años de experiencia en la creación, evolución y optimización de productos digitales en entornos de alta complejidad. He liderado iniciativas de diseño con equipos multidisciplinarios para construir experiencias claras, accesibles y orientadas a resultados de negocio. Mi enfoque integra investigación, pensamiento sistémico y crítico, diseño de interacción y sistemas de diseño para transformar procesos complejos en soluciones simples, escalables y centradas en las personas. Me especializo en alinear estrategia, diseño y tecnología, asegurando altos estándares de usabilidad, consistencia y valor en cada punto de contacto. Trabajo bajo una mentalidad AI First aplicada al ciclo end-to-end de producto, integrando inteligencia artificial desde discovery hasta delivery y operación para acelerar investigación, optimizar la toma de decisiones, automatizar procesos y habilitar experiencias más eficientes, escalables y personalizadas. Me destaco por convertir el diseño en un habilitador estratégico de innovación, eficiencia operativa y ventaja competitiva.",
+    en: "Senior Product Designer with over 10 years of experience creating, evolving and optimizing digital products in highly complex environments. I have led design initiatives with multidisciplinary teams to build clear, accessible and business-oriented experiences. My approach integrates research, systemic and critical thinking, interaction design and design systems to turn complex processes into simple, scalable, people-centered solutions. I specialize in aligning strategy, design and technology, ensuring high standards of usability, consistency and value at every touchpoint. I work with an AI First mindset applied to the end-to-end product cycle, integrating artificial intelligence from discovery through delivery and operations to accelerate research, optimize decision-making, automate processes and enable more efficient, scalable and personalized experiences. I stand out for turning design into a strategic enabler of innovation, operational efficiency and competitive advantage.",
   } as Localized,
   links: [
-    { label: "LinkedIn", url: "https://www.linkedin.com/in/tu-usuario", icon: "linkedin" },
-    { label: "Behance", url: "https://www.behance.net/tu-usuario", icon: "behance" },
-    { label: "Figma", url: "https://www.figma.com/@tu-usuario", icon: "figma" },
-    { label: "Instagram", url: "https://www.instagram.com/tu-usuario", icon: "instagram" },
+    { label: "Behance", url: "https://www.behance.net/alexromera9d92", icon: "behance" },
+    { label: "Email", url: "mailto:alex.romer.av@gmail.com", icon: "mail" },
+    { label: "WhatsApp", url: "https://wa.me/573134689786", icon: "whatsapp" },
   ],
 };
 
@@ -87,51 +88,200 @@ export const education: {
   period: string;
 }[] = [
   {
-    degree: { es: "Diseño Gráfico / Digital", en: "Graphic / Digital Design" },
-    institution: "Universidad Ejemplo",
-    period: "2014 — 2018",
+    degree: {
+      es: "Maestría en Diseño de Experiencia del Usuario",
+      en: "Master in User Experience Design",
+    },
+    institution: "Universidad de La Salle",
+    period: "2026 · 2º semestre",
   },
   {
-    degree: { es: "Especialización en UX", en: "UX Specialization" },
-    institution: "Institución Ejemplo",
-    period: "2019 — 2020",
+    degree: {
+      es: "Máster en Redes Sociales y Aprendizaje Digital",
+      en: "Master in Social Networks and Digital Learning",
+    },
+    institution: "UNED — Universidad Nacional de Educación a Distancia (España)",
+    period: "2012",
+  },
+  {
+    degree: {
+      es: "Profesional en Diseño Gráfico",
+      en: "Bachelor in Graphic Design",
+    },
+    institution: "Fundación Universitaria del Área Andina",
+    period: "2011",
+  },
+];
+
+// ---------------- PREMIOS / RECONOCIMIENTOS ----------------
+
+export const awards: {
+  year: string;
+  title: Localized;
+  org: string;
+}[] = [
+  {
+    year: "2009",
+    title: {
+      es: "Primer puesto nacional — Concurso de diseño",
+      en: "First place nationally — Design contest",
+    },
+    org: "Marca Colombia es Pasión",
+  },
+];
+
+// ---------------- FRASES FAVORITAS ----------------
+
+export const quotes: { text: Localized; author: string }[] = [
+  {
+    text: {
+      es: "El diseño no es solo cómo se ve y se siente. El diseño es cómo funciona.",
+      en: "Design is not just what it looks like and feels like. Design is how it works.",
+    },
+    author: "Steve Jobs",
+  },
+  {
+    text: {
+      es: "La vida es como la bicicleta: hay que pedalear hacia adelante para no perder el equilibrio.",
+      en: "Life is like riding a bicycle. To keep your balance, you must keep moving.",
+    },
+    author: "Albert Einstein",
   },
 ];
 
 // ---------------- EXPERIENCIA (línea de tiempo) ----------------
 
 export const experience: {
-  role: Localized;
   company: string;
+  initials: string;
+  role: Localized;
   period: string;
-  summary: Localized;
+  featured?: boolean;
+  summary?: Localized;
+  functions: Localized[];
 }[] = [
   {
-    role: { es: "Diseñador UX/UI Senior", en: "Senior UX/UI Designer" },
     company: "Bizagi",
-    period: "2022 — Actualidad",
+    initials: "BZ",
+    role: { es: "Senior UX Designer", en: "Senior UX Designer" },
+    period: "Mar 2022 — Actualidad",
+    featured: true,
     summary: {
-      es: "Diseño de flujos de automatización complejos y sistemas de diseño. Texto de ejemplo.",
-      en: "Design of complex automation flows and design systems. Placeholder text.",
+      es: "Como Senior UX Designer en Bizagi —plataforma global de automatización de procesos (BPM) y bajo código usada por grandes organizaciones— lidero el diseño de experiencias para productos empresariales de alta complejidad. Trabajo end-to-end, desde discovery e investigación hasta prototipado y entrega, con equipos multidisciplinarios y bajo una mentalidad AI First: integro IA para acelerar research, optimizar la toma de decisiones y escalar el sistema de diseño. Mi foco es traducir procesos técnicos complejos en interfaces claras, accesibles y consistentes que generan valor de negocio medible a través de métricas de usabilidad.",
+      en: "As Senior UX Designer at Bizagi —a global process automation (BPM) and low-code platform used by large organizations— I lead experience design for highly complex enterprise products. I work end-to-end, from discovery and research to prototyping and delivery, with multidisciplinary teams and an AI First mindset: I integrate AI to accelerate research, optimize decision-making and scale the design system. My focus is translating complex technical processes into clear, accessible and consistent interfaces that drive measurable business value through usability metrics.",
     },
+    functions: [
+      { es: "UX Research", en: "UX Research" },
+      { es: "Design Thinking", en: "Design Thinking" },
+      { es: "Análisis heurístico", en: "Heuristic analysis" },
+      { es: "Metodologías ágiles", en: "Agile methodologies" },
+      { es: "Métricas de usabilidad", en: "Usability metrics" },
+      { es: "Responsive design", en: "Responsive design" },
+      { es: "Diseño UI y prototipado", en: "UI design & prototyping" },
+      { es: "Sistemas de diseño", en: "Design systems" },
+    ],
   },
   {
+    company: "Inter Rapidísimo",
+    initials: "IR",
     role: { es: "Diseñador UX/UI", en: "UX/UI Designer" },
-    company: "Empresa Anterior",
-    period: "2019 — 2022",
-    summary: {
-      es: "Producto digital fintech: research, UI y prototipado. Texto de ejemplo.",
-      en: "Fintech digital product: research, UI and prototyping. Placeholder text.",
-    },
+    period: "Ene 2021 — Ene 2022",
+    functions: [
+      { es: "UX Research", en: "UX Research" },
+      { es: "Análisis de la información", en: "Information analysis" },
+      { es: "Scrum", en: "Scrum" },
+      { es: "Diseño UI", en: "UI design" },
+      { es: "Sistema de diseño empresarial", en: "Enterprise design system" },
+    ],
   },
   {
-    role: { es: "Diseñador Junior", en: "Junior Designer" },
-    company: "Primer Empleo",
-    period: "2017 — 2019",
-    summary: {
-      es: "Primeros proyectos de diseño digital y branding. Texto de ejemplo.",
-      en: "First digital design and branding projects. Placeholder text.",
+    company: "Entelgy Colombia",
+    initials: "EC",
+    role: { es: "WebMaster Liferay — Banco Itaú", en: "Liferay WebMaster — Itaú Bank" },
+    period: "Nov 2018 — Nov 2020",
+    functions: [
+      { es: "Administración Liferay", en: "Liferay administration" },
+      { es: "Maquetación", en: "Markup / layout" },
+      { es: "Implementación SEO", en: "SEO implementation" },
+      { es: "Análisis Hotjar", en: "Hotjar analysis" },
+      { es: "Análisis de datos GTM", en: "GTM data analysis" },
+      { es: "Diseño UI y prototipado", en: "UI design & prototyping" },
+      { es: "Landing pages", en: "Landing pages" },
+    ],
+  },
+  {
+    company: "Fundación Universitaria del Área Andina",
+    initials: "AA",
+    role: {
+      es: "Coordinador de Gestión de Contenidos",
+      en: "Content Management Coordinator",
     },
+    period: "2017 — 2018 · por confirmar",
+    functions: [
+      { es: "Diseño UX e investigación", en: "UX design & research" },
+      { es: "Métricas de usabilidad", en: "Usability metrics" },
+      { es: "Sistema de diseño", en: "Design system" },
+      { es: "Design Thinking", en: "Design Thinking" },
+      { es: "Scrum Master", en: "Scrum Master" },
+      { es: "Cumplimiento de objetivos", en: "Goal achievement" },
+    ],
+  },
+  {
+    company: "Entelgy Colombia",
+    initials: "EC",
+    role: { es: "Desarrollador Liferay", en: "Liferay Developer" },
+    period: "Ene 2017 — Jun 2017",
+    functions: [
+      { es: "Administración del portal", en: "Portal administration" },
+      { es: "Migración de contenido", en: "Content migration" },
+      { es: "Landing pages y flujos", en: "Landing pages & flows" },
+      { es: "Wireframes y kit visual", en: "Wireframes & visual kit" },
+      { es: "Look and feel de la web", en: "Web look and feel" },
+    ],
+  },
+  {
+    company: "Brain Media",
+    initials: "BM",
+    role: { es: "Director de Producción Web", en: "Web Production Director" },
+    period: "Mar 2016 — Dic 2016",
+    functions: [
+      { es: "Gestión de proyectos", en: "Project management" },
+      { es: "Marketing research", en: "Marketing research" },
+      { es: "Diseño de páginas web", en: "Web design" },
+      { es: "SEO y SEM", en: "SEO & SEM" },
+      { es: "Diseño de video", en: "Video design" },
+      { es: "Liderazgo de producción", en: "Production leadership" },
+    ],
+  },
+  {
+    company: "Escuela Superior de Administración Pública",
+    initials: "EA",
+    role: { es: "Diseñador Gráfico E-learning", en: "E-learning Graphic Designer" },
+    period: "Oct 2015 — Ago 2016",
+    functions: [
+      { es: "Cursos interactivos", en: "Interactive courses" },
+      { es: "Investigación de usuario", en: "User research" },
+      { es: "Gestión de plataforma Moodle", en: "Moodle platform management" },
+      { es: "Producción y postproducción de video", en: "Video production & post" },
+      { es: "Piezas publicitarias", en: "Advertising pieces" },
+    ],
+  },
+  {
+    company: "Universidad Manuela Beltrán",
+    initials: "MB",
+    role: {
+      es: "Diseñador Gráfico — Coordinador Académico",
+      en: "Graphic Designer — Academic Coordinator",
+    },
+    period: "Ago 2011 — Sep 2015",
+    functions: [
+      { es: "Administración de contenidos", en: "Content administration" },
+      { es: "Diseño de cursos virtuales", en: "Virtual course design" },
+      { es: "Branding", en: "Branding" },
+      { es: "Diseño para redes sociales", en: "Social media design" },
+      { es: "Liderazgo de equipo", en: "Team leadership" },
+      { es: "Coordinador TIC", en: "ICT coordinator" },
+    ],
   },
 ];
 
@@ -141,21 +291,167 @@ export const otherStudies: {
   name: Localized;
   institution: string;
   year: string;
+  featured?: boolean; // se muestra en la vista por defecto; el resto en el modal
 }[] = [
   {
-    name: { es: "Certificación en Design Systems", en: "Design Systems Certification" },
-    institution: "Plataforma Ejemplo",
-    year: "2023",
+    name: {
+      es: "Product Management & Product Design con IA Generativa",
+      en: "Product Management & Product Design with Generative AI",
+    },
+    institution: "Udemy",
+    year: "2026",
+    featured: true,
   },
   {
-    name: { es: "Curso de IA aplicada al diseño", en: "AI for Design course" },
-    institution: "Plataforma Ejemplo",
+    name: { es: "Claude AI en acción: de cero a experto", en: "Claude AI in action: zero to expert" },
+    institution: "Udemy",
+    year: "2026",
+    featured: true,
+  },
+  {
+    name: { es: "Neuromarketing", en: "Neuromarketing" },
+    institution: "Udemy",
+    year: "2026",
+    featured: true,
+  },
+  {
+    name: {
+      es: "UX: leyes y fundamentos con ejemplos prácticos",
+      en: "UX: laws and fundamentals with practical examples",
+    },
+    institution: "Udemy",
+    year: "2024",
+    featured: true,
+  },
+  {
+    name: { es: "Lean Inception: Design Thinking y Lean StartUp", en: "Lean Inception: Design Thinking & Lean StartUp" },
+    institution: "Udemy",
+    year: "2024",
+    featured: true,
+  },
+  {
+    name: {
+      es: "Leadership: How to Influence, Inspire and Impact as a Leader",
+      en: "Leadership: How to Influence, Inspire and Impact as a Leader",
+    },
+    institution: "Udemy",
     year: "2024",
   },
   {
-    name: { es: "Accesibilidad Web (WCAG)", en: "Web Accessibility (WCAG)" },
-    institution: "Plataforma Ejemplo",
+    name: {
+      es: "Bootcamp UX/UI: Design Thinking y Figma",
+      en: "UX/UI Bootcamp: Design Thinking & Figma",
+    },
+    institution: "Udemy",
+    year: "2023",
+  },
+  {
+    name: {
+      es: "ChatGPT Marketing: campañas completas con IA",
+      en: "ChatGPT Marketing: full campaigns with AI",
+    },
+    institution: "Udemy",
+    year: "2023",
+  },
+  {
+    name: { es: "Diseño UX: experiencia de usuario UX/UI + Figma", en: "UX Design: UX/UI + Figma" },
+    institution: "Udemy",
     year: "2022",
+  },
+  {
+    name: { es: "Angular", en: "Angular" },
+    institution: "Udemy",
+    year: "2020",
+  },
+  {
+    name: { es: "SEO for Digital Companies", en: "SEO for Digital Companies" },
+    institution: "Udemy",
+    year: "2020",
+  },
+  {
+    name: { es: "Interface Design and UX", en: "Interface Design and UX" },
+    institution: "Platzi",
+    year: "2019",
+  },
+  {
+    name: { es: "Interface Design", en: "Interface Design" },
+    institution: "Platzi",
+    year: "2019",
+  },
+  {
+    name: { es: "Scrum Master", en: "Scrum Master" },
+    institution: "Platzi",
+    year: "2019",
+  },
+  {
+    name: { es: "Programming Logic", en: "Programming Logic" },
+    institution: "Udemy",
+    year: "2017",
+  },
+  {
+    name: { es: "Marketing Digital", en: "Digital Marketing" },
+    institution: "IAB & Google",
+    year: "2015",
+  },
+  {
+    name: { es: "HTML5 avanzado", en: "Advanced HTML5" },
+    institution: "Cymetria Training",
+    year: "2013",
+  },
+];
+
+// ---------------- REFERENCIAS ----------------
+// Nota: los teléfonos de terceros no se muestran públicamente por privacidad.
+
+export const referencesPersonal: {
+  name: string;
+  role: Localized;
+  company: string;
+  phone?: string;
+}[] = [
+  {
+    name: "Jaime Daza",
+    role: { es: "Senior UX Designer", en: "Senior UX Designer" },
+    company: "Mercado Libre (Meli)",
+    phone: "300 563 2062",
+  },
+  {
+    name: "Javier Martínez",
+    role: { es: "AI Engineer", en: "AI Engineer" },
+    company: "Efecto29",
+    phone: "324 630 1531",
+  },
+];
+
+export const referencesFamily: {
+  name: string;
+  profile: Localized;
+  occupation: Localized;
+  company: string;
+  phone?: string;
+}[] = [
+  {
+    name: "Carlos Andrés Romero Ávila",
+    profile: {
+      es: "Licenciado en Primaria · Maestría en Educación Infantil",
+      en: "Primary Education degree · Master in Early Childhood Education",
+    },
+    occupation: { es: "Docente de planta de primaria", en: "Primary school teacher" },
+    company: "Inem Santiago Pérez",
+    phone: "304 520 4501",
+  },
+  {
+    name: "Ricardo Romero Ávila",
+    profile: {
+      es: "Ingeniero de Sistemas · Esp. Ingeniería de Software",
+      en: "Systems Engineer · Software Engineering Specialist",
+    },
+    occupation: {
+      es: "Arquitecto Empresarial & Soluciones",
+      en: "Enterprise & Solutions Architect",
+    },
+    company: "ACH Colombia",
+    phone: "301 208 9939",
   },
 ];
 
@@ -163,20 +459,40 @@ export const otherStudies: {
 
 export const skills: { category: Localized; items: string[] }[] = [
   {
-    category: { es: "Diseño", en: "Design" },
-    items: ["UX Research", "UI Design", "Design Systems", "Prototipado", "Accesibilidad"],
+    category: { es: "UX / UI", en: "UX / UI" },
+    items: [
+      "User Experience (UX)",
+      "User Interface Design",
+      "Customer Experience",
+      "UX design artifacts",
+      "Análisis heurístico",
+      "Prototyping",
+    ],
+  },
+  {
+    category: { es: "Métodos", en: "Methods" },
+    items: ["Design Thinking", "Lean UX", "Agile (Scrum)", "Lean Inception", "Branding"],
+  },
+  {
+    category: { es: "IA", en: "AI" },
+    items: [
+      "Artificial Intelligence",
+      "AI First",
+      "Generative AI",
+      "Claude Code",
+    ],
+  },
+  {
+    category: { es: "Tecnología", en: "Technology" },
+    items: ["HTML5", "CSS", "SCSS / SASS", "Bootstrap"],
   },
   {
     category: { es: "Herramientas", en: "Tools" },
-    items: ["Figma", "FigJam", "Figma Variables", "Auto Layout", "Design Tokens"],
+    items: ["Figma", "Adobe Suite", "Hotjar", "Zeplin"],
   },
   {
-    category: { es: "IA & Automatización", en: "AI & Automation" },
-    items: ["Prompting", "MCPs", "Figma + IA", "Markdown / Docs", "Flujos con agentes"],
-  },
-  {
-    category: { es: "Método", en: "Method" },
-    items: ["Design Thinking", "Lean UX", "Métricas (CES, ASP, NPS)", "Testing", "Handoff"],
+    category: { es: "Idiomas", en: "Languages" },
+    items: ["Español — nativo", "Inglés — B1"],
   },
 ];
 
@@ -375,12 +691,23 @@ export const ui = {
     contact: { es: "Contacto", en: "Contact" },
   },
   home: {
-    aboutTitle: { es: "Perfil", en: "About" },
+    aboutTitle: { es: "Perfil profesional", en: "Professional profile" },
     skillsTitle: { es: "Skills y conocimiento", en: "Skills & knowledge" },
     educationTitle: { es: "Formación académica", en: "Education" },
+    awardsTitle: { es: "Premios y reconocimientos", en: "Awards & recognition" },
+    quotesTitle: { es: "Frases favoritas", en: "Favorite quotes" },
     experienceTitle: { es: "Experiencia laboral", en: "Work experience" },
+    functionsLabel: { es: "Funciones", en: "Responsibilities" },
+    mostRecent: { es: "Más reciente", en: "Most recent" },
     otherStudiesTitle: { es: "Otros estudios", en: "Other studies" },
+    studiesViewAll: { es: "Ver todos los estudios", en: "View all studies" },
+    studiesModalTitle: { es: "Todos los estudios y certificaciones", en: "All studies & certifications" },
+    referencesTitle: { es: "Referencias", en: "References" },
+    referencesPersonal: { es: "Personales", en: "Professional" },
+    referencesFamily: { es: "Familiares", en: "Family" },
+    referenceContact: { es: "Contacto disponible a solicitud", en: "Contact available on request" },
     contactCardTitle: { es: "Contacto", en: "Contact" },
+    close: { es: "Cerrar", en: "Close" },
     workTitle: { es: "Trayectoria", en: "Work" },
     workSubtitle: {
       es: "Empresas donde he trabajado. Entra a cada una para ver mi rol y los proyectos.",
