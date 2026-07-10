@@ -94,11 +94,9 @@ export default function Home() {
         {/* ---------- Columna 70% — acordeones ---------- */}
         <div className="dash-main">
           <Accordion title={t(ui.home.aboutTitle)} index={0}>
-            <div className="card-fill prose-card">
-              <p className="lead-serif" style={{ margin: 0 }}>
-                {t(profile.summary)}
-              </p>
-            </div>
+            <p className="lead-serif" style={{ margin: 0 }}>
+              {t(profile.summary)}
+            </p>
           </Accordion>
 
           <Accordion title={t(ui.home.educationTitle)} index={1}>
@@ -126,7 +124,7 @@ export default function Home() {
           </Accordion>
 
           <Accordion title={t(ui.home.quotesTitle)} index={3}>
-            <div className="quotes card-fill">
+            <div className="quotes">
               {quotes.map((q, i) => (
                 <figure className="quote" key={i}>
                   <blockquote>“{t(q.text)}”</blockquote>
@@ -207,7 +205,7 @@ export default function Home() {
           </Accordion>
 
           <Accordion title={t(ui.home.otherStudiesTitle)} index={6}>
-            <div className="os-list card-fill">
+            <div className="os-list">
               {featuredStudies.map((o, i) => (
                 <div className="os-item" key={i}>
                   <div>
