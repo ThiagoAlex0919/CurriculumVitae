@@ -68,7 +68,7 @@ export const profile = {
   phones: ["313 468 9786", "311 210 6075"],
   whatsapp: "313 468 9786",
   whatsappUrl: "https://wa.me/573134689786",
-  photo: "/foto.jpg", // coloca tu foto en public/foto.jpg (si no existe, muestra iniciales)
+  photo: "/foto.png", // coloca tu foto en public/foto.png (si no existe, muestra iniciales)
   summary: {
     es: "Diseñador de Producto Senior con más de 10 años de experiencia en la creación, evolución y optimización de productos digitales en entornos de alta complejidad. He liderado iniciativas de diseño con equipos multidisciplinarios para construir experiencias claras, accesibles y orientadas a resultados de negocio. Mi enfoque integra investigación, pensamiento sistémico y crítico, diseño de interacción y sistemas de diseño para transformar procesos complejos en soluciones simples, escalables y centradas en las personas. Me especializo en alinear estrategia, diseño y tecnología, asegurando altos estándares de usabilidad, consistencia y valor en cada punto de contacto. Trabajo bajo una mentalidad AI First aplicada al ciclo end-to-end de producto, integrando inteligencia artificial desde discovery hasta delivery y operación para acelerar investigación, optimizar la toma de decisiones, automatizar procesos y habilitar experiencias más eficientes, escalables y personalizadas. Me destaco por convertir el diseño en un habilitador estratégico de innovación, eficiencia operativa y ventaja competitiva.",
     en: "Senior Product Designer with over 10 years of experience creating, evolving and optimizing digital products in highly complex environments. I have led design initiatives with multidisciplinary teams to build clear, accessible and business-oriented experiences. My approach integrates research, systemic and critical thinking, interaction design and design systems to turn complex processes into simple, scalable, people-centered solutions. I specialize in aligning strategy, design and technology, ensuring high standards of usability, consistency and value at every touchpoint. I work with an AI First mindset applied to the end-to-end product cycle, integrating artificial intelligence from discovery through delivery and operations to accelerate research, optimize decision-making, automate processes and enable more efficient, scalable and personalized experiences. I stand out for turning design into a strategic enabler of innovation, operational efficiency and competitive advantage.",
@@ -715,6 +715,8 @@ export const ui = {
     readMore: { es: "ver más", en: "see more" },
     readLess: { es: "ver menos", en: "see less" },
     skillsViewAll: { es: "Ver todas las skills y conocimiento", en: "View all skills & knowledge" },
+    experienceViewAll: { es: "Ver toda la experiencia laboral", en: "View full work experience" },
+    experienceModalTitle: { es: "Experiencia laboral", en: "Work experience" },
     skillsModalTitle: { es: "Skills y conocimiento", en: "Skills & knowledge" },
     skillsTopLabel: { es: "Skills principales", en: "Top skills" },
     awardBadge: { es: "Reconocimiento", en: "Award" },

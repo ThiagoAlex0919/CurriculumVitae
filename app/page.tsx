@@ -30,6 +30,8 @@ export default function Home() {
   const { t } = useI18n();
   const [studiesOpen, setStudiesOpen] = useState(false);
   const [skillsOpen, setSkillsOpen] = useState(false);
+  const [expOpen, setExpOpen] = useState(false);
+  const [bizOpen, setBizOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
 
   const featured = experience.find((e) => e.featured);
@@ -115,13 +117,29 @@ export default function Home() {
 
         {/* ---------- Columna de contenido ---------- */}
         <div className="dash-main">
-          {/* Perfil — estilo LinkedIn (ver más inline) */}
+          {/* Perfil — resumen (ver más) + top skills */}
           <Accordion title={t(ui.home.aboutTitle)} index={0}>
             <ReadMore
               text={t(profile.summary)}
               limit={240}
               className="lead-serif"
             />
+            <button
+              type="button"
+              className="topskills-box"
+              onClick={() => setSkillsOpen(true)}
+            >
+              <span className="ts-icon">
+                <Icon name="star" size={18} />
+              </span>
+              <div className="ts-body">
+                <div className="ts-title">{t(ui.home.skillsTopLabel)}</div>
+                <div className="ts-list">{topSkills.join(" · ")}</div>
+              </div>
+              <span className="ts-arrow">
+                <Icon name="arrow" size={18} />
+              </span>
+            </button>
           </Accordion>
 
           {/* Formación — lista */}
@@ -157,52 +175,47 @@ export default function Home() {
                   <div className="exp-period">{featured.period}</div>
                 </div>
                 {featured.summary && (
-                  <ReadMore
-                    text={t(featured.summary)}
-                    limit={190}
-                    className="exp-summary"
-                  />
+                  <p className="exp-summary">
+                    {bizOpen
+                      ? t(featured.summary) + " "
+                      : t(featured.summary).slice(0, 190).trimEnd() + "… "}
+                    <button
+                      className="more-inline"
+                      onClick={() => setBizOpen((o) => !o)}
+                    >
+                      {bizOpen ? t(ui.home.readLess) : t(ui.home.readMore)}
+                    </button>
+                  </p>
                 )}
-                <div className="exp-fn-label">{t(ui.home.functionsLabel)}</div>
-                <div className="tag-list">
-                  {featured.functions.map((f, i) => (
-                    <span className="tag xs" key={i}>
-                      {t(f)}
-                    </span>
-                  ))}
-                </div>
+                {bizOpen && (
+                  <>
+                    <div className="exp-fn-label">
+                      {t(ui.home.functionsLabel)}
+                    </div>
+                    <div className="tag-list">
+                      {featured.functions.map((f, i) => (
+                        <span className="tag xs" key={i}>
+                          {t(f)}
+                        </span>
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
             )}
 
             <div className="exp-grid">
-              {rest.map((x, i) => (
+              {rest.slice(0, 3).map((x, i) => (
                 <JobCard job={x} key={i} />
               ))}
             </div>
-          </Accordion>
-
-          {/* Skills — estilo About/Top skills de LinkedIn */}
-          <Accordion title={t(ui.home.skillsTitle)} index={3}>
-            <button
-              type="button"
-              className="topskills-box"
-              onClick={() => setSkillsOpen(true)}
-            >
-              <span className="ts-icon">
-                <Icon name="star" size={18} />
-              </span>
-              <div className="ts-body">
-                <div className="ts-title">{t(ui.home.skillsTopLabel)}</div>
-                <div className="ts-list">{topSkills.join(" · ")}</div>
-              </div>
-              <span className="ts-arrow">
-                <Icon name="arrow" size={18} />
-              </span>
+            <button className="link-btn full" onClick={() => setExpOpen(true)}>
+              {t(ui.home.experienceViewAll)} ({experience.length}) →
             </button>
           </Accordion>
 
           {/* Otros estudios */}
-          <Accordion title={t(ui.home.otherStudiesTitle)} index={4}>
+          <Accordion title={t(ui.home.otherStudiesTitle)} index={3}>
             <div className="os-list">
               {featuredStudies.map((o, i) => (
                 <div className="os-item" key={i}>
@@ -222,51 +235,104 @@ export default function Home() {
             </button>
           </Accordion>
 
-          {/* Referencias — con contacto */}
-          <Accordion title={t(ui.home.referencesTitle)} index={5}>
-            <div className="two-col">
-              <div className="ref-col">
-                <p className="eyebrow">{t(ui.home.referencesPersonal)}</p>
-                <div className="ref-list">
-                  {referencesPersonal.map((r, i) => (
-                    <div className="ref-card" key={i}>
-                      <div className="ref-name">{r.name}</div>
-                      <div className="ref-role">{t(r.role)}</div>
-                      <div className="ref-company">{r.company}</div>
-                      {r.phone && (
-                        <a className="ref-phone" href={`tel:${r.phone.replace(/\s/g, "")}`}>
-                          <Icon name="phone" size={14} />
-                          {r.phone}
-                        </a>
-                      )}
+          {/* Referencias — agrupadas, diseño sencillo */}
+          <Accordion title={t(ui.home.referencesTitle)} index={4}>
+            <p className="eyebrow">{t(ui.home.referencesPersonal)}</p>
+            <div className="ref-list">
+              {referencesPersonal.map((r, i) => (
+                <div className="ref-row" key={i}>
+                  <div>
+                    <div className="ref-name">{r.name}</div>
+                    <div className="ref-sub">
+                      {t(r.role)} · {r.company}
                     </div>
-                  ))}
+                  </div>
+                  {r.phone && (
+                    <a
+                      className="ref-phone"
+                      href={`tel:${r.phone.replace(/\s/g, "")}`}
+                    >
+                      <Icon name="phone" size={14} />
+                      {r.phone}
+                    </a>
+                  )}
                 </div>
-              </div>
-              <div className="ref-col">
-                <p className="eyebrow">{t(ui.home.referencesFamily)}</p>
-                <div className="ref-list">
-                  {referencesFamily.map((r, i) => (
-                    <div className="ref-card" key={i}>
-                      <div className="ref-name">{r.name}</div>
-                      <div className="ref-role">{t(r.profile)}</div>
-                      <div className="ref-company">
-                        {t(r.occupation)} · {r.company}
-                      </div>
-                      {r.phone && (
-                        <a className="ref-phone" href={`tel:${r.phone.replace(/\s/g, "")}`}>
-                          <Icon name="phone" size={14} />
-                          {r.phone}
-                        </a>
-                      )}
+              ))}
+            </div>
+
+            <p className="eyebrow" style={{ marginTop: 18 }}>
+              {t(ui.home.referencesFamily)}
+            </p>
+            <div className="ref-list">
+              {referencesFamily.map((r, i) => (
+                <div className="ref-row" key={i}>
+                  <div>
+                    <div className="ref-name">{r.name}</div>
+                    <div className="ref-sub">
+                      {t(r.occupation)} · {r.company}
                     </div>
-                  ))}
+                  </div>
+                  {r.phone && (
+                    <a
+                      className="ref-phone"
+                      href={`tel:${r.phone.replace(/\s/g, "")}`}
+                    >
+                      <Icon name="phone" size={14} />
+                      {r.phone}
+                    </a>
+                  )}
                 </div>
-              </div>
+              ))}
             </div>
           </Accordion>
         </div>
       </div>
+
+      {/* Modal — toda la experiencia */}
+      {expOpen && (
+        <div className="modal-overlay" onClick={() => setExpOpen(false)}>
+          <div
+            className="modal-panel"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modal-head">
+              <span className="dash-h2" style={{ margin: 0 }}>
+                {t(ui.home.experienceModalTitle)}
+              </span>
+              <button
+                className="modal-close"
+                onClick={() => setExpOpen(false)}
+                aria-label={t(ui.home.close)}
+              >
+                <Icon name="x" size={18} />
+              </button>
+            </div>
+            <div className="modal-body">
+              {experience.map((x, i) => (
+                <div className="exp-modal-item" key={i}>
+                  <div className="exp-head">
+                    <div className="exp-badge sm">{x.initials}</div>
+                    <div className="exp-head-text">
+                      <div className="exp-company">{x.company}</div>
+                      <div className="exp-role">{t(x.role)}</div>
+                    </div>
+                    <div className="exp-period">{x.period}</div>
+                  </div>
+                  <div className="tag-list" style={{ marginTop: 10 }}>
+                    {x.functions.map((f, j) => (
+                      <span className="tag xs" key={j}>
+                        {t(f)}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modal — todos los estudios */}
       {studiesOpen && (

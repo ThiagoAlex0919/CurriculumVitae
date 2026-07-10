@@ -1202,6 +1202,7 @@ p {
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 16px 18px;
+  margin-top: 16px;
   cursor: pointer;
   transition: border-color 0.15s ease;
 }
@@ -1269,20 +1270,55 @@ p {
   transform: rotate(180deg);
 }
 
-/* Teléfono de referencias */
+/* Referencias — filas sencillas */
+.ref-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.ref-row:last-child {
+  border-bottom: none;
+}
+.ref-row .ref-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+}
+.ref-sub {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
 .ref-phone {
   display: inline-flex;
   align-items: center;
   gap: 7px;
   font-size: 12.5px;
   color: var(--ink-soft);
-  margin-top: 10px;
+  white-space: nowrap;
 }
 .ref-phone:hover {
   color: var(--ink);
 }
 .ref-phone svg {
   color: var(--ink-mute);
+  flex: 0 0 auto;
+}
+
+/* Item de experiencia en el modal */
+.exp-modal-item {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.exp-modal-item:last-child {
+  border-bottom: none;
+}
+.exp-modal-item .exp-head {
+  margin-bottom: 0;
 }
 .acc-head {
   width: 100%;
