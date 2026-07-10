@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n";
 import AppShell from "@/components/AppShell";
@@ -7,6 +7,12 @@ export const metadata: Metadata = {
   title: "Alexander Romero — UX/UI Designer",
   description:
     "Portafolio y hoja de vida de Alexander Romero, diseñador UX/UI con expertise en IA.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({

@@ -3,8 +3,12 @@
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import TopBar from "./TopBar";
+import MobileNav from "./MobileNav";
+import { useI18n } from "@/lib/i18n";
+import { profile, ui } from "@/lib/content";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
+  const { t } = useI18n();
   const [collapsed, setCollapsed] = useState(false);
   const [ready, setReady] = useState(false);
 
@@ -29,8 +33,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     <div className="app-shell" data-collapsed={collapsed} data-ready={ready}>
       <Sidebar collapsed={collapsed} onToggle={toggle} />
       <TopBar />
+      <MobileNav />
       <div className="app-main">
         <main>{children}</main>
+        <p className="mobile-credits">
+          © {new Date().getFullYear()} {profile.name}. {t(ui.footer.rights)}
+        </p>
       </div>
     </div>
   );
