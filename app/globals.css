@@ -2,18 +2,18 @@
   --bg: #eceef1;
   --dot: #d3d7dd;
   --card: #ffffff;
-  --ink: #14151a;
-  --ink-soft: #4a4d57;
-  --ink-mute: #8a8f9a;
+  --ink: #011e2b;          /* títulos */
+  --ink-soft: #434d51;     /* párrafos */
+  --ink-mute: #8a949a;     /* texto tenue / labels */
   --line: #e7e9ec;
   --accent: #c9f24d;         /* acento lima — cámbialo por tu color de marca */
   --accent-ink: #2c3b00;     /* texto sobre el acento */
-  --radius: 20px;
+  --radius: 18px;
   --radius-sm: 14px;
-  --shadow: 0 1px 2px rgba(20, 21, 26, 0.04), 0 8px 24px rgba(20, 21, 26, 0.06);
-  --shadow-hover: 0 2px 4px rgba(20, 21, 26, 0.06), 0 14px 34px rgba(20, 21, 26, 0.1);
-  --serif: "Fraunces", Georgia, "Times New Roman", serif;
-  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --shadow: 0 1px 2px rgba(1, 30, 43, 0.04), 0 8px 24px rgba(1, 30, 43, 0.06);
+  --shadow-hover: 0 2px 4px rgba(1, 30, 43, 0.06), 0 14px 34px rgba(1, 30, 43, 0.1);
+  --serif: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --sans: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
   --maxw: 1120px;
 }
 
@@ -25,10 +25,10 @@ html,
 body {
   padding: 0;
   margin: 0;
-  color: var(--ink);
+  color: var(--ink-soft);
   font-family: var(--sans);
-  font-size: 17px;
-  line-height: 1.65;
+  font-size: 14px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -50,15 +50,17 @@ h1,
 h2,
 h3 {
   font-family: var(--serif);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--ink);
   margin: 0;
 }
 
 p {
   margin: 0 0 1rem;
   color: var(--ink-soft);
+  font-size: 14px;
 }
 
 .container {
@@ -180,7 +182,8 @@ p {
   margin-bottom: 30px;
 }
 .section-head h2 {
-  font-size: clamp(28px, 4vw, 42px);
+  font-size: 18px;
+  font-weight: 600;
 }
 .section-head p {
   max-width: 580px;
@@ -203,11 +206,11 @@ p {
   align-items: start;
 }
 .lead-serif {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-weight: 400;
-  font-size: 21px;
-  line-height: 1.5;
-  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink-soft);
 }
 
 /* SKILLS */
@@ -281,7 +284,8 @@ p {
   font-weight: 500;
 }
 .card h3 {
-  font-size: 24px;
+  font-size: 17px;
+  font-weight: 600;
 }
 .card .role {
   font-size: 13.5px;
@@ -311,8 +315,9 @@ p {
   padding: 52px 0 34px;
 }
 .detail-head h1 {
-  font-size: clamp(38px, 6.5vw, 68px);
-  margin: 16px 0 16px;
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 600;
+  margin: 14px 0 14px;
 }
 .backlink {
   font-size: 14px;
@@ -359,7 +364,8 @@ p {
   max-width: 760px;
 }
 .prose-block h2 {
-  font-size: 26px;
+  font-size: 18px;
+  font-weight: 600;
   margin-bottom: 14px;
 }
 .prose-block p {
@@ -412,8 +418,9 @@ p {
 }
 .metric .value {
   font-family: var(--serif);
-  font-size: 34px;
-  font-weight: 500;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--ink);
   margin: 8px 0 4px;
 }
 .metric .note {
@@ -424,9 +431,9 @@ p {
 /* CONTACT */
 .contact-big {
   font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(30px, 6vw, 60px);
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  font-size: clamp(22px, 4vw, 34px);
+  letter-spacing: -0.01em;
   color: var(--ink);
 }
 .contact-big a {
@@ -740,12 +747,13 @@ p {
   object-fit: cover;
 }
 .profile-name {
-  font-size: 27px;
+  font-size: 22px;
+  font-weight: 600;
   margin-bottom: 4px;
 }
 .profile-role {
   color: var(--ink-mute);
-  font-size: 14.5px;
+  font-size: 13.5px;
   margin-bottom: 22px;
 }
 .profile-contact {
@@ -811,8 +819,10 @@ p {
   scroll-margin-top: 26px;
 }
 .dash-h2 {
-  font-size: clamp(24px, 3vw, 32px);
-  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 14px;
 }
 
 /* Educación */
@@ -832,11 +842,11 @@ p {
   margin-bottom: 8px;
 }
 .edu-degree {
-  font-size: 20px;
+  font-size: 16px;
   margin-bottom: 6px;
 }
 .edu-inst {
-  font-size: 14.5px;
+  font-size: 13px;
   color: var(--ink-soft);
 }
 
@@ -1034,25 +1044,68 @@ p {
    SECCIONES NUEVAS (CV real)
    ============================================================ */
 
-/* Fila de sección con acción a la derecha */
-.section-row {
+/* Acordeón */
+.acc {
+  scroll-margin-top: 24px;
+}
+.acc-head {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 16px;
+  background: transparent;
+  border: 0;
+  padding: 4px 2px;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--sans);
 }
-.section-row .dash-h2 {
-  margin-bottom: 0;
+.acc-head .dash-h2 {
+  margin: 0;
 }
+.acc-icon {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.acc-head:hover .acc-icon {
+  background: var(--ink);
+  color: #fff;
+}
+.acc-body {
+  padding-top: 14px;
+}
+
+/* Tarjeta de altura completa (alinea alturas por fila) */
+.card-fill {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  height: 100%;
+}
+.prose-card {
+  padding: 26px 28px;
+}
+
+/* Botón de enlace */
 .link-btn {
   border: 0;
   background: var(--card);
   box-shadow: var(--shadow);
   color: var(--ink);
   font-family: var(--sans);
+  font-weight: 500;
   font-size: 13.5px;
-  padding: 9px 16px;
+  padding: 11px 16px;
   border-radius: 999px;
   cursor: pointer;
   white-space: nowrap;
@@ -1061,13 +1114,26 @@ p {
 .link-btn:hover {
   box-shadow: var(--shadow-hover);
 }
+.link-btn.full {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  text-align: center;
+}
 
-/* Dos columnas genéricas */
+/* Dos columnas genéricas — alturas iguales */
 .two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  align-items: start;
+  align-items: stretch;
+}
+.ref-col {
+  display: flex;
+  flex-direction: column;
+}
+.ref-col .ref-list {
+  flex: 1;
 }
 
 /* Premios */
@@ -1082,11 +1148,11 @@ p {
   margin-bottom: 8px;
 }
 .award-title {
-  font-size: 19px;
+  font-size: 16px;
   margin-bottom: 6px;
 }
 .award-org {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--ink-soft);
 }
 
@@ -1102,14 +1168,14 @@ p {
 }
 .quote blockquote {
   margin: 0 0 6px;
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 1.4;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 14.5px;
+  line-height: 1.5;
   color: var(--ink);
 }
 .quote figcaption {
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--ink-mute);
 }
 
@@ -1130,8 +1196,8 @@ p {
 }
 .exp-badge {
   flex: 0 0 auto;
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 13px;
   background: var(--accent);
   color: var(--accent-ink);
@@ -1139,8 +1205,8 @@ p {
   align-items: center;
   justify-content: center;
   font-family: var(--serif);
-  font-size: 19px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
 }
 .exp-badge.sm {
   width: 44px;
@@ -1156,12 +1222,16 @@ p {
 }
 .exp-company {
   font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
   display: flex;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+}
+.exp-featured .exp-company {
+  font-size: 18px;
 }
 .exp-tag-recent {
   font-family: var(--sans);
@@ -1174,7 +1244,7 @@ p {
   border-radius: 999px;
 }
 .exp-role {
-  font-size: 14.5px;
+  font-size: 13px;
   color: var(--ink-soft);
   margin-top: 2px;
 }
@@ -1187,8 +1257,8 @@ p {
   align-self: flex-start;
 }
 .exp-summary {
-  font-size: 16px;
-  line-height: 1.65;
+  font-size: 14px;
+  line-height: 1.7;
   color: var(--ink-soft);
   margin: 0 0 20px;
 }
@@ -1226,14 +1296,17 @@ p {
   gap: 14px;
 }
 .ref-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   padding: 20px 22px;
 }
 .ref-name {
-  font-size: 18px;
+  font-size: 16px;
   margin-bottom: 4px;
 }
 .ref-role {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--ink-soft);
 }
 .ref-company {

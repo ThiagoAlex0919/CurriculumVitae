@@ -16,6 +16,7 @@ import {
   ui,
 } from "@/lib/content";
 import Icon from "@/components/Icon";
+import Accordion from "@/components/Accordion";
 
 const initials = profile.name
   .split(" ")
@@ -90,61 +91,52 @@ export default function Home() {
           </div>
         </aside>
 
-        {/* ---------- Columna 70% — scroll ---------- */}
+        {/* ---------- Columna 70% — acordeones ---------- */}
         <div className="dash-main">
-          {/* Perfil */}
-          <section className="module">
-            <p className="eyebrow">{t(ui.home.aboutTitle)}</p>
-            <p className="lead-serif" style={{ margin: 0 }}>
-              {t(profile.summary)}
-            </p>
-          </section>
+          <Accordion title={t(ui.home.aboutTitle)} index={0}>
+            <div className="card-fill prose-card">
+              <p className="lead-serif" style={{ margin: 0 }}>
+                {t(profile.summary)}
+              </p>
+            </div>
+          </Accordion>
 
-          {/* Formación académica */}
-          <section className="dash-section">
-            <h2 className="dash-h2">{t(ui.home.educationTitle)}</h2>
+          <Accordion title={t(ui.home.educationTitle)} index={1}>
             <div className="edu-grid">
               {education.map((e, i) => (
-                <div className="edu-item module" key={i}>
+                <div className="edu-item card-fill" key={i}>
                   <div className="edu-period">{e.period}</div>
                   <h3 className="edu-degree">{t(e.degree)}</h3>
                   <div className="edu-inst">{e.institution}</div>
                 </div>
               ))}
             </div>
-          </section>
+          </Accordion>
 
-          {/* Premios + Frases */}
-          <section className="dash-section">
-            <div className="two-col">
-              <div>
-                <h2 className="dash-h2">{t(ui.home.awardsTitle)}</h2>
-                {awards.map((a, i) => (
-                  <div className="award module" key={i}>
-                    <div className="award-year">{a.year}</div>
-                    <h3 className="award-title">{t(a.title)}</h3>
-                    <div className="award-org">{a.org}</div>
-                  </div>
-                ))}
-              </div>
-              <div>
-                <h2 className="dash-h2">{t(ui.home.quotesTitle)}</h2>
-                <div className="quotes module">
-                  {quotes.map((q, i) => (
-                    <figure className="quote" key={i}>
-                      <blockquote>“{t(q.text)}”</blockquote>
-                      <figcaption>— {q.author}</figcaption>
-                    </figure>
-                  ))}
+          <Accordion title={t(ui.home.awardsTitle)} index={2}>
+            <div className="edu-grid">
+              {awards.map((a, i) => (
+                <div className="award card-fill" key={i}>
+                  <div className="award-year">{a.year}</div>
+                  <h3 className="award-title">{t(a.title)}</h3>
+                  <div className="award-org">{a.org}</div>
                 </div>
-              </div>
+              ))}
             </div>
-          </section>
+          </Accordion>
 
-          {/* Experiencia laboral */}
-          <section className="dash-section">
-            <h2 className="dash-h2">{t(ui.home.experienceTitle)}</h2>
+          <Accordion title={t(ui.home.quotesTitle)} index={3}>
+            <div className="quotes card-fill">
+              {quotes.map((q, i) => (
+                <figure className="quote" key={i}>
+                  <blockquote>“{t(q.text)}”</blockquote>
+                  <figcaption>— {q.author}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </Accordion>
 
+          <Accordion title={t(ui.home.experienceTitle)} index={4}>
             {featured && (
               <div className="exp-featured">
                 <div className="exp-head">
@@ -152,7 +144,9 @@ export default function Home() {
                   <div className="exp-head-text">
                     <div className="exp-company">
                       {featured.company}
-                      <span className="exp-tag-recent">{t(ui.home.mostRecent)}</span>
+                      <span className="exp-tag-recent">
+                        {t(ui.home.mostRecent)}
+                      </span>
                     </div>
                     <div className="exp-role">{t(featured.role)}</div>
                   </div>
@@ -174,7 +168,7 @@ export default function Home() {
 
             <div className="exp-grid">
               {rest.map((x, i) => (
-                <div className="exp-card" key={i}>
+                <div className="exp-card card-fill" key={i}>
                   <div className="exp-head">
                     <div className="exp-badge sm">{x.initials}</div>
                     <div className="exp-head-text">
@@ -193,14 +187,12 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </section>
+          </Accordion>
 
-          {/* Skills */}
-          <section className="dash-section">
-            <h2 className="dash-h2">{t(ui.home.skillsTitle)}</h2>
+          <Accordion title={t(ui.home.skillsTitle)} index={5}>
             <div className="skills">
               {skills.map((s, i) => (
-                <div className="skill-cat" key={i}>
+                <div className="skill-cat card-fill" key={i}>
                   <h3>{t(s.category)}</h3>
                   <div className="tag-list">
                     {s.items.map((it) => (
@@ -212,17 +204,10 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </section>
+          </Accordion>
 
-          {/* Otros estudios */}
-          <section className="dash-section">
-            <div className="section-row">
-              <h2 className="dash-h2">{t(ui.home.otherStudiesTitle)}</h2>
-              <button className="link-btn" onClick={() => setStudiesOpen(true)}>
-                {t(ui.home.studiesViewAll)} ({otherStudies.length}) →
-              </button>
-            </div>
-            <div className="module os-list">
+          <Accordion title={t(ui.home.otherStudiesTitle)} index={6}>
+            <div className="os-list card-fill">
               {featuredStudies.map((o, i) => (
                 <div className="os-item" key={i}>
                   <div>
@@ -233,42 +218,50 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </section>
+            <button
+              className="link-btn full"
+              onClick={() => setStudiesOpen(true)}
+            >
+              {t(ui.home.studiesViewAll)} ({otherStudies.length}) →
+            </button>
+          </Accordion>
 
-          {/* Referencias */}
-          <section className="dash-section">
-            <h2 className="dash-h2">{t(ui.home.referencesTitle)}</h2>
+          <Accordion title={t(ui.home.referencesTitle)} index={7}>
             <div className="two-col">
-              <div>
+              <div className="ref-col">
                 <p className="eyebrow">{t(ui.home.referencesPersonal)}</p>
                 <div className="ref-list">
                   {referencesPersonal.map((r, i) => (
-                    <div className="ref-card module" key={i}>
+                    <div className="ref-card" key={i}>
                       <h3 className="ref-name">{r.name}</h3>
                       <div className="ref-role">{t(r.role)}</div>
                       <div className="ref-company">{r.company}</div>
-                      <div className="ref-contact">{t(ui.home.referenceContact)}</div>
+                      <div className="ref-contact">
+                        {t(ui.home.referenceContact)}
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
-              <div>
+              <div className="ref-col">
                 <p className="eyebrow">{t(ui.home.referencesFamily)}</p>
                 <div className="ref-list">
                   {referencesFamily.map((r, i) => (
-                    <div className="ref-card module" key={i}>
+                    <div className="ref-card" key={i}>
                       <h3 className="ref-name">{r.name}</h3>
                       <div className="ref-role">{t(r.profile)}</div>
                       <div className="ref-company">
                         {t(r.occupation)} · {r.company}
                       </div>
-                      <div className="ref-contact">{t(ui.home.referenceContact)}</div>
+                      <div className="ref-contact">
+                        {t(ui.home.referenceContact)}
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-          </section>
+          </Accordion>
         </div>
       </div>
 
@@ -282,9 +275,9 @@ export default function Home() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="modal-head">
-              <h2 className="dash-h2" style={{ margin: 0 }}>
+              <span className="dash-h2" style={{ margin: 0 }}>
                 {t(ui.home.studiesModalTitle)}
-              </h2>
+              </span>
               <button
                 className="modal-close"
                 onClick={() => setStudiesOpen(false)}
