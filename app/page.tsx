@@ -6,9 +6,9 @@ import { useI18n } from "@/lib/i18n";
 import {
   profile,
   skills,
+  topSkills,
   education,
   awards,
-  quotes,
   experience,
   otherStudies,
   referencesPersonal,
@@ -17,6 +17,8 @@ import {
 } from "@/lib/content";
 import Icon from "@/components/Icon";
 import Accordion from "@/components/Accordion";
+import JobCard from "@/components/JobCard";
+import ReadMore from "@/components/ReadMore";
 
 const initials = profile.name
   .split(" ")
@@ -28,13 +30,11 @@ export default function Home() {
   const { t } = useI18n();
   const [studiesOpen, setStudiesOpen] = useState(false);
   const [skillsOpen, setSkillsOpen] = useState(false);
-  const [perfilOpen, setPerfilOpen] = useState(false);
-  const [bizagiOpen, setBizagiOpen] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   const featured = experience.find((e) => e.featured);
   const rest = experience.filter((e) => !e.featured);
   const featuredStudies = otherStudies.filter((s) => s.featured);
-  const skillPreview = skills.flatMap((s) => s.items).slice(0, 12);
 
   return (
     <div className="dash">
@@ -42,10 +42,14 @@ export default function Home() {
         {/* ---------- Columna fija — perfil ---------- */}
         <aside className="dash-side">
           <div className="profile-card">
-            <div className="avatar">
-              {profile.photo ? (
+            <div className="avatar-photo">
+              {profile.photo && !imgError ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={profile.photo} alt={profile.name} />
+                <img
+                  src={profile.photo}
+                  alt={profile.name}
+                  onError={() => setImgError(true)}
+                />
               ) : (
                 <span>{initials}</span>
               )}
@@ -87,15 +91,6 @@ export default function Home() {
               </div>
             ))}
 
-            <div className="profile-quotes">
-              {quotes.map((q, i) => (
-                <figure className="pq" key={i}>
-                  <blockquote>“{t(q.text)}”</blockquote>
-                  <figcaption>— {q.author}</figcaption>
-                </figure>
-              ))}
-            </div>
-
             <div className="profile-socials">
               {profile.links.map((l) => (
                 <a
@@ -120,23 +115,16 @@ export default function Home() {
 
         {/* ---------- Columna de contenido ---------- */}
         <div className="dash-main">
-          {/* Perfil — estilo LinkedIn (ver más) */}
-          <section className="panel">
-            <div className="panel-head">
-              <span className="dash-h2">{t(ui.home.aboutTitle)}</span>
-            </div>
-            <p className={`lead-serif ${perfilOpen ? "" : "clamp"}`}>
-              {t(profile.summary)}
-            </p>
-            <button
-              className="more-btn"
-              onClick={() => setPerfilOpen((o) => !o)}
-            >
-              {perfilOpen ? t(ui.home.readLess) : `… ${t(ui.home.readMore)}`}
-            </button>
-          </section>
+          {/* Perfil — estilo LinkedIn (ver más inline) */}
+          <Accordion title={t(ui.home.aboutTitle)} index={0}>
+            <ReadMore
+              text={t(profile.summary)}
+              limit={240}
+              className="lead-serif"
+            />
+          </Accordion>
 
-          {/* Formación — estilo lista */}
+          {/* Formación — lista */}
           <Accordion title={t(ui.home.educationTitle)} index={1}>
             <div className="os-list">
               {education.map((e, i) => (
@@ -169,19 +157,11 @@ export default function Home() {
                   <div className="exp-period">{featured.period}</div>
                 </div>
                 {featured.summary && (
-                  <>
-                    <p className={`exp-summary ${bizagiOpen ? "" : "clamp"}`}>
-                      {t(featured.summary)}
-                    </p>
-                    <button
-                      className="more-btn"
-                      onClick={() => setBizagiOpen((o) => !o)}
-                    >
-                      {bizagiOpen
-                        ? t(ui.home.readLess)
-                        : `… ${t(ui.home.readMore)}`}
-                    </button>
-                  </>
+                  <ReadMore
+                    text={t(featured.summary)}
+                    limit={190}
+                    className="exp-summary"
+                  />
                 )}
                 <div className="exp-fn-label">{t(ui.home.functionsLabel)}</div>
                 <div className="tag-list">
@@ -196,46 +176,33 @@ export default function Home() {
 
             <div className="exp-grid">
               {rest.map((x, i) => (
-                <div className="exp-card card-fill" key={i}>
-                  <div className="exp-head">
-                    <div className="exp-badge sm">{x.initials}</div>
-                    <div className="exp-head-text">
-                      <div className="exp-company">{x.company}</div>
-                      <div className="exp-role">{t(x.role)}</div>
-                    </div>
-                  </div>
-                  <div className="exp-period">{x.period}</div>
-                  <div className="tag-list">
-                    {x.functions.map((f, j) => (
-                      <span className="tag xs" key={j}>
-                        {t(f)}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <JobCard job={x} key={i} />
               ))}
             </div>
           </Accordion>
 
-          {/* Skills — panel + modal */}
-          <section className="panel">
-            <div className="panel-head between">
-              <span className="dash-h2">{t(ui.home.skillsTitle)}</span>
-              <button className="link-btn" onClick={() => setSkillsOpen(true)}>
-                {t(ui.home.skillsViewAll)} →
-              </button>
-            </div>
-            <div className="tag-list">
-              {skillPreview.map((it) => (
-                <span className="tag" key={it}>
-                  {it}
-                </span>
-              ))}
-            </div>
-          </section>
+          {/* Skills — estilo About/Top skills de LinkedIn */}
+          <Accordion title={t(ui.home.skillsTitle)} index={3}>
+            <button
+              type="button"
+              className="topskills-box"
+              onClick={() => setSkillsOpen(true)}
+            >
+              <span className="ts-icon">
+                <Icon name="star" size={18} />
+              </span>
+              <div className="ts-body">
+                <div className="ts-title">{t(ui.home.skillsTopLabel)}</div>
+                <div className="ts-list">{topSkills.join(" · ")}</div>
+              </div>
+              <span className="ts-arrow">
+                <Icon name="arrow" size={18} />
+              </span>
+            </button>
+          </Accordion>
 
           {/* Otros estudios */}
-          <Accordion title={t(ui.home.otherStudiesTitle)} index={3}>
+          <Accordion title={t(ui.home.otherStudiesTitle)} index={4}>
             <div className="os-list">
               {featuredStudies.map((o, i) => (
                 <div className="os-item" key={i}>
@@ -255,35 +222,48 @@ export default function Home() {
             </button>
           </Accordion>
 
-          {/* Referencias — estilo lista */}
-          <Accordion title={t(ui.home.referencesTitle)} index={4}>
-            <p className="eyebrow">{t(ui.home.referencesPersonal)}</p>
-            <div className="os-list">
-              {referencesPersonal.map((r, i) => (
-                <div className="os-item" key={i}>
-                  <div>
-                    <div className="os-name">{r.name}</div>
-                    <div className="os-inst">{t(r.role)}</div>
-                  </div>
-                  <div className="os-year">{r.company}</div>
+          {/* Referencias — con contacto */}
+          <Accordion title={t(ui.home.referencesTitle)} index={5}>
+            <div className="two-col">
+              <div className="ref-col">
+                <p className="eyebrow">{t(ui.home.referencesPersonal)}</p>
+                <div className="ref-list">
+                  {referencesPersonal.map((r, i) => (
+                    <div className="ref-card" key={i}>
+                      <div className="ref-name">{r.name}</div>
+                      <div className="ref-role">{t(r.role)}</div>
+                      <div className="ref-company">{r.company}</div>
+                      {r.phone && (
+                        <a className="ref-phone" href={`tel:${r.phone.replace(/\s/g, "")}`}>
+                          <Icon name="phone" size={14} />
+                          {r.phone}
+                        </a>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <p className="eyebrow" style={{ marginTop: 18 }}>
-              {t(ui.home.referencesFamily)}
-            </p>
-            <div className="os-list">
-              {referencesFamily.map((r, i) => (
-                <div className="os-item" key={i}>
-                  <div>
-                    <div className="os-name">{r.name}</div>
-                    <div className="os-inst">{t(r.occupation)}</div>
-                  </div>
-                  <div className="os-year">{r.company}</div>
+              </div>
+              <div className="ref-col">
+                <p className="eyebrow">{t(ui.home.referencesFamily)}</p>
+                <div className="ref-list">
+                  {referencesFamily.map((r, i) => (
+                    <div className="ref-card" key={i}>
+                      <div className="ref-name">{r.name}</div>
+                      <div className="ref-role">{t(r.profile)}</div>
+                      <div className="ref-company">
+                        {t(r.occupation)} · {r.company}
+                      </div>
+                      {r.phone && (
+                        <a className="ref-phone" href={`tel:${r.phone.replace(/\s/g, "")}`}>
+                          <Icon name="phone" size={14} />
+                          {r.phone}
+                        </a>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
-            <div className="ref-note">{t(ui.home.referenceContact)}</div>
           </Accordion>
         </div>
       </div>

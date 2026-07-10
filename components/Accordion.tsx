@@ -28,8 +28,8 @@ export default function Accordion({
         aria-expanded={open}
       >
         <span className="dash-h2">{title}</span>
-        <span className="acc-icon" aria-hidden="true">
-          <Icon name={open ? "minus" : "plus"} size={18} />
+        <span className={`acc-icon ${open ? "flip" : ""}`} aria-hidden="true">
+          <Icon name="chevron-down" size={18} />
         </span>
       </button>
       {open && <div className="acc-body">{children}</div>}

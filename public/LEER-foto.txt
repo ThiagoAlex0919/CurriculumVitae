@@ -1,0 +1,7 @@
+Coloca tu foto aquí con el nombre exacto:  foto.jpg
+
+- Formato: JPG o PNG (si usas PNG, renómbrala a foto.jpg igual funciona,
+  o dime y cambio la ruta a /foto.png en lib/content.ts).
+- Se muestra en el panel fijo, arriba de tu nombre, en formato rectangular.
+- Recomendado: una imagen vertical/cuadrada de buena resolución (mín. 600px de ancho).
+- Mientras no exista el archivo, el sitio muestra tus iniciales (AR) como respaldo.
