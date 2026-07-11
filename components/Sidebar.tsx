@@ -6,12 +6,6 @@ import { useI18n } from "@/lib/i18n";
 import { ui, profile } from "@/lib/content";
 import Icon from "./Icon";
 
-const initials = profile.name
-  .split(" ")
-  .map((w) => w[0])
-  .slice(0, 2)
-  .join("");
-
 export default function Sidebar({
   collapsed,
   onToggle,
@@ -23,10 +17,10 @@ export default function Sidebar({
   const pathname = usePathname();
 
   const links = [
-    { href: "/", label: ui.nav.home, icon: "home" },
-    { href: "/trayectoria", label: ui.nav.work, icon: "work" },
-    { href: "/laboratorio", label: ui.nav.lab, icon: "lab" },
-    { href: "/contacto", label: ui.nav.contact, icon: "contact" },
+    { href: "/", title: ui.nav.home, sub: ui.navSub.home, icon: "resume" },
+    { href: "/trayectoria", title: ui.nav.work, sub: ui.navSub.work, icon: "portfolio" },
+    { href: "/laboratorio", title: ui.nav.lab, sub: ui.navSub.lab, icon: "lab" },
+    { href: "/contacto", title: ui.nav.contact, sub: ui.navSub.contact, icon: "connect" },
   ];
 
   const isActive = (href: string) =>
@@ -35,18 +29,15 @@ export default function Sidebar({
   return (
     <aside className="sidebar" data-collapsed={collapsed}>
       <div className="sb-top">
-        <Link href="/" className="sb-brand" aria-label={profile.name}>
-          <span className="sb-brand-mark">{initials}</span>
-          <span className="sb-brand-name">{profile.name}</span>
-        </Link>
         <button
-          className="sb-toggle"
+          className="sb-menu"
           onClick={onToggle}
-          aria-label={collapsed ? "Expandir menú" : "Colapsar menú"}
+          aria-label={t(ui.menu)}
         >
-          <span className={collapsed ? "flip" : ""}>
-            <Icon name="chevron" size={18} />
+          <span className="sb-menu-ico">
+            <Icon name="menu" size={20} />
           </span>
+          <span className="sb-menu-label">{t(ui.menu)}</span>
         </button>
       </div>
 
@@ -56,12 +47,15 @@ export default function Sidebar({
             key={l.href}
             href={l.href}
             className={`sb-link ${isActive(l.href) ? "active" : ""}`}
-            title={t(l.label)}
+            title={t(l.title)}
           >
             <span className="sb-ico">
               <Icon name={l.icon} size={20} />
             </span>
-            <span className="sb-label">{t(l.label)}</span>
+            <span className="sb-text">
+              <span className="sb-eyebrow">{t(l.sub)}</span>
+              <span className="sb-title">{t(l.title)}</span>
+            </span>
           </Link>
         ))}
       </nav>

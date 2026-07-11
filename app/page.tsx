@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import {
   profile,
@@ -108,15 +107,15 @@ export default function Home() {
                 </a>
               ))}
             </div>
-
-            <Link href="/trayectoria" className="btn-accent profile-cta">
-              {t(ui.home.viewPortfolio)} →
-            </Link>
           </div>
         </aside>
 
         {/* ---------- Columna de contenido ---------- */}
         <div className="dash-main">
+          <div className="content-header">
+            <span className="ch-label">{t(ui.headerLabel)}</span>
+          </div>
+
           {/* Perfil — resumen (ver más) + top skills */}
           <Accordion title={t(ui.home.aboutTitle)} index={0}>
             <ReadMore

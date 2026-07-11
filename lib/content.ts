@@ -700,6 +700,14 @@ export const ui = {
     lab: { es: "Laboratorio", en: "Lab" },
     contact: { es: "Contacto", en: "Contact" },
   },
+  navSub: {
+    home: { es: "Sobre mí", en: "About" },
+    work: { es: "Proyectos", en: "Projects" },
+    lab: { es: "Experimentos", en: "Experiments" },
+    contact: { es: "Conectemos", en: "Let's connect" },
+  },
+  menu: { es: "Menú", en: "Menu" },
+  headerLabel: { es: "Resumen", en: "Resume" },
   home: {
     aboutTitle: { es: "Perfil profesional", en: "Professional profile" },
     skillsTitle: { es: "Skills y conocimiento", en: "Skills & knowledge" },
