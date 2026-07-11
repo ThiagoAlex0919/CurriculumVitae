@@ -165,6 +165,7 @@ export const experience: {
   {
     company: "Bizagi Latam",
     initials: "BZ",
+    logo: "/logos/empresa-8.png",
     role: { es: "Senior UX Designer", en: "Senior UX Designer" },
     period: "Mar 2022 — Actualidad",
     featured: true,
@@ -189,6 +190,7 @@ export const experience: {
   {
     company: "Inter Rapidísimo",
     initials: "IR",
+    logo: "/logos/empresa-7.png",
     role: { es: "Diseñador UX UI", en: "UX UI Designer" },
     period: "Enero 2021 - Febrero 2022",
     location: { es: "Bogotá, D.C., Colombia", en: "Bogotá, D.C., Colombia" },
@@ -208,6 +210,7 @@ export const experience: {
   {
     company: "Entelgy",
     initials: "EN",
+    logo: "/logos/empresa-6.png",
     role: { es: "Desarrollador web (WebMaster ITAÚ)", en: "Web Developer (WebMaster ITAÚ)" },
     period: "Noviembre 2018 - Noviembre 2020",
     location: { es: "Bogotá, D.C., Colombia", en: "Bogotá, D.C., Colombia" },
@@ -227,6 +230,7 @@ export const experience: {
   {
     company: "Fundación Universitaria del Área Andina",
     initials: "AA",
+    logo: "/logos/empresa-5.png",
     role: {
       es: "Coordinador de Gestión de Contenidos",
       en: "Content Management Coordinator",
@@ -249,6 +253,7 @@ export const experience: {
   {
     company: "Entelgy",
     initials: "EN",
+    logo: "/logos/empresa-4.png",
     role: { es: "Desarrollador Liferay", en: "Liferay Developer" },
     period: "Enero 2017 - Junio 2017",
     location: { es: "Bogotá, D.C., Colombia", en: "Bogotá, D.C., Colombia" },
@@ -266,6 +271,7 @@ export const experience: {
   {
     company: "Brain Media",
     initials: "BM",
+    logo: "/logos/empresa-3.png",
     role: { es: "Director de Producción Web", en: "Web Production Director" },
     period: "Marzo 2016 - Diciembre 2016",
     location: { es: "Bogotá, D.C., Colombia", en: "Bogotá, D.C., Colombia" },
@@ -285,6 +291,7 @@ export const experience: {
   {
     company: "ESAP",
     initials: "ES",
+    logo: "/logos/empresa-2.png",
     role: { es: "Diseñador Gráfico E-learning", en: "E-learning Graphic Designer" },
     period: "Octubre 2015 - Agosto 2016",
     location: { es: "Bogotá, D.C., Colombia", en: "Bogotá, D.C., Colombia" },
@@ -304,6 +311,7 @@ export const experience: {
   {
     company: "Universidad Manuela Beltrán",
     initials: "MB",
+    logo: "/logos/empresa-1.png",
     role: { es: "Diseñador Gráfico", en: "Graphic Designer" },
     period: "Agosto 2011 - Septiembre 2015",
     location: { es: "Bogotá, D.C., Colombia", en: "Bogotá, D.C., Colombia" },

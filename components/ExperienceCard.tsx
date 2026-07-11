@@ -24,17 +24,26 @@ export default function ExperienceCard({
 }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(defaultOpen);
+  const [logoErr, setLogoErr] = useState(false);
   const current = /actual/i.test(job.period);
 
   return (
-    <div className={`xcard ${open ? "is-open" : "is-closed"}`}>
+    <div
+      className={`xcard ${open ? "is-open" : "is-closed"} ${
+        current ? "is-current" : ""
+      }`}
+    >
       {current && <span className="xcard-dot" aria-hidden="true" />}
 
       <div className="xcard-head">
         <div className="xcard-logo">
-          {job.logo ? (
+          {job.logo && !logoErr ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={job.logo} alt={job.company} />
+            <img
+              src={job.logo}
+              alt={job.company}
+              onError={() => setLogoErr(true)}
+            />
           ) : (
             <span>{job.initials}</span>
           )}
@@ -47,15 +56,13 @@ export default function ExperienceCard({
         </div>
       </div>
 
-      <div className="xcard-fns">
+      <div className={`xcard-fns ${open ? "" : "clamp2"}`}>
         <span className="xcard-fnlabel">{t(ui.home.functionsLabel)}:</span>
-        <div className={`xcard-tags ${open ? "" : "clamp2"}`}>
-          {job.functions.map((f, i) => (
-            <span className="tag out" key={i}>
-              {t(f)}
-            </span>
-          ))}
-        </div>
+        {job.functions.map((f, i) => (
+          <span className="tag out" key={i}>
+            {t(f)}
+          </span>
+        ))}
       </div>
 
       {open && job.summary && (
