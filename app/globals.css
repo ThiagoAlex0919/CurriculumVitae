@@ -1,6 +1,6 @@
 :root {
-  --bg: #dcdee0;
-  --dot: #c4c8cb;
+  --bg: #f1f2f3;
+  --dot: #d9dcde;
   --card: #ffffff;
   --ink: #02425f;          /* títulos */
   --ink-soft: #494f51;     /* párrafos */
@@ -122,7 +122,8 @@ p {
 .lang {
   display: inline-flex;
   align-items: center;
-  background: var(--bg);
+  background: transparent;
+  border: 1px solid var(--line);
   border-radius: 999px;
   overflow: hidden;
   font-size: 12.5px;
@@ -132,14 +133,18 @@ p {
   border: 0;
   background: transparent;
   color: var(--ink-mute);
-  padding: 5px 11px;
+  padding: 5px 12px;
   cursor: pointer;
   font-family: var(--sans);
   letter-spacing: 0.04em;
   border-radius: 999px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.lang button:hover {
+  color: var(--ink);
 }
 .lang button.on {
-  background: var(--ink);
+  background: var(--accent-dark);
   color: #fff;
 }
 
@@ -535,7 +540,7 @@ p {
   left: 0;
   right: 0;
   height: 30px;
-  background: linear-gradient(to bottom, var(--bg) 40%, rgba(207, 223, 230, 0));
+  background: linear-gradient(to bottom, var(--bg) 40%, rgba(241, 242, 243, 0));
   z-index: 88;
   pointer-events: none;
 }
@@ -546,7 +551,7 @@ p {
   left: 0;
   right: 0;
   height: 34px;
-  background: linear-gradient(to top, var(--bg) 40%, rgba(207, 223, 230, 0));
+  background: linear-gradient(to top, var(--bg) 40%, rgba(241, 242, 243, 0));
   z-index: 88;
   pointer-events: none;
 }
@@ -600,22 +605,15 @@ p {
   border-radius: 11px;
   color: var(--ink-soft);
   white-space: nowrap;
-  transition: background 0.15s ease;
-}
-.sb-link:hover {
-  background: var(--surface-2);
-}
-.sb-link.active {
-  background: var(--surface-2);
 }
 .sb-link.active::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 9px;
-  bottom: 9px;
+  left: -14px; /* llega al borde del sidebar */
+  top: 6px;
+  bottom: 6px;
   width: 3px;
-  border-radius: 3px;
+  border-radius: 0 3px 3px 0;
   background: var(--accent);
 }
 .sb-ico {
@@ -737,6 +735,9 @@ p {
   width: 100%;
 }
 .content-header {
+  position: sticky;
+  top: 24px;
+  z-index: 90;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -745,6 +746,11 @@ p {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  transition: box-shadow 0.25s ease, padding 0.2s ease, transform 0.2s ease;
+}
+.content-header.is-stuck {
+  box-shadow: var(--shadow-hover);
+  padding: 11px 24px;
 }
 .ch-label {
   font-size: 16px;
@@ -800,7 +806,7 @@ p {
 }
 .profile-name {
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 4px;
 }
 .profile-role {
@@ -901,16 +907,17 @@ p {
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: var(--bg);
+  background: transparent;
+  border: 1px solid var(--line);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--ink-soft);
-  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  color: var(--accent-dark);
+  transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 .social-btn:hover {
-  background: var(--ink);
-  color: #fff;
+  border-color: var(--accent);
+  color: var(--accent);
   transform: translateY(-2px);
 }
 .profile-cta {
@@ -1367,14 +1374,10 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease, color 0.15s ease, transform 0.2s ease;
+  transition: transform 0.2s ease;
 }
 .acc-icon.flip {
   transform: rotate(180deg);
-}
-.acc-head:hover .acc-icon {
-  background: var(--ink);
-  color: #fff;
 }
 .acc-body {
   padding-top: 12px;
@@ -1702,5 +1705,9 @@ p {
     line-height: 1.5;
     color: var(--ink-mute);
     padding: 26px 0 4px;
+  }
+  .content-header {
+    position: static;
+    top: auto;
   }
 }

@@ -6,10 +6,12 @@ import Icon from "./Icon";
 export default function Accordion({
   title,
   index = 0,
+  id,
   children,
 }: {
   title: string;
   index?: number;
+  id?: string;
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(true);
@@ -20,7 +22,7 @@ export default function Accordion({
   }, [index]);
 
   return (
-    <section className={`acc ${open ? "is-open" : ""}`}>
+    <section id={id} className={`acc ${open ? "is-open" : ""}`}>
       <button
         type="button"
         className="acc-head"

@@ -496,6 +496,45 @@ export const skills: { category: Localized; items: string[] }[] = [
   },
 ];
 
+// Navegación del sidebar (5 items)
+export const sideNav: {
+  href: string;
+  icon: string;
+  sub: Localized;
+  title: Localized;
+}[] = [
+  {
+    href: "/",
+    icon: "resume",
+    sub: { es: "Sobre mí", en: "About" },
+    title: { es: "Hoja de vida", en: "Resume" },
+  },
+  {
+    href: "/#experiencia",
+    icon: "career",
+    sub: { es: "Experiencia", en: "Experience" },
+    title: { es: "Trayectoria", en: "Career Journey" },
+  },
+  {
+    href: "/trayectoria",
+    icon: "portfolio",
+    sub: { es: "Proyectos", en: "Projects" },
+    title: { es: "Portafolio", en: "Portfolio" },
+  },
+  {
+    href: "/laboratorio",
+    icon: "lab",
+    sub: { es: "Experimentos", en: "Experiments" },
+    title: { es: "Laboratorio", en: "Lab" },
+  },
+  {
+    href: "/contacto",
+    icon: "connect",
+    sub: { es: "Conectemos", en: "Let's Connect" },
+    title: { es: "Contáctame", en: "Get in Touch" },
+  },
+];
+
 // Skills más relevantes (vista previa tipo "Top skills" de LinkedIn)
 export const topSkills = [
   "User Experience (UX)",

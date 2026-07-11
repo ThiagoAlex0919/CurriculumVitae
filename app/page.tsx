@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useI18n } from "@/lib/i18n";
 import {
   profile,
@@ -32,6 +32,14 @@ export default function Home() {
   const [expOpen, setExpOpen] = useState(false);
   const [bizOpen, setBizOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const featured = experience.find((e) => e.featured);
   const rest = experience.filter((e) => !e.featured);
@@ -112,7 +120,7 @@ export default function Home() {
 
         {/* ---------- Columna de contenido ---------- */}
         <div className="dash-main">
-          <div className="content-header">
+          <div className={`content-header ${scrolled ? "is-stuck" : ""}`}>
             <span className="ch-label">{t(ui.headerLabel)}</span>
           </div>
 
@@ -157,7 +165,11 @@ export default function Home() {
           </Accordion>
 
           {/* Experiencia */}
-          <Accordion title={t(ui.home.experienceTitle)} index={2}>
+          <Accordion
+            title={t(ui.home.experienceTitle)}
+            index={2}
+            id="experiencia"
+          >
             {featured && (
               <div className="exp-featured">
                 <div className="exp-head">

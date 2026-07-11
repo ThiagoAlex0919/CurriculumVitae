@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
-import { ui, profile } from "@/lib/content";
+import { ui, profile, sideNav } from "@/lib/content";
 import Icon from "./Icon";
 
 export default function Sidebar({
@@ -16,15 +16,10 @@ export default function Sidebar({
   const { t, locale, setLocale } = useI18n();
   const pathname = usePathname();
 
-  const links = [
-    { href: "/", title: ui.nav.home, sub: ui.navSub.home, icon: "resume" },
-    { href: "/trayectoria", title: ui.nav.work, sub: ui.navSub.work, icon: "portfolio" },
-    { href: "/laboratorio", title: ui.nav.lab, sub: ui.navSub.lab, icon: "lab" },
-    { href: "/contacto", title: ui.nav.contact, sub: ui.navSub.contact, icon: "connect" },
-  ];
-
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const isActive = (href: string) => {
+    if (href.includes("#")) return false; // enlaces con ancla no marcan activo
+    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  };
 
   return (
     <aside className="sidebar" data-collapsed={collapsed}>
@@ -42,7 +37,7 @@ export default function Sidebar({
       </div>
 
       <nav className="sb-nav">
-        {links.map((l) => (
+        {sideNav.map((l) => (
           <Link
             key={l.href}
             href={l.href}
