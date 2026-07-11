@@ -13,7 +13,7 @@ export default function Sidebar({
   collapsed: boolean;
   onToggle: () => void;
 }) {
-  const { t, locale, setLocale } = useI18n();
+  const { t } = useI18n();
   const pathname = usePathname();
 
   const isActive = (href: string) => {
@@ -56,22 +56,6 @@ export default function Sidebar({
       </nav>
 
       <div className="sb-bottom">
-        <div className="lang" role="group" aria-label="Language">
-          <button
-            className={locale === "es" ? "on" : ""}
-            onClick={() => setLocale("es")}
-            aria-pressed={locale === "es"}
-          >
-            ES
-          </button>
-          <button
-            className={locale === "en" ? "on" : ""}
-            onClick={() => setLocale("en")}
-            aria-pressed={locale === "en"}
-          >
-            EN
-          </button>
-        </div>
         <p className="sb-rights">
           © {new Date().getFullYear()} {profile.name}
           <br />

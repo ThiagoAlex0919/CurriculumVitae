@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
-import TopBar from "./TopBar";
 import MobileNav from "./MobileNav";
 import { useI18n } from "@/lib/i18n";
 import { profile, ui } from "@/lib/content";
@@ -32,7 +31,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="app-shell" data-collapsed={collapsed} data-ready={ready}>
       <Sidebar collapsed={collapsed} onToggle={toggle} />
-      <TopBar />
       <MobileNav />
       <div className="app-main">
         <main>{children}</main>

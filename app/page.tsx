@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import {
   profile,
@@ -16,8 +16,9 @@ import {
 } from "@/lib/content";
 import Icon from "@/components/Icon";
 import Accordion from "@/components/Accordion";
-import JobCard from "@/components/JobCard";
+import ExperienceCard from "@/components/ExperienceCard";
 import ReadMore from "@/components/ReadMore";
+import PageHeader from "@/components/PageHeader";
 
 const initials = profile.name
   .split(" ")
@@ -30,19 +31,8 @@ export default function Home() {
   const [studiesOpen, setStudiesOpen] = useState(false);
   const [skillsOpen, setSkillsOpen] = useState(false);
   const [expOpen, setExpOpen] = useState(false);
-  const [bizOpen, setBizOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const featured = experience.find((e) => e.featured);
-  const rest = experience.filter((e) => !e.featured);
   const featuredStudies = otherStudies.filter((s) => s.featured);
 
   return (
@@ -120,9 +110,7 @@ export default function Home() {
 
         {/* ---------- Columna de contenido ---------- */}
         <div className="dash-main">
-          <div className={`content-header ${scrolled ? "is-stuck" : ""}`}>
-            <span className="ch-label">{t(ui.headerLabel)}</span>
-          </div>
+          <PageHeader />
 
           {/* Perfil — resumen (ver más) + top skills */}
           <Accordion title={t(ui.home.aboutTitle)} index={0}>
@@ -170,54 +158,9 @@ export default function Home() {
             index={2}
             id="experiencia"
           >
-            {featured && (
-              <div className="exp-featured">
-                <div className="exp-head">
-                  <div className="exp-badge">{featured.initials}</div>
-                  <div className="exp-head-text">
-                    <div className="exp-company">
-                      {featured.company}
-                      <span className="exp-tag-recent">
-                        {t(ui.home.mostRecent)}
-                      </span>
-                    </div>
-                    <div className="exp-role">{t(featured.role)}</div>
-                  </div>
-                  <div className="exp-period">{featured.period}</div>
-                </div>
-                {featured.summary && (
-                  <p className="exp-summary">
-                    {bizOpen
-                      ? t(featured.summary) + " "
-                      : t(featured.summary).slice(0, 190).trimEnd() + "… "}
-                    <button
-                      className="more-inline"
-                      onClick={() => setBizOpen((o) => !o)}
-                    >
-                      {bizOpen ? t(ui.home.readLess) : t(ui.home.readMore)}
-                    </button>
-                  </p>
-                )}
-                {bizOpen && (
-                  <>
-                    <div className="exp-fn-label">
-                      {t(ui.home.functionsLabel)}
-                    </div>
-                    <div className="tag-list">
-                      {featured.functions.map((f, i) => (
-                        <span className="tag xs" key={i}>
-                          {t(f)}
-                        </span>
-                      ))}
-                    </div>
-                  </>
-                )}
-              </div>
-            )}
-
             <div className="exp-grid">
-              {rest.slice(0, 3).map((x, i) => (
-                <JobCard job={x} key={i} />
+              {experience.slice(0, 4).map((x, i) => (
+                <ExperienceCard job={x} defaultOpen={i < 2} key={i} />
               ))}
             </div>
             <button className="link-btn full" onClick={() => setExpOpen(true)}>
@@ -299,11 +242,11 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Modal — toda la experiencia */}
+      {/* Modal — toda la experiencia (80% pantalla) */}
       {expOpen && (
         <div className="modal-overlay" onClick={() => setExpOpen(false)}>
           <div
-            className="modal-panel"
+            className="modal-panel modal-lg"
             role="dialog"
             aria-modal="true"
             onClick={(e) => e.stopPropagation()}
@@ -321,25 +264,11 @@ export default function Home() {
               </button>
             </div>
             <div className="modal-body">
-              {experience.map((x, i) => (
-                <div className="exp-modal-item" key={i}>
-                  <div className="exp-head">
-                    <div className="exp-badge sm">{x.initials}</div>
-                    <div className="exp-head-text">
-                      <div className="exp-company">{x.company}</div>
-                      <div className="exp-role">{t(x.role)}</div>
-                    </div>
-                    <div className="exp-period">{x.period}</div>
-                  </div>
-                  <div className="tag-list" style={{ marginTop: 10 }}>
-                    {x.functions.map((f, j) => (
-                      <span className="tag xs" key={j}>
-                        {t(f)}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              <div className="exp-grid">
+                {experience.map((x, i) => (
+                  <ExperienceCard job={x} defaultOpen key={i} />
+                ))}
+              </div>
             </div>
           </div>
         </div>
