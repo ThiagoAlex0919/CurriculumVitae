@@ -92,8 +92,8 @@ export const education: {
       es: "Maestría en Diseño de Experiencia del Usuario",
       en: "Master in User Experience Design",
     },
-    institution: "Universidad de La Salle",
-    period: "2026 · 2º semestre",
+    institution: "Universidad de La Salle · 2º semestre",
+    period: "2026",
   },
   {
     degree: {

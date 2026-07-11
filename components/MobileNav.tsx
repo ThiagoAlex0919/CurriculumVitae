@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
-import { ui, profile } from "@/lib/content";
+import { ui, profile, sideNav } from "@/lib/content";
 import Icon from "./Icon";
 
 const initials = profile.name
@@ -12,16 +12,12 @@ const initials = profile.name
   .slice(0, 2)
   .join("");
 
+// En móvil usamos las secciones reales (sin el enlace de ancla)
+const mobileLinks = sideNav.filter((l) => !l.href.includes("#"));
+
 export default function MobileNav() {
   const { t, locale, setLocale } = useI18n();
   const pathname = usePathname();
-
-  const links = [
-    { href: "/", label: ui.nav.home, icon: "home" },
-    { href: "/trayectoria", label: ui.nav.work, icon: "work" },
-    { href: "/laboratorio", label: ui.nav.lab, icon: "lab" },
-    { href: "/contacto", label: ui.nav.contact, icon: "contact" },
-  ];
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -51,17 +47,17 @@ export default function MobileNav() {
         </div>
       </header>
 
-      <nav className="mobile-nav" aria-label="Navegación principal">
-        {links.map((l) => (
+      <nav className="mobile-nav" aria-label={t(ui.menu)}>
+        {mobileLinks.map((l) => (
           <Link
             key={l.href}
             href={l.href}
             className={`mnav-item ${isActive(l.href) ? "active" : ""}`}
           >
             <span className="mnav-ico">
-              <Icon name={l.icon} size={21} />
+              <Icon name={l.icon} size={20} />
             </span>
-            <span className="mnav-label">{t(l.label)}</span>
+            <span className="mnav-label">{t(l.title)}</span>
           </Link>
         ))}
       </nav>
