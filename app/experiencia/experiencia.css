@@ -1,5 +1,5 @@
 /* ============================================================
-   TRAYECTORIA — Tema espacial aislado
+   EXPERIENCIA — Línea de tiempo espacial aislada
    Todo vive bajo body.tj-mode o clases con prefijo .tj-
    No toca ningún estilo del resto del sitio.
    ============================================================ */
@@ -14,7 +14,8 @@ body.tj-mode {
   --tj-card: rgba(13, 20, 44, 0.72);
   --tj-accent: #5eead4;
   --tj-accent-2: #818cf8;
-  --tj-flame: #fbbf24;
+  --tj-fill-a: #fbbf24;
+  --tj-fill-b: #38bdf8;
   background-color: var(--tj-bg);
   background-image: none;
 }
@@ -51,14 +52,21 @@ body.tj-mode .content-header .lang button.on {
 body.tj-mode .mobile-credits {
   color: var(--tj-ink-mute);
 }
+body.tj-mode .more-inline {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--tj-accent);
+  font: inherit;
+}
 
 /* ---------- Escena ---------- */
 .tj-scene {
   position: relative;
   color: var(--tj-ink-soft);
   font-family: "Poppins", system-ui, sans-serif;
-  /* escapa el padding de .app-main para ser full-bleed vertical */
-  margin: -24px -24px -24px -24px;
+  margin: -24px;
   padding: 0 24px;
   overflow: clip;
   min-height: 100vh;
@@ -111,63 +119,28 @@ body.tj-mode .mobile-credits {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(600px 400px at 80% 10%, rgba(129, 140, 248, 0.12), transparent 70%),
-    radial-gradient(700px 500px at 10% 60%, rgba(94, 234, 212, 0.07), transparent 70%),
-    radial-gradient(500px 400px at 70% 90%, rgba(244, 114, 182, 0.06), transparent 70%);
+    radial-gradient(600px 400px at 80% 10%, rgba(129, 140, 248, 0.14), transparent 70%),
+    radial-gradient(700px 500px at 10% 60%, rgba(244, 114, 182, 0.08), transparent 70%),
+    radial-gradient(500px 400px at 70% 90%, rgba(94, 234, 212, 0.07), transparent 70%);
 }
 
-/* ---------- Cohete ---------- */
-.tj-rocket {
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  z-index: 5;
-  width: clamp(54px, 7vw, 88px);
-  pointer-events: none;
-  will-change: transform;
-  filter: drop-shadow(0 0 18px rgba(94, 234, 212, 0.25));
-}
-.tj-rocket svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-.tj-flame {
-  transform-origin: 50% 0%;
-  animation: tj-flicker 0.14s infinite alternate;
-  opacity: var(--flame, 0);
-}
-@keyframes tj-flicker {
-  from { transform: scaleY(0.85) scaleX(0.92); }
-  to   { transform: scaleY(1.12) scaleX(1.05); }
-}
-.tj-rocket--flying {
-  animation: tj-hover 3.4s ease-in-out infinite;
-}
-@keyframes tj-hover {
-  0%, 100% { margin-left: 0; }
-  50% { margin-left: 6px; }
-}
-
-/* ---------- Secciones ---------- */
+/* ---------- Secciones genéricas ---------- */
 .tj-section {
   position: relative;
   z-index: 1;
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 96px 8px;
 }
 
-/* Hero / plataforma de despegue */
+/* ---------- Hero: astronauta en la luna ---------- */
 .tj-hero {
+  min-height: 96vh;
   flex-direction: column;
   text-align: center;
-  justify-content: flex-end;
-  padding-bottom: 220px;
-  min-height: 104vh;
+  gap: 12px;
+  padding-bottom: 24px;
 }
 .tj-eyebrow {
   font-size: 12px;
@@ -180,14 +153,14 @@ body.tj-mode .mobile-credits {
   font-size: clamp(38px, 6vw, 72px);
   font-weight: 700;
 }
-.tj-hero p {
-  max-width: 520px;
+.tj-hero-copy p:not(.tj-eyebrow) {
+  max-width: 560px;
   margin: 18px auto 0;
   font-size: 15px;
   line-height: 1.7;
 }
 .tj-scroll-cue {
-  margin-top: 42px;
+  margin-top: 34px;
   font-size: 11.5px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
@@ -198,41 +171,100 @@ body.tj-mode .mobile-credits {
   0%, 100% { transform: translateY(0); opacity: 0.7; }
   50% { transform: translateY(8px); opacity: 1; }
 }
-
-/* Suelo + plataforma */
-.tj-ground {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
-  height: 150px;
-  z-index: 2;
-  pointer-events: none;
+.tj-moon-scene {
+  width: min(520px, 88vw);
+  margin-top: 8px;
 }
-.tj-ground svg {
+.tj-moon-scene svg {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 50px rgba(215, 219, 232, 0.18));
 }
 
-/* ---------- Mundos (una empresa = un planeta) ---------- */
-.tj-world {
-  gap: clamp(24px, 5vw, 80px);
+/* ---------- Línea de tiempo central ---------- */
+.tj-timeline {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px 0 80px;
 }
-.tj-world .tj-inner {
-  display: flex;
-  align-items: center;
-  gap: clamp(28px, 6vw, 90px);
-  max-width: 1000px;
+
+/* riel blanco + relleno animado */
+.tj-track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 4px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.tj-fill {
   width: 100%;
+  height: 0%;
+  background: linear-gradient(to bottom, var(--tj-fill-a), var(--tj-fill-b));
+  border-radius: 999px;
+  box-shadow: 0 0 18px rgba(251, 191, 36, 0.55);
+  will-change: height;
 }
-.tj-world:nth-of-type(even) .tj-inner {
-  flex-direction: row-reverse;
+
+/* ---------- Item: tarjeta | nodo | visual ---------- */
+.tj-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 96px 1fr;
+  align-items: center;
+  gap: clamp(10px, 2.5vw, 28px);
+  min-height: 82vh;
+  padding: 48px 0;
 }
-.tj-planet {
-  flex: 0 0 clamp(180px, 26vw, 320px);
-  will-change: transform;
+.tj-item--right .tj-card { order: 3; }
+.tj-item--right .tj-visual { order: 1; justify-self: end; }
+.tj-item--left .tj-card { order: 1; }
+.tj-item--left .tj-visual { order: 3; justify-self: start; }
+.tj-node { order: 2; }
+
+/* nodo sobre la línea */
+.tj-node {
+  position: relative;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+.tj-node-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--tj-bg);
+  border: 3px solid rgba(255, 255, 255, 0.35);
+  transition: border-color 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
+}
+.tj-node-year {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tj-ink-mute);
+  transition: color 0.45s ease;
+}
+.tj-item.is-on .tj-node-dot {
+  border-color: var(--tj-fill-a);
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.7);
+  transform: scale(1.25);
+}
+.tj-item.is-on .tj-node-year {
+  color: var(--tj-fill-a);
+}
+
+/* visual (planeta / plataforma) */
+.tj-visual {
+  width: clamp(170px, 22vw, 280px);
 }
 .tj-planet svg {
   display: block;
@@ -245,22 +277,38 @@ body.tj-mode .mobile-credits {
   0%, 100% { transform: translateY(0) rotate(0deg); }
   50% { transform: translateY(-14px) rotate(1.4deg); }
 }
+.tj-pad-scene svg {
+  display: block;
+  width: 130%;
+  max-width: none;
+  height: auto;
+  filter: drop-shadow(0 0 40px rgba(94, 234, 212, 0.15));
+}
 
+/* tarjeta */
 .tj-card {
-  flex: 1;
   background: var(--tj-card);
   border: 1px solid var(--tj-line);
   border-radius: 20px;
-  padding: clamp(24px, 3.4vw, 40px);
+  padding: clamp(24px, 3vw, 36px);
   backdrop-filter: blur(12px);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.45s ease, box-shadow 0.45s ease;
+}
+.tj-item.is-on .tj-card {
+  border-color: rgba(251, 191, 36, 0.35);
+}
+.tj-card--featured,
+.tj-item.is-on .tj-card--featured {
+  border-color: rgba(94, 234, 212, 0.45);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(94, 234, 212, 0.12);
 }
 .tj-mission {
   display: flex;
   align-items: center;
   gap: 10px;
   font-size: 11.5px;
-  letter-spacing: 0.26em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--tj-accent);
   margin-bottom: 14px;
@@ -272,7 +320,7 @@ body.tj-mode .mobile-credits {
   background: linear-gradient(to right, var(--tj-line), transparent);
 }
 .tj-card h2 {
-  font-size: clamp(26px, 3.4vw, 38px);
+  font-size: clamp(24px, 2.8vw, 34px);
   font-weight: 700;
 }
 .tj-role {
@@ -292,134 +340,14 @@ body.tj-mode .mobile-credits {
   font-size: 14px;
   line-height: 1.7;
 }
-.tj-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 24px;
-  padding: 11px 22px;
-  border-radius: 999px;
-  border: 1px solid var(--tj-accent);
-  color: var(--tj-accent);
-  font-size: 13.5px;
-  font-weight: 500;
-  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
-}
-.tj-cta:hover {
-  background: var(--tj-accent);
-  color: #04202a;
-  transform: translateX(4px);
+.tj-origin {
+  margin: 18px 0 0;
+  font-size: 13px;
+  color: var(--tj-fill-a);
+  letter-spacing: 0.04em;
 }
 
-/* Aparición al hacer scroll */
-.tj-reveal {
-  opacity: 0;
-  transform: translateY(46px);
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.tj-reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ---------- Final: presente ---------- */
-.tj-final {
-  flex-direction: column;
-  text-align: center;
-}
-.tj-final h2 {
-  font-size: clamp(30px, 4.4vw, 52px);
-  font-weight: 700;
-}
-.tj-final p {
-  max-width: 480px;
-  margin: 16px auto 0;
-  line-height: 1.7;
-}
-
-/* ---------- Riel de progreso (años) ---------- */
-.tj-rail {
-  position: fixed;
-  right: 26px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 6;
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  align-items: flex-end;
-}
-.tj-rail a {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  color: var(--tj-ink-mute);
-  transition: color 0.25s ease;
-}
-.tj-rail a::after {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1.5px solid var(--tj-ink-mute);
-  transition: all 0.25s ease;
-}
-.tj-rail a.on {
-  color: var(--tj-accent);
-}
-.tj-rail a.on::after {
-  background: var(--tj-accent);
-  border-color: var(--tj-accent);
-  box-shadow: 0 0 12px var(--tj-accent);
-}
-
-/* ---------- Responsive ---------- */
-@media (max-width: 899px) {
-  .tj-scene {
-    margin: -84px -14px -96px;
-    padding: 0 14px;
-  }
-  .tj-world .tj-inner,
-  .tj-world:nth-of-type(even) .tj-inner {
-    flex-direction: column;
-    text-align: left;
-  }
-  .tj-planet {
-    flex-basis: auto;
-    width: clamp(150px, 42vw, 220px);
-  }
-  .tj-rail {
-    display: none;
-  }
-  .tj-rocket {
-    width: 46px;
-  }
-  .tj-hero {
-    padding-bottom: 190px;
-  }
-}
-
-/* ---------- Movimiento reducido ---------- */
-@media (prefers-reduced-motion: reduce) {
-  .tj-rocket,
-  .tj-stars {
-    display: none;
-  }
-  .tj-planet svg,
-  .tj-scroll-cue,
-  .tj-rocket--flying {
-    animation: none;
-  }
-  .tj-reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
-
-/* ---------- Chips de funciones ---------- */
+/* chips de funciones */
 .tj-chips {
   display: flex;
   flex-wrap: wrap;
@@ -436,19 +364,57 @@ body.tj-mode .mobile-credits {
   background: rgba(94, 234, 212, 0.06);
 }
 
-/* Tarjeta destacada (mundo actual) */
-.tj-card--featured {
-  border-color: rgba(94, 234, 212, 0.45);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(94, 234, 212, 0.12);
+/* ---------- Aparición al hacer scroll ---------- */
+.tj-reveal {
+  opacity: 0;
+  transform: translateY(46px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tj-item--left .tj-card.tj-reveal { transform: translateX(-46px); }
+.tj-item--right .tj-card.tj-reveal { transform: translateX(46px); }
+.tj-reveal.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 
-/* CTAs finales */
+/* ---------- Cierre ---------- */
+.tj-final {
+  min-height: 70vh;
+  flex-direction: column;
+  text-align: center;
+}
+.tj-final h2 {
+  font-size: clamp(30px, 4.4vw, 52px);
+  font-weight: 700;
+}
+.tj-final p {
+  max-width: 480px;
+  margin: 16px auto 0;
+  line-height: 1.7;
+}
 .tj-final-ctas {
   display: flex;
   gap: 14px;
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 28px;
+}
+.tj-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--tj-accent);
+  color: var(--tj-accent);
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+.tj-cta:hover {
+  background: var(--tj-accent);
+  color: #04202a;
+  transform: translateX(4px);
 }
 .tj-cta--ghost {
   border-color: var(--tj-line);
@@ -460,12 +426,64 @@ body.tj-mode .mobile-credits {
   color: #050815;
 }
 
-/* "leer más" de ReadMore sobre fondo oscuro */
-body.tj-mode .more-inline {
-  background: none;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  color: var(--tj-accent);
-  font: inherit;
+/* ---------- Responsive ---------- */
+@media (max-width: 899px) {
+  .tj-scene {
+    margin: -84px -14px -96px;
+    padding: 0 14px;
+  }
+  /* línea a la izquierda, contenido a la derecha */
+  .tj-track {
+    left: 14px;
+    transform: none;
+  }
+  .tj-item {
+    grid-template-columns: 44px 1fr;
+    min-height: 0;
+    padding: 40px 0;
+    align-items: start;
+  }
+  .tj-node {
+    order: 1;
+    grid-row: 1 / span 2;
+    justify-self: center;
+    padding-top: 8px;
+  }
+  .tj-node-year {
+    writing-mode: vertical-rl;
+    letter-spacing: 0.14em;
+  }
+  .tj-item--left .tj-visual,
+  .tj-item--right .tj-visual {
+    order: 2;
+    grid-column: 2;
+    justify-self: start;
+    width: clamp(130px, 38vw, 180px);
+  }
+  .tj-pad-scene svg { width: 100%; }
+  .tj-item--left .tj-card,
+  .tj-item--right .tj-card {
+    order: 3;
+    grid-column: 2;
+  }
+  .tj-item--left .tj-card.tj-reveal,
+  .tj-item--right .tj-card.tj-reveal {
+    transform: translateY(36px);
+  }
+}
+
+/* ---------- Movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .tj-stars { display: none; }
+  .tj-planet svg,
+  .tj-scroll-cue {
+    animation: none;
+  }
+  .tj-reveal,
+  .tj-item--left .tj-card.tj-reveal,
+  .tj-item--right .tj-card.tj-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
