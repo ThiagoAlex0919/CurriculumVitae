@@ -1,8 +1,8 @@
 /* ============================================================
-   EXPERIENCIA — Escenas tipo póster + rail derecho navegable
-   Ilustraciones line-art sobre el canvas de puntos del home.
-   Todo vive bajo body.tj-mode o prefijo .tj- : no toca ningún
-   estilo del resto del sitio.
+   EXPERIENCIA — Escenas tipo póster + camino largo a la derecha
+   La línea recorre TODO el viaje (in-flow, no fija) y se rellena
+   con el scroll; los ítems de navegación (año + dot) van al lado.
+   Todo vive bajo body.tj-mode o prefijo .tj-.
    ============================================================ */
 
 body.tj-mode {
@@ -68,97 +68,6 @@ body.tj-mode .more-inline {
   background-size: 420px 360px;
 }
 
-/* ============================================================
-   RAIL DERECHO: línea de tiempo + navegación en un solo elemento
-   ============================================================ */
-.tj-rail {
-  position: fixed;
-  right: 30px;
-  top: 50%;
-  transform: translateY(-50%);
-  height: min(58vh, 560px);
-  z-index: 8;
-  display: flex;
-  align-items: stretch;
-}
-/* track blanco con relleno azul (progreso del viaje) */
-.tj-rail-track {
-  position: absolute;
-  right: 4px;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: #ffffff;
-  border: 1px solid var(--tj-line);
-  border-radius: 999px;
-  overflow: hidden;
-  box-shadow: inset 0 1px 2px rgba(1, 30, 43, 0.06);
-}
-.tj-rail-fill {
-  width: 100%;
-  height: 0%;
-  background: linear-gradient(to bottom, var(--tj-accent), var(--tj-accent-deep));
-  border-radius: 999px;
-  box-shadow: 0 0 12px var(--tj-fill-glow);
-  will-change: height;
-}
-/* paradas clickeables sobre el track */
-.tj-rail-stops {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding: 2px 0;
-}
-.tj-rail-stops button {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: none;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  font-family: inherit;
-}
-.tj-step-year {
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--tj-ink-mute);
-  background: rgba(241, 242, 243, 0.9);
-  padding: 2px 8px;
-  border-radius: 999px;
-  opacity: 0;
-  transform: translateX(6px);
-  transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
-}
-.tj-rail-stops button:hover .tj-step-year,
-.tj-rail-stops button.on .tj-step-year {
-  opacity: 1;
-  transform: translateX(0);
-}
-.tj-step-dot {
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 2.5px solid #c6ced4;
-  transition: all 0.25s ease;
-}
-.tj-rail-stops button:hover .tj-step-dot {
-  border-color: var(--tj-accent);
-}
-.tj-rail-stops button.on .tj-step-dot {
-  background: var(--tj-accent);
-  border-color: #ffffff;
-  box-shadow: 0 0 0 2px var(--tj-accent), 0 0 14px var(--tj-fill-glow);
-  transform: scale(1.15);
-}
-.tj-rail-stops button.on .tj-step-year {
-  color: var(--tj-accent);
-}
-
 /* ---------- Secciones ---------- */
 .tj-section {
   position: relative;
@@ -214,19 +123,97 @@ body.tj-mode .more-inline {
 }
 
 /* ============================================================
-   ESCENAS TIPO PÓSTER
-   Tarjeta arriba-izquierda · protagonista grande abajo-centro
-   (sangra del borde inferior) · plano lejano pequeño arriba-derecha
+   CAMINO LARGO A LA DERECHA
    ============================================================ */
 .tj-timeline {
   position: relative;
   z-index: 1;
+  padding-right: 96px; /* zona reservada para la línea + nav */
 }
+
+/* la línea recorre todo el viaje */
+.tj-track {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 44px;
+  width: 4px;
+  background: #ffffff;
+  border: 1px solid var(--tj-line);
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(1, 30, 43, 0.06);
+  z-index: 4;
+}
+.tj-fill {
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(to bottom, var(--tj-accent), var(--tj-accent-deep));
+  border-radius: 999px;
+  box-shadow: 0 0 12px var(--tj-fill-glow);
+  will-change: height;
+}
+
+/* ítem de navegación: año + dot, al ladito de la línea,
+   a la altura de su escena */
+.tj-stop {
+  position: absolute;
+  top: 50%;
+  right: -54px; /* centra el dot sobre la línea */
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  z-index: 6;
+}
+.tj-step-year {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tj-ink-mute);
+  background: rgba(241, 242, 243, 0.9);
+  padding: 2px 8px;
+  border-radius: 999px;
+  transition: color 0.35s ease;
+}
+.tj-step-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #c6ced4;
+  transition: all 0.35s ease;
+}
+.tj-stop:hover .tj-step-dot {
+  border-color: var(--tj-accent);
+}
+.tj-item.is-on .tj-step-dot {
+  background: var(--tj-accent);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 2px var(--tj-accent), 0 0 14px var(--tj-fill-glow);
+  transform: scale(1.15);
+}
+.tj-item.is-on .tj-step-year {
+  color: var(--tj-accent);
+}
+
+/* ============================================================
+   ESCENAS TIPO PÓSTER
+   Tarjeta a la izquierda (centrada vertical) · protagonista
+   GRANDE abajo a la derecha, sangrando del borde
+   ============================================================ */
 .tj-item {
   position: relative;
   min-height: 100vh;
-  padding: clamp(48px, 8vh, 90px) 0 0;
+  display: flex;
+  align-items: center;
   overflow: clip;
+  padding: 40px 0;
 }
 
 /* escena de planos: ocupa todo el item */
@@ -244,35 +231,33 @@ body.tj-mode .more-inline {
   width: 100%;
   height: auto;
 }
-/* protagonista: grande, abajo al centro, sangrando del borde */
+/* protagonista: grande, abajo a la derecha, sangrando del borde */
 .tj-plane--main {
-  left: 0;
-  right: 0;
-  bottom: -6%;
-  margin: 0 auto;
-  width: min(820px, 78vw);
+  right: -3%;
+  bottom: -9%;
+  width: min(940px, 72vw);
   z-index: 2;
 }
 .tj-plane--main img {
   animation: tj-drift 10s ease-in-out infinite;
   filter: drop-shadow(0 22px 34px rgba(1, 30, 43, 0.1));
 }
-/* plano lejano: pequeño, arriba a la derecha, tenue */
+/* plano lejano: pequeño, arriba a la izquierda, tenue */
 .tj-plane--far {
-  width: clamp(120px, 16vw, 220px);
-  top: 6%;
-  right: 8%;
+  width: clamp(120px, 15vw, 210px);
+  top: 7%;
+  left: 5%;
   z-index: 1;
   opacity: 0.6;
 }
 .tj-plane--far img {
   filter: blur(0.5px);
 }
-/* acompañante: plano medio, flota entre tarjeta y protagonista */
+/* acompañante: plano medio, entre la tarjeta y el protagonista */
 .tj-plane--companion {
-  width: clamp(160px, 20vw, 300px);
-  top: 26%;
-  right: 22%;
+  width: clamp(160px, 19vw, 280px);
+  top: 16%;
+  right: 34%;
   z-index: 3;
 }
 .tj-plane--companion img {
@@ -286,7 +271,7 @@ body.tj-mode .more-inline {
   50% { translate: 0 -14px; rotate: 1.2deg; }
 }
 
-/* tarjeta: arriba a la izquierda, sobre la escena */
+/* tarjeta: izquierda, centrada verticalmente en la escena */
 .tj-card {
   position: relative;
   z-index: 5;
@@ -294,8 +279,8 @@ body.tj-mode .more-inline {
   border: 1px solid var(--tj-line);
   border-radius: 18px;
   padding: clamp(24px, 3vw, 36px);
-  max-width: 620px;
-  margin-left: clamp(4px, 6vw, 96px);
+  max-width: 540px;
+  margin-left: clamp(4px, 5vw, 80px);
   box-shadow: 0 1px 2px rgba(1, 30, 43, 0.04), 0 8px 24px rgba(1, 30, 43, 0.06);
   transition: border-color 0.45s ease, box-shadow 0.45s ease;
 }
@@ -437,47 +422,54 @@ body.tj-mode .more-inline {
     margin: -84px -14px -96px;
     padding: 0 14px;
   }
-  .tj-rail {
-    right: 8px;
-    height: min(46vh, 420px);
+  .tj-timeline {
+    padding-right: 32px;
+  }
+  .tj-track {
+    right: 11px;
+    width: 3px;
+  }
+  .tj-stop {
+    right: -27px;
   }
   .tj-step-year { display: none; }
   .tj-step-dot {
-    width: 11px;
-    height: 11px;
+    width: 12px;
+    height: 12px;
+    border-width: 2.5px;
   }
   .tj-item {
     min-height: 0;
-    padding: 40px 0 0;
-    display: flex;
     flex-direction: column;
+    align-items: stretch;
     gap: 6px;
+    padding: 40px 0 0;
   }
   /* en móvil la escena fluye debajo de la tarjeta */
   .tj-stage {
     position: relative;
     inset: auto;
     order: 2;
-    height: 62vw;
-    max-height: 380px;
+    height: 64vw;
+    max-height: 400px;
   }
   .tj-plane--main {
-    width: min(420px, 88vw);
-    bottom: -4%;
+    width: min(440px, 90vw);
+    right: -4%;
+    bottom: -6%;
   }
   .tj-plane--far {
     top: 0;
-    right: 2%;
+    left: 2%;
   }
   .tj-plane--companion {
-    top: 8%;
-    right: 12%;
+    top: 4%;
+    right: 24%;
   }
   .tj-card {
     order: 1;
-    margin: 0 auto;
+    margin: 0;
     max-width: none;
-    width: calc(100% - 26px);
   }
 }
 

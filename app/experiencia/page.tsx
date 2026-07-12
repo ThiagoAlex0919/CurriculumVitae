@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { experience } from "@/lib/content";
@@ -36,7 +36,7 @@ const TX = {
 
 /* ------------------------------------------------------------------
    Historia visual por nodo (índice 0 = Bizagi ... 7 = Manuela Beltrán)
-   main = protagonista, grande, anclada abajo al centro de la escena.
+   main = protagonista, grande, abajo a la derecha de la escena.
    far  = plano lejano pequeño (anticipa la siguiente parada).
    companion = elemento flotante extra (plano medio).
    ------------------------------------------------------------------ */
@@ -67,7 +67,6 @@ export default function ExperienciaPage() {
 
   const timelineRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState("");
 
   /* Modo espacial en <body>, solo mientras la página vive */
   useEffect(() => {
@@ -75,7 +74,7 @@ export default function ExperienciaPage() {
     return () => document.body.classList.remove("tj-mode");
   }, []);
 
-  /* Motor de scroll: relleno del rail (tween ease-out) +
+  /* Motor de scroll: relleno de la línea larga (tween ease-out) +
      parallax de planos Z en cada escena */
   useEffect(() => {
     const timeline = timelineRef.current;
@@ -94,14 +93,14 @@ export default function ExperienciaPage() {
       const rect = timeline.getBoundingClientRect();
       const vh = window.innerHeight;
 
-      /* progreso objetivo del viaje completo */
+      /* progreso objetivo: cuánto del camino pasó el centro del viewport */
       const target = Math.min(Math.max((vh * 0.55 - rect.top) / rect.height, 0), 1);
 
       /* tween ease-out: se acerca suavemente al objetivo */
       shown += (target - shown) * (prefersReduced ? 1 : 0.09);
       fill.style.height = `${shown * 100}%`;
 
-      /* tarjetas: se encienden cuando el relleno las alcanza */
+      /* nodos: se encienden cuando el relleno los alcanza */
       const filledPx = shown * rect.height;
       items.forEach((it) => {
         const y = it.offsetTop + it.offsetHeight * 0.5 - timeline.offsetTop;
@@ -129,7 +128,7 @@ export default function ExperienciaPage() {
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  /* Revelado de tarjetas + nodo activo para el rail */
+  /* Revelado de tarjetas */
   useEffect(() => {
     const reveals = document.querySelectorAll(".tj-reveal");
     const io = new IntersectionObserver(
@@ -137,18 +136,7 @@ export default function ExperienciaPage() {
       { threshold: 0.15 }
     );
     reveals.forEach((el) => io.observe(el));
-
-    const sections = document.querySelectorAll(".tj-item[id]");
-    const io2 = new IntersectionObserver(
-      (es) => es.forEach((en) => en.isIntersecting && setActive(en.target.id)),
-      { threshold: 0.45 }
-    );
-    sections.forEach((el) => io2.observe(el));
-
-    return () => {
-      io.disconnect();
-      io2.disconnect();
-    };
+    return () => io.disconnect();
   }, []);
 
   const goTo = (id: string) => {
@@ -162,31 +150,6 @@ export default function ExperienciaPage() {
         {/* Universo de fondo: constelaciones sutiles sobre el canvas */}
         <div className="tj-stars tj-stars--far" />
         <div className="tj-stars tj-stars--near" />
-
-        {/* Rail derecho: línea de tiempo + navegación en uno */}
-        <nav className="tj-rail" aria-label="Timeline">
-          <div className="tj-rail-track" aria-hidden>
-            <div className="tj-rail-fill" ref={fillRef} />
-          </div>
-          <div className="tj-rail-stops">
-            {journey.map((j, i) => {
-              const id = `tj-stop-${i}`;
-              return (
-                <button
-                  key={id}
-                  className={active === id ? "on" : ""}
-                  onClick={() => goTo(id)}
-                  aria-label={`${j.company} (${j.period})`}
-                >
-                  <span className="tj-step-year">
-                    {i === 0 ? L(TX.today) : startYear(j.period)}
-                  </span>
-                  <span className="tj-step-dot" />
-                </button>
-              );
-            })}
-          </div>
-        </nav>
 
         {/* Hero */}
         <section className="tj-section tj-hero" id="tj-hero">
@@ -204,8 +167,13 @@ export default function ExperienciaPage() {
           />
         </section>
 
-        {/* Escenas: del presente al despegue */}
+        {/* Camino largo: la línea recorre todas las escenas y se
+            rellena con el viaje; los ítems de navegación van al ladito */}
         <div className="tj-timeline" ref={timelineRef}>
+          <div className="tj-track" aria-hidden>
+            <div className="tj-fill" ref={fillRef} />
+          </div>
+
           {journey.map((j, i) => {
             const id = `tj-stop-${i}`;
             const isFirst = i === 0;
@@ -214,7 +182,7 @@ export default function ExperienciaPage() {
             const sc = SCENES[i % SCENES.length];
             return (
               <article className="tj-item" id={id} key={id}>
-                {/* Escena con planos en Z: protagonista abajo al centro */}
+                {/* Escena con planos en Z: protagonista abajo a la derecha */}
                 <div className="tj-stage" aria-hidden>
                   {sc.far && (
                     <div
@@ -236,6 +204,18 @@ export default function ExperienciaPage() {
                     <img src={sc.main} alt="" loading="lazy" />
                   </div>
                 </div>
+
+                {/* Ítem de navegación, al lado de la línea */}
+                <button
+                  className="tj-stop"
+                  onClick={() => goTo(id)}
+                  aria-label={`${j.company} (${j.period})`}
+                >
+                  <span className="tj-step-year">
+                    {isFirst ? L(TX.today) : startYear(j.period)}
+                  </span>
+                  <span className="tj-step-dot" />
+                </button>
 
                 <div className={`tj-card tj-reveal ${isFirst ? "tj-card--featured" : ""}`}>
                   <div className="tj-mission">
