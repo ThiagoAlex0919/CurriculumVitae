@@ -557,7 +557,7 @@ export const sideNav: {
     short: { es: "Resumen", en: "Resume" },
   },
   {
-    href: "/#experiencia",
+    href: "/experiencia",
     icon: "career",
     sub: { es: "Experiencia", en: "Experience" },
     title: { es: "Trayectoria", en: "Career Journey" },

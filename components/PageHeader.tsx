@@ -17,8 +17,10 @@ export default function PageHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const label = pathname.startsWith("/trayectoria")
+  const label = pathname.startsWith("/experiencia")
     ? t(ui.nav.work)
+    : pathname.startsWith("/trayectoria")
+    ? t({ es: "Portafolio", en: "Portfolio" })
     : pathname.startsWith("/laboratorio")
     ? t(ui.nav.lab)
     : pathname.startsWith("/contacto")

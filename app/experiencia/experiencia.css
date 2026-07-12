@@ -418,3 +418,54 @@ body.tj-mode .mobile-credits {
     transition: none;
   }
 }
+
+/* ---------- Chips de funciones ---------- */
+.tj-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.tj-chip {
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--tj-line);
+  color: var(--tj-ink-soft);
+  background: rgba(94, 234, 212, 0.06);
+}
+
+/* Tarjeta destacada (mundo actual) */
+.tj-card--featured {
+  border-color: rgba(94, 234, 212, 0.45);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(94, 234, 212, 0.12);
+}
+
+/* CTAs finales */
+.tj-final-ctas {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.tj-cta--ghost {
+  border-color: var(--tj-line);
+  color: var(--tj-ink-soft);
+}
+.tj-cta--ghost:hover {
+  background: var(--tj-ink);
+  border-color: var(--tj-ink);
+  color: #050815;
+}
+
+/* "leer más" de ReadMore sobre fondo oscuro */
+body.tj-mode .more-inline {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: var(--tj-accent);
+  font: inherit;
+}
