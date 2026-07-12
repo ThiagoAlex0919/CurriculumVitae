@@ -86,11 +86,33 @@ const SCENES: Layer[][] = [
       style: { top: "5%", left: "6%", width: "clamp(150px, 19vw, 280px)", zIndex: 0, opacity: 0.65 },
     },
   ],
-  /* 1 · Inter Rapidísimo — Saturno grande, astronauta flotando, Tierra al fondo */
+  /* 1 · Inter Rapidísimo — frente: Saturno + astronauta flotando;
+     plano medio: estrellas; fondo: ovni */
   [
-    { src: `${ART}/saturno.png`, cls: "main", speed: -0.05 },
-    { src: `${ART}/astronauta.png`, cls: "companion", speed: -0.12 },
-    { src: `${ART}/tierra.png`, cls: "far", speed: 0.22 },
+    {
+      src: `${ART}/saturno.png`,
+      cls: "free",
+      speed: -0.05,
+      style: { bottom: "-8%", right: "-3%", width: "min(860px, 64vw)", zIndex: 3 },
+    },
+    {
+      src: `${ART}/astronauta2.png`,
+      cls: "free",
+      speed: -0.11,
+      style: { top: "10%", right: "26%", width: "clamp(280px, 32vw, 470px)", zIndex: 4 },
+    },
+    {
+      src: `${ART}/estrellas.png`,
+      cls: "free",
+      speed: 0.1,
+      style: { top: "0", left: "0", width: "100%", zIndex: 1, opacity: 0.75 },
+    },
+    {
+      src: `${ART}/ovni.png`,
+      cls: "free",
+      speed: 0.26,
+      style: { top: "4%", left: "7%", width: "clamp(140px, 17vw, 250px)", zIndex: 0, opacity: 0.6 },
+    },
   ],
   /* 2 · Entelgy (WebMaster) — la Tierra en primer plano */
   [
