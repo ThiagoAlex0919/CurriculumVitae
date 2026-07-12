@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
 import { ui } from "@/lib/content";
 
-export default function PageHeader() {
+export default function PageHeader({ extra }: { extra?: React.ReactNode }) {
   const { t, locale, setLocale } = useI18n();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -30,6 +30,8 @@ export default function PageHeader() {
   return (
     <div className={`content-header ${scrolled ? "is-stuck" : ""}`}>
       <span className="ch-label">{label}</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      {extra}
       <div className="lang" role="group" aria-label="Language">
         <button
           className={locale === "es" ? "on" : ""}
@@ -45,6 +47,7 @@ export default function PageHeader() {
         >
           EN
         </button>
+      </div>
       </div>
     </div>
   );

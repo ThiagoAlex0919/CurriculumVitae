@@ -6,6 +6,7 @@ import { useI18n } from "@/lib/i18n";
 import { experience } from "@/lib/content";
 import PageHeader from "@/components/PageHeader";
 import ReadMore from "@/components/ReadMore";
+import Icon from "@/components/Icon";
 import "./experiencia.css";
 
 /* Textos locales de la sección (aislados de lib/content) */
@@ -160,11 +161,27 @@ export default function ExperienciaPage() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState("tj-hero");
+  const [dark, setDark] = useState(false);
+
+  /* tema: claro (canvas de puntos) u oscuro (espacio profundo) */
+  useEffect(() => {
+    const stored = window.localStorage.getItem("exp-theme");
+    if (stored === "dark") setDark(true);
+  }, []);
+  useEffect(() => {
+    document.body.classList.toggle("tj-dark", dark);
+    try {
+      window.localStorage.setItem("exp-theme", dark ? "dark" : "light");
+    } catch {}
+  }, [dark]);
 
   /* Modo espacial en <body>, solo mientras la página vive */
   useEffect(() => {
     document.body.classList.add("tj-mode");
-    return () => document.body.classList.remove("tj-mode");
+    return () => {
+      document.body.classList.remove("tj-mode");
+      document.body.classList.remove("tj-dark");
+    };
   }, []);
 
   /* Motor de scroll: relleno de la línea larga (tween ease-out) +
@@ -177,6 +194,7 @@ export default function ExperienciaPage() {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const items = Array.from(timeline.querySelectorAll<HTMLElement>(".tj-item"));
+    const stops = Array.from(timeline.querySelectorAll<HTMLElement>(".tj-stop"));
     const stages = Array.from(document.querySelectorAll<HTMLElement>(".tj-stage"));
 
     let raf = 0;
@@ -195,9 +213,15 @@ export default function ExperienciaPage() {
 
       /* nodos: se encienden cuando el relleno los alcanza */
       const filledPx = shown * rect.height;
-      items.forEach((it) => {
-        const y = it.offsetTop + it.offsetHeight * 0.5 - timeline.offsetTop;
-        it.classList.toggle("is-on", filledPx >= y);
+      items.forEach((it, idx) => {
+        const y = it.offsetTop + it.offsetHeight * 0.5;
+        const on = filledPx >= y;
+        it.classList.toggle("is-on", on);
+        const st = stops[idx];
+        if (st) {
+          st.style.top = `${y}px`;
+          st.classList.toggle("is-on", on);
+        }
       });
 
       /* parallax: cada capa se desplaza según su data-speed y la
@@ -249,7 +273,18 @@ export default function ExperienciaPage() {
 
   return (
     <>
-      <PageHeader />
+      <PageHeader
+        extra={
+          <button
+            className="tj-theme-btn"
+            onClick={() => setDark((d) => !d)}
+            aria-label={dark ? "Modo claro" : "Modo oscuro"}
+            title={dark ? "Modo claro" : "Modo oscuro"}
+          >
+            <Icon name={dark ? "sun" : "moon"} size={16} />
+          </button>
+        }
+      />
       <div className="tj-scene">
         {/* Universo de fondo: constelaciones sutiles sobre el canvas */}
         <div className="tj-stars tj-stars--far" />
@@ -303,6 +338,16 @@ export default function ExperienciaPage() {
             <div className="tj-fill" ref={fillRef} />
           </div>
 
+          {/* marcadores del camino: posicionados por JS sobre la línea */}
+          {journey.map((j, i) => (
+            <div className="tj-stop" key={`stop-${i}`} aria-hidden>
+              <span className="tj-step-dot" />
+              <span className="tj-step-year">
+                {i === 0 ? L(TX.today) : startYear(j.period)}
+              </span>
+            </div>
+          ))}
+
           {journey.map((j, i) => {
             const id = `tj-stop-${i}`;
             const isFirst = i === 0;
@@ -326,14 +371,6 @@ export default function ExperienciaPage() {
                       <img src={ly.src} alt="" loading={i === 0 ? "eager" : "lazy"} />
                     </div>
                   ))}
-                </div>
-
-                {/* Marcador sobre la línea (camino) */}
-                <div className="tj-stop" aria-hidden>
-                  <span className="tj-step-dot" />
-                  <span className="tj-step-year">
-                    {isFirst ? L(TX.today) : startYear(j.period)}
-                  </span>
                 </div>
 
                 <div className={`tj-card tj-reveal ${isFirst ? "tj-card--featured" : ""}`}>

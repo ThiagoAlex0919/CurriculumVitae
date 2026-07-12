@@ -68,6 +68,25 @@ body.tj-mode .more-inline {
   background-size: 420px 360px;
 }
 
+/* ---------- Botón de tema (luna/sol) ---------- */
+.tj-theme-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid var(--tj-line);
+  background: transparent;
+  color: var(--tj-ink);
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.tj-theme-btn:hover {
+  border-color: var(--tj-accent);
+  color: var(--tj-accent);
+}
+
 /* ---------- Bullets de control de navegación (fijos) ---------- */
 .tj-stepper {
   position: fixed;
@@ -198,17 +217,12 @@ body.tj-mode .more-inline {
    a la altura de su escena */
 .tj-stop {
   position: absolute;
-  top: 50%;
-  left: calc(100% + 62px); /* centro exacto de la línea */
-  transform: translate(-50%, -50%);
+  right: 58px; /* centro del track (right 56 + mitad de 4px) */
+  transform: translate(50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 7px;
-  background: none;
-  border: 0;
-  padding: 0;
-  font-family: inherit;
   z-index: 6;
 }
 .tj-step-year {
@@ -230,16 +244,13 @@ body.tj-mode .more-inline {
   border: 3px solid #c6ced4;
   transition: all 0.35s ease;
 }
-.tj-stop:hover .tj-step-dot {
-  border-color: var(--tj-accent);
-}
-.tj-item.is-on .tj-step-dot {
+.tj-stop.is-on .tj-step-dot {
   background: var(--tj-accent);
   border-color: #ffffff;
   box-shadow: 0 0 0 2px var(--tj-accent), 0 0 14px var(--tj-fill-glow);
   transform: scale(1.15);
 }
-.tj-item.is-on .tj-step-year {
+.tj-stop.is-on .tj-step-year {
   color: var(--tj-accent);
 }
 
@@ -490,7 +501,7 @@ body.tj-mode .more-inline {
     width: 3px;
   }
   .tj-stop {
-    left: calc(100% + 21.5px);
+    right: 14.5px;
   }
   .tj-gap {
     height: 26vh;
@@ -553,3 +564,90 @@ body.tj-mode .more-inline {
     transition: none;
   }
 }
+
+
+/* ============================================================
+   TEMA OSCURO — espacio profundo (toggle luna/sol)
+   Las ilustraciones line-art se invierten (negro -> blanco) y
+   hue-rotate devuelve el azul a su sitio.
+   ============================================================ */
+body.tj-mode.tj-dark {
+  --tj-ink: #eef2ff;
+  --tj-ink-soft: #aab4d4;
+  --tj-ink-mute: #6b76a0;
+  --tj-line: rgba(140, 160, 220, 0.2);
+  --tj-card: rgba(13, 20, 44, 0.82);
+  background-color: #050815;
+  background-image: none;
+}
+body.tj-mode.tj-dark .app-shell::before,
+body.tj-mode.tj-dark .app-shell::after {
+  background: transparent;
+}
+body.tj-mode.tj-dark .content-header {
+  background: rgba(10, 16, 36, 0.85);
+  border-color: var(--tj-line);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+body.tj-mode.tj-dark .content-header .ch-label {
+  color: var(--tj-ink-soft);
+}
+body.tj-mode.tj-dark .content-header .lang {
+  border-color: var(--tj-line);
+}
+body.tj-mode.tj-dark .content-header .lang button {
+  color: var(--tj-ink-mute);
+}
+body.tj-mode.tj-dark .content-header .lang button.on {
+  background: var(--tj-accent);
+  color: #ffffff;
+}
+body.tj-mode.tj-dark .mobile-credits {
+  color: var(--tj-ink-mute);
+}
+
+/* ilustraciones: invertidas para leerse en oscuro */
+.tj-dark .tj-plane img,
+.tj-dark .tj-hero-astro {
+  filter: invert(1) hue-rotate(195deg) drop-shadow(0 0 26px rgba(110, 150, 255, 0.12));
+}
+
+/* constelaciones del canvas */
+.tj-dark .tj-stars {
+  filter: invert(1);
+}
+
+/* línea y marcadores */
+.tj-dark .tj-track {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: transparent;
+  box-shadow: none;
+}
+.tj-dark .tj-step-dot {
+  background: #050815;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.tj-dark .tj-stop.is-on .tj-step-dot {
+  background: var(--tj-accent);
+  border-color: #050815;
+}
+.tj-dark .tj-step-year {
+  background: rgba(10, 16, 36, 0.85);
+}
+
+/* tarjetas y chips */
+.tj-dark .tj-card {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+}
+.tj-dark .tj-chip {
+  background: rgba(94, 160, 234, 0.08);
+}
+.tj-dark .tj-cta--ghost:hover {
+  background: var(--tj-ink);
+  color: #050815;
+}
+
+/* nubes-plataforma de la luna/ignición mantienen su blanco al invertir,
+   el suelo blanco se vuelve oscuro: correcto para el modo noche */

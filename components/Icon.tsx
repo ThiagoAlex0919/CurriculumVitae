@@ -28,6 +28,8 @@ const map: Record<string, string> = {
   phone: "ph-phone",
   plus: "ph-plus",
   minus: "ph-minus",
+  moon: "ph-moon",
+  sun: "ph-sun",
 };
 
 export default function Icon({ name, size = 20, weight = "regular" }: IconProps) {
