@@ -68,6 +68,67 @@ body.tj-mode .more-inline {
   background-size: 420px 360px;
 }
 
+/* ---------- Bullets de control de navegación (fijos) ---------- */
+.tj-stepper {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-end;
+}
+.tj-stepper button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  background: none;
+  border: 0;
+  padding: 2px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.tj-nav-year {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tj-ink-mute);
+  background: rgba(241, 242, 243, 0.92);
+  padding: 2px 7px;
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
+}
+.tj-stepper button:hover .tj-nav-year,
+.tj-stepper button.on .tj-nav-year {
+  opacity: 1;
+  transform: translateX(0);
+}
+.tj-nav-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 2px solid var(--tj-ink-mute);
+  background: transparent;
+  transition: all 0.25s ease;
+}
+.tj-stepper button:hover .tj-nav-dot {
+  border-color: var(--tj-accent);
+}
+.tj-stepper button.on .tj-nav-dot {
+  background: var(--tj-accent);
+  border-color: var(--tj-accent);
+  box-shadow: 0 0 0 3px rgba(47, 128, 237, 0.18);
+  transform: scale(1.15);
+}
+.tj-stepper button.on .tj-nav-year {
+  color: var(--tj-accent);
+}
+
 /* ---------- Secciones ---------- */
 .tj-section {
   position: relative;
@@ -168,7 +229,6 @@ body.tj-mode .more-inline {
   background: none;
   border: 0;
   padding: 0;
-  cursor: pointer;
   font-family: inherit;
   z-index: 6;
 }
@@ -269,6 +329,13 @@ body.tj-mode .more-inline {
 }
 .tj-plane--companion img {
   animation: tj-drift 6s ease-in-out infinite reverse;
+}
+.tj-plane--free {
+  /* posición/tamaño vienen del `style` inline de la capa */
+  z-index: 1;
+}
+.tj-plane--free img {
+  animation: tj-drift 8s ease-in-out infinite;
 }
 .tj-flip img {
   transform: scaleX(-1);
@@ -443,6 +510,7 @@ body.tj-mode .more-inline {
     margin-top: 26vh;
   }
   .tj-step-year { display: none; }
+  .tj-stepper { display: none; }
   .tj-step-dot {
     width: 12px;
     height: 12px;

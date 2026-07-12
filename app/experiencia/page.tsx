@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { experience } from "@/lib/content";
@@ -34,22 +34,74 @@ const TX = {
   today: { es: "Hoy", en: "Now" },
 };
 
-/* ------------------------------------------------------------------
-   Historia visual por nodo (índice 0 = Bizagi ... 7 = Manuela Beltrán)
-   main = protagonista, grande, abajo a la derecha de la escena.
-   far  = plano lejano pequeño (anticipa la siguiente parada).
-   companion = elemento flotante extra (plano medio).
-   ------------------------------------------------------------------ */
+/* ==================================================================
+   MOTOR DE CAPAS POR ESCENA
+   Cada escena es un array de capas. Cada capa:
+   - src:   ruta de la ilustración (PNG transparente en /public)
+   - cls:   "main" (protagonista, abajo-derecha, grande)
+            "far" (lejano, arriba-izquierda, tenue)
+            "companion" (plano medio flotante)
+            "free" (sin preset: posiciónala tú con `style`)
+   - speed: velocidad de parallax. Negativo = se mueve contra el
+            scroll (se siente cercano). Positivo = a favor (lejano).
+            Rango útil: -0.15 a 0.3
+   - style: overrides de posición/tamaño/z (top, left, right, bottom,
+            width, zIndex, opacity)
+   - flip:  espeja horizontalmente (para reusar ilustraciones)
+
+   Para añadir una capa nueva (ej. satélite en la escena de Bizagi):
+   { src: `${ART}/satelite.png`, cls: "free", speed: 0.12,
+     style: { top: "18%", right: "30%", width: "140px", zIndex: 1 } }
+   ================================================================== */
 const ART = "/ilustraciones";
-const SCENES = [
-  { main: `${ART}/moon.png`, far: `${ART}/saturno.png` }, // Bizagi: en la luna, Saturno a lo lejos
-  { main: `${ART}/saturno.png`, far: `${ART}/tierra.png`, companion: `${ART}/astronauta.png` }, // Inter Rapidísimo
-  { main: `${ART}/tierra.png`, far: `${ART}/astronauta.png` }, // Entelgy (WebMaster)
-  { main: `${ART}/astronauta.png`, far: `${ART}/saturno.png`, flip: true }, // Área Andina
-  { main: `${ART}/saturno.png`, far: `${ART}/tierra.png`, flip: true, farFlip: true }, // Entelgy (Liferay)
-  { main: `${ART}/tierra.png`, far: `${ART}/astronauta.png`, flip: true, farFlip: true }, // Brain Media
-  { main: `${ART}/astronauta.png`, far: `${ART}/innicion_.png` }, // ESAP: se ve venir el despegue
-  { main: `${ART}/innicion_.png` }, // Manuela Beltrán: ignición
+
+type Layer = {
+  src: string;
+  speed: number;
+  cls?: "main" | "far" | "companion" | "free";
+  style?: CSSProperties;
+  flip?: boolean;
+};
+
+const SCENES: Layer[][] = [
+  /* 0 · Bizagi — en la luna, Saturno a lo lejos */
+  [
+    { src: `${ART}/moon.png`, cls: "main", speed: -0.05 },
+    { src: `${ART}/saturno.png`, cls: "far", speed: 0.22 },
+  ],
+  /* 1 · Inter Rapidísimo — Saturno grande, astronauta flotando, Tierra al fondo */
+  [
+    { src: `${ART}/saturno.png`, cls: "main", speed: -0.05 },
+    { src: `${ART}/astronauta.png`, cls: "companion", speed: -0.12 },
+    { src: `${ART}/tierra.png`, cls: "far", speed: 0.22 },
+  ],
+  /* 2 · Entelgy (WebMaster) — la Tierra en primer plano */
+  [
+    { src: `${ART}/tierra.png`, cls: "main", speed: -0.05 },
+    { src: `${ART}/astronauta.png`, cls: "far", speed: 0.22 },
+  ],
+  /* 3 · Área Andina — astronauta protagonista */
+  [
+    { src: `${ART}/astronauta.png`, cls: "main", speed: -0.05, flip: true },
+    { src: `${ART}/saturno.png`, cls: "far", speed: 0.22 },
+  ],
+  /* 4 · Entelgy (Liferay) */
+  [
+    { src: `${ART}/saturno.png`, cls: "main", speed: -0.05, flip: true },
+    { src: `${ART}/tierra.png`, cls: "far", speed: 0.22, flip: true },
+  ],
+  /* 5 · Brain Media */
+  [
+    { src: `${ART}/tierra.png`, cls: "main", speed: -0.05, flip: true },
+    { src: `${ART}/astronauta.png`, cls: "far", speed: 0.22, flip: true },
+  ],
+  /* 6 · ESAP — se ve venir el despegue */
+  [
+    { src: `${ART}/astronauta.png`, cls: "main", speed: -0.05 },
+    { src: `${ART}/innicion_.png`, cls: "far", speed: 0.22 },
+  ],
+  /* 7 · Manuela Beltrán — ignición */
+  [{ src: `${ART}/innicion_.png`, cls: "main", speed: -0.05 }],
 ];
 
 const startYear = (period: string) => {
@@ -67,6 +119,7 @@ export default function ExperienciaPage() {
 
   const timelineRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState("");
 
   /* Modo espacial en <body>, solo mientras la página vive */
   useEffect(() => {
@@ -75,7 +128,7 @@ export default function ExperienciaPage() {
   }, []);
 
   /* Motor de scroll: relleno de la línea larga (tween ease-out) +
-     parallax de planos Z en cada escena */
+     parallax de capas en cada escena */
   useEffect(() => {
     const timeline = timelineRef.current;
     const fill = fillRef.current;
@@ -107,8 +160,8 @@ export default function ExperienciaPage() {
         it.classList.toggle("is-on", filledPx >= y);
       });
 
-      /* parallax de planos: cada plano se desplaza según su
-         data-speed y la distancia de la escena al centro del viewport */
+      /* parallax: cada capa se desplaza según su data-speed y la
+         distancia de la escena al centro del viewport */
       if (!prefersReduced) {
         stages.forEach((st) => {
           const r = st.getBoundingClientRect();
@@ -128,7 +181,7 @@ export default function ExperienciaPage() {
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  /* Revelado de tarjetas */
+  /* Revelado de tarjetas + escena activa (bullets de navegación) */
   useEffect(() => {
     const reveals = document.querySelectorAll(".tj-reveal");
     const io = new IntersectionObserver(
@@ -136,7 +189,18 @@ export default function ExperienciaPage() {
       { threshold: 0.15 }
     );
     reveals.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+
+    const sections = document.querySelectorAll(".tj-item[id]");
+    const io2 = new IntersectionObserver(
+      (es) => es.forEach((en) => en.isIntersecting && setActive(en.target.id)),
+      { threshold: 0.45 }
+    );
+    sections.forEach((el) => io2.observe(el));
+
+    return () => {
+      io.disconnect();
+      io2.disconnect();
+    };
   }, []);
 
   const goTo = (id: string) => {
@@ -150,6 +214,26 @@ export default function ExperienciaPage() {
         {/* Universo de fondo: constelaciones sutiles sobre el canvas */}
         <div className="tj-stars tj-stars--far" />
         <div className="tj-stars tj-stars--near" />
+
+        {/* Bullets de control de navegación (fijos, al lado de la línea) */}
+        <nav className="tj-stepper" aria-label="Navegación de misiones">
+          {journey.map((j, i) => {
+            const id = `tj-stop-${i}`;
+            return (
+              <button
+                key={id}
+                className={active === id ? "on" : ""}
+                onClick={() => goTo(id)}
+                aria-label={`${j.company} (${j.period})`}
+              >
+                <span className="tj-nav-year">
+                  {i === 0 ? L(TX.today) : startYear(j.period)}
+                </span>
+                <span className="tj-nav-dot" />
+              </button>
+            );
+          })}
+        </nav>
 
         {/* Hero */}
         <section className="tj-section tj-hero" id="tj-hero">
@@ -167,8 +251,7 @@ export default function ExperienciaPage() {
           />
         </section>
 
-        {/* Camino largo: la línea recorre todas las escenas y se
-            rellena con el viaje; los ítems de navegación van al ladito */}
+        {/* Camino largo: la línea recorre todas las escenas */}
         <div className="tj-timeline" ref={timelineRef}>
           <div className="tj-track" aria-hidden>
             <div className="tj-fill" ref={fillRef} />
@@ -179,43 +262,32 @@ export default function ExperienciaPage() {
             const isFirst = i === 0;
             const isLast = i === total - 1;
             const num = total - i; /* cronológico: MB = 01, Bizagi = 08 */
-            const sc = SCENES[i % SCENES.length];
+            const layers = SCENES[i % SCENES.length];
             return (
               <article className="tj-item" id={id} key={id}>
-                {/* Escena con planos en Z: protagonista abajo a la derecha */}
+                {/* Escena: n capas con parallax en Z */}
                 <div className="tj-stage" aria-hidden>
-                  {sc.far && (
+                  {layers.map((ly, k) => (
                     <div
-                      className={`tj-plane tj-plane--far ${sc.farFlip ? "tj-flip" : ""}`}
-                      data-speed="0.22"
+                      key={k}
+                      className={`tj-plane tj-plane--${ly.cls ?? "free"} ${
+                        ly.flip ? "tj-flip" : ""
+                      }`}
+                      data-speed={ly.speed}
+                      style={ly.style}
                     >
-                      <img src={sc.far} alt="" loading="lazy" />
+                      <img src={ly.src} alt="" loading="lazy" />
                     </div>
-                  )}
-                  {sc.companion && (
-                    <div className="tj-plane tj-plane--companion" data-speed="-0.12">
-                      <img src={sc.companion} alt="" loading="lazy" />
-                    </div>
-                  )}
-                  <div
-                    className={`tj-plane tj-plane--main ${sc.flip ? "tj-flip" : ""}`}
-                    data-speed="-0.05"
-                  >
-                    <img src={sc.main} alt="" loading="lazy" />
-                  </div>
+                  ))}
                 </div>
 
-                {/* Ítem de navegación, al lado de la línea */}
-                <button
-                  className="tj-stop"
-                  onClick={() => goTo(id)}
-                  aria-label={`${j.company} (${j.period})`}
-                >
+                {/* Marcador sobre la línea (camino) */}
+                <div className="tj-stop" aria-hidden>
+                  <span className="tj-step-dot" />
                   <span className="tj-step-year">
                     {isFirst ? L(TX.today) : startYear(j.period)}
                   </span>
-                  <span className="tj-step-dot" />
-                </button>
+                </div>
 
                 <div className={`tj-card tj-reveal ${isFirst ? "tj-card--featured" : ""}`}>
                   <div className="tj-mission">
