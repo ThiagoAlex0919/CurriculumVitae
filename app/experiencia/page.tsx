@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { Fragment, useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { experience } from "@/lib/content";
@@ -50,7 +50,7 @@ const TX = {
    - flip:  espeja horizontalmente (para reusar ilustraciones)
 
    Para añadir una capa nueva (ej. satélite en la escena de Bizagi):
-   { src: `${ART}/satelite.png`, cls: "free", speed: 0.12,
+   { src: `${ART}/satelite.webp`, cls: "free", speed: 0.12,
      style: { top: "18%", right: "30%", width: "140px", zIndex: 1 } }
    ================================================================== */
 const ART = "/ilustraciones";
@@ -68,22 +68,22 @@ const SCENES: Layer[][] = [
      plano medio y Saturno al fondo */
   [
     {
-      src: `${ART}/moon.png`,
+      src: `${ART}/moon.webp`,
       cls: "free",
-      speed: -0.05,
+      speed: -0.08,
       /* full-bleed: los bordes del lienzo quedan fuera de la escena */
       style: { bottom: "-14%", left: "-2%", width: "104%", zIndex: 3 },
     },
     {
-      src: `${ART}/estrellas.png`,
+      src: `${ART}/estrellas.webp`,
       cls: "free",
-      speed: 0.1,
+      speed: 0.14,
       style: { top: "0", left: "0", width: "100%", zIndex: 1, opacity: 0.75 },
     },
     {
-      src: `${ART}/saturno.png`,
+      src: `${ART}/saturno.webp`,
       cls: "free",
-      speed: 0.26,
+      speed: 0.34,
       style: { top: "5%", left: "6%", width: "clamp(150px, 19vw, 280px)", zIndex: 0, opacity: 0.65 },
     },
   ],
@@ -91,57 +91,57 @@ const SCENES: Layer[][] = [
      plano medio: estrellas; fondo: ovni */
   [
     {
-      src: `${ART}/saturno.png`,
+      src: `${ART}/saturno.webp`,
       cls: "free",
-      speed: -0.05,
+      speed: -0.08,
       style: { bottom: "-8%", right: "-3%", width: "min(860px, 64vw)", zIndex: 3 },
     },
     {
-      src: `${ART}/astronauta2.png`,
+      src: `${ART}/astronauta2.webp`,
       cls: "free",
-      speed: -0.07 /* casi la misma que Saturno para que viajen juntos */,
+      speed: -0.11 /* casi la misma que Saturno para que viajen juntos */,
       style: { top: "26%", right: "18%", width: "clamp(280px, 32vw, 460px)", zIndex: 4 },
     },
     {
-      src: `${ART}/estrellas.png`,
+      src: `${ART}/estrellas.webp`,
       cls: "free",
-      speed: 0.1,
+      speed: 0.14,
       style: { top: "0", left: "0", width: "100%", zIndex: 1, opacity: 0.75 },
     },
     {
-      src: `${ART}/ovni.png`,
+      src: `${ART}/ovni.webp`,
       cls: "free",
-      speed: 0.26,
+      speed: 0.34,
       style: { top: "4%", left: "7%", width: "clamp(140px, 17vw, 250px)", zIndex: 0, opacity: 0.6 },
     },
   ],
   /* 2 · Entelgy (WebMaster) — la Tierra en primer plano */
   [
-    { src: `${ART}/tierra.png`, cls: "main", speed: -0.05 },
-    { src: `${ART}/astronauta.png`, cls: "far", speed: 0.22 },
+    { src: `${ART}/tierra.webp`, cls: "main", speed: -0.08 },
+    { src: `${ART}/astronauta.webp`, cls: "far", speed: 0.3 },
   ],
   /* 3 · Área Andina — astronauta protagonista */
   [
-    { src: `${ART}/astronauta.png`, cls: "main", speed: -0.05, flip: true },
-    { src: `${ART}/saturno.png`, cls: "far", speed: 0.22 },
+    { src: `${ART}/astronauta.webp`, cls: "main", speed: -0.08, flip: true },
+    { src: `${ART}/saturno.webp`, cls: "far", speed: 0.3 },
   ],
   /* 4 · Entelgy (Liferay) */
   [
-    { src: `${ART}/saturno.png`, cls: "main", speed: -0.05, flip: true },
-    { src: `${ART}/tierra.png`, cls: "far", speed: 0.22, flip: true },
+    { src: `${ART}/saturno.webp`, cls: "main", speed: -0.08, flip: true },
+    { src: `${ART}/tierra.webp`, cls: "far", speed: 0.3, flip: true },
   ],
   /* 5 · Brain Media */
   [
-    { src: `${ART}/tierra.png`, cls: "main", speed: -0.05, flip: true },
-    { src: `${ART}/astronauta.png`, cls: "far", speed: 0.22, flip: true },
+    { src: `${ART}/tierra.webp`, cls: "main", speed: -0.08, flip: true },
+    { src: `${ART}/astronauta.webp`, cls: "far", speed: 0.3, flip: true },
   ],
   /* 6 · ESAP — se ve venir el despegue */
   [
-    { src: `${ART}/astronauta.png`, cls: "main", speed: -0.05 },
-    { src: `${ART}/innicion_.png`, cls: "far", speed: 0.22 },
+    { src: `${ART}/astronauta.webp`, cls: "main", speed: -0.08 },
+    { src: `${ART}/innicion_.webp`, cls: "far", speed: 0.3 },
   ],
   /* 7 · Manuela Beltrán — ignición */
-  [{ src: `${ART}/innicion_.png`, cls: "main", speed: -0.05 }],
+  [{ src: `${ART}/innicion_.webp`, cls: "main", speed: -0.08 }],
 ];
 
 const startYear = (period: string) => {
@@ -159,7 +159,7 @@ export default function ExperienciaPage() {
 
   const timelineRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState("");
+  const [active, setActive] = useState("tj-hero");
 
   /* Modo espacial en <body>, solo mientras la página vive */
   useEffect(() => {
@@ -230,7 +230,7 @@ export default function ExperienciaPage() {
     );
     reveals.forEach((el) => io.observe(el));
 
-    const sections = document.querySelectorAll(".tj-item[id]");
+    const sections = document.querySelectorAll(".tj-item[id], #tj-hero");
     const io2 = new IntersectionObserver(
       (es) => es.forEach((en) => en.isIntersecting && setActive(en.target.id)),
       { threshold: 0.45 }
@@ -257,6 +257,14 @@ export default function ExperienciaPage() {
 
         {/* Bullets de control de navegación (fijos, al lado de la línea) */}
         <nav className="tj-stepper" aria-label="Navegación de misiones">
+          <button
+            className={active === "tj-hero" ? "on" : ""}
+            onClick={() => goTo("tj-hero")}
+            aria-label={L(TX.title)}
+            title={L(TX.title)}
+          >
+            <span className="tj-nav-dot" />
+          </button>
           {journey.map((j, i) => {
             const id = `tj-stop-${i}`;
             return (
@@ -283,7 +291,7 @@ export default function ExperienciaPage() {
           </div>
           <img
             className="tj-hero-astro"
-            src={`${ART}/astronauta.png`}
+            src={`${ART}/astronauta.webp`}
             alt=""
             aria-hidden
           />
@@ -302,7 +310,8 @@ export default function ExperienciaPage() {
             const num = total - i; /* cronológico: MB = 01, Bizagi = 08 */
             const layers = SCENES[i % SCENES.length];
             return (
-              <article className="tj-item" id={id} key={id}>
+              <Fragment key={id}>
+              <article className="tj-item" id={id}>
                 {/* Escena: n capas con parallax en Z */}
                 <div className="tj-stage" aria-hidden>
                   {layers.map((ly, k) => (
@@ -314,7 +323,7 @@ export default function ExperienciaPage() {
                       data-speed={ly.speed}
                       style={ly.style}
                     >
-                      <img src={ly.src} alt="" loading="lazy" />
+                      <img src={ly.src} alt="" loading={i === 0 ? "eager" : "lazy"} />
                     </div>
                   ))}
                 </div>
@@ -351,6 +360,20 @@ export default function ExperienciaPage() {
                   {isLast && <p className="tj-origin">{L(TX.origin)}</p>}
                 </div>
               </article>
+              {!isLast && (
+                <div className="tj-gap" aria-hidden>
+                  <div className="tj-stage">
+                    <div
+                      className={`tj-plane tj-plane--free ${i % 2 ? "tj-flip" : ""}`}
+                      data-speed="0.16"
+                      style={{ top: "8%", left: "0", width: "100%", opacity: 0.5 }}
+                    >
+                      <img src={`${ART}/estrellas.webp`} alt="" loading="lazy" />
+                    </div>
+                  </div>
+                </div>
+              )}
+              </Fragment>
             );
           })}
         </div>

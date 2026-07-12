@@ -255,10 +255,17 @@ body.tj-mode .more-inline {
   align-items: center;
   padding: 40px 0;
 }
-/* tramo de viaje: espacio vacío entre escenas donde la línea
-   se rellena y se "ve" el recorrido */
-.tj-item + .tj-item {
-  margin-top: 58vh;
+/* tramo de viaje entre escenas: la línea se rellena mientras
+   se cruza un campo de estrellas */
+.tj-gap {
+  position: relative;
+  height: 58vh;
+}
+.tj-gap .tj-stage {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
 }
 
 /* escena de planos: ocupa todo el item */
@@ -485,8 +492,8 @@ body.tj-mode .more-inline {
   .tj-stop {
     left: calc(100% + 21.5px);
   }
-  .tj-item + .tj-item {
-    margin-top: 26vh;
+  .tj-gap {
+    height: 26vh;
   }
   .tj-step-year { display: none; }
   .tj-stepper { display: none; }
