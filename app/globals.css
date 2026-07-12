@@ -1726,14 +1726,49 @@ p {
 .modal-panel.modal-lg {
   max-width: 80vw;
   width: 80vw;
-  max-height: 85vh;
+  max-height: 80vh;
 }
 .modal-panel.modal-lg .exp-grid {
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr; /* siempre una columna en el modal */
 }
-@media (min-width: 1100px) {
-  .modal-panel.modal-lg .exp-grid {
-    grid-template-columns: 1fr 1fr;
+
+/* Modal de skills — una columna, grupos con línea (sin fondo gris) */
+.modal-body .skills {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.modal-body .skill-cat {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+}
+.modal-body .skill-cat:last-child {
+  border-bottom: none;
+}
+
+/* Referencias — grupos compactos + divisor de extremo a extremo */
+.ref-group-title {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 4px;
+}
+.ref-divider {
+  height: 0;
+  border-top: 1px solid var(--border-strong, #d7dbde);
+  margin: 12px -22px;
+}
+@media (max-width: 720px) {
+  .modal-overlay {
+    padding: 14px;
+  }
+  .modal-panel.modal-lg {
+    width: 100%;
+    max-width: none;
+    max-height: 88vh;
   }
 }
 .exp-card {

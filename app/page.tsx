@@ -137,8 +137,24 @@ export default function Home() {
             </button>
           </Accordion>
 
+          {/* Experiencia */}
+          <Accordion
+            title={t(ui.home.experienceTitle)}
+            index={1}
+            id="experiencia"
+          >
+            <div className="exp-grid">
+              {experience.slice(0, 4).map((x, i) => (
+                <ExperienceCard job={x} defaultOpen={i < 2} key={i} />
+              ))}
+            </div>
+            <button className="link-btn full" onClick={() => setExpOpen(true)}>
+              {t(ui.home.experienceViewAll)} ({experience.length}) →
+            </button>
+          </Accordion>
+
           {/* Formación — lista */}
-          <Accordion title={t(ui.home.educationTitle)} index={1}>
+          <Accordion title={t(ui.home.educationTitle)} index={2}>
             <div className="os-list">
               {education.map((e, i) => (
                 <div className="os-item" key={i}>
@@ -150,22 +166,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </Accordion>
-
-          {/* Experiencia */}
-          <Accordion
-            title={t(ui.home.experienceTitle)}
-            index={2}
-            id="experiencia"
-          >
-            <div className="exp-grid">
-              {experience.slice(0, 4).map((x, i) => (
-                <ExperienceCard job={x} defaultOpen={i < 2} key={i} />
-              ))}
-            </div>
-            <button className="link-btn full" onClick={() => setExpOpen(true)}>
-              {t(ui.home.experienceViewAll)} ({experience.length}) →
-            </button>
           </Accordion>
 
           {/* Otros estudios */}
@@ -191,52 +191,60 @@ export default function Home() {
 
           {/* Referencias — agrupadas, diseño sencillo */}
           <Accordion title={t(ui.home.referencesTitle)} index={4}>
-            <p className="eyebrow">{t(ui.home.referencesPersonal)}</p>
-            <div className="ref-list">
-              {referencesPersonal.map((r, i) => (
-                <div className="ref-row" key={i}>
-                  <div>
-                    <div className="ref-name">{r.name}</div>
-                    <div className="ref-sub">
-                      {t(r.role)} · {r.company}
+            <div className="ref-group">
+              <div className="ref-group-title">
+                {t(ui.home.referencesPersonal)}
+              </div>
+              <div className="ref-list">
+                {referencesPersonal.map((r, i) => (
+                  <div className="ref-row" key={i}>
+                    <div>
+                      <div className="ref-name">{r.name}</div>
+                      <div className="ref-sub">
+                        {t(r.role)} · {r.company}
+                      </div>
                     </div>
+                    {r.phone && (
+                      <a
+                        className="ref-phone"
+                        href={`tel:${r.phone.replace(/\s/g, "")}`}
+                      >
+                        <Icon name="phone" size={14} />
+                        {r.phone}
+                      </a>
+                    )}
                   </div>
-                  {r.phone && (
-                    <a
-                      className="ref-phone"
-                      href={`tel:${r.phone.replace(/\s/g, "")}`}
-                    >
-                      <Icon name="phone" size={14} />
-                      {r.phone}
-                    </a>
-                  )}
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
-            <p className="eyebrow" style={{ marginTop: 18 }}>
-              {t(ui.home.referencesFamily)}
-            </p>
-            <div className="ref-list">
-              {referencesFamily.map((r, i) => (
-                <div className="ref-row" key={i}>
-                  <div>
-                    <div className="ref-name">{r.name}</div>
-                    <div className="ref-sub">
-                      {t(r.occupation)} · {r.company}
+            <div className="ref-divider" />
+
+            <div className="ref-group">
+              <div className="ref-group-title">
+                {t(ui.home.referencesFamily)}
+              </div>
+              <div className="ref-list">
+                {referencesFamily.map((r, i) => (
+                  <div className="ref-row" key={i}>
+                    <div>
+                      <div className="ref-name">{r.name}</div>
+                      <div className="ref-sub">
+                        {t(r.occupation)} · {r.company}
+                      </div>
                     </div>
+                    {r.phone && (
+                      <a
+                        className="ref-phone"
+                        href={`tel:${r.phone.replace(/\s/g, "")}`}
+                      >
+                        <Icon name="phone" size={14} />
+                        {r.phone}
+                      </a>
+                    )}
                   </div>
-                  {r.phone && (
-                    <a
-                      className="ref-phone"
-                      href={`tel:${r.phone.replace(/\s/g, "")}`}
-                    >
-                      <Icon name="phone" size={14} />
-                      {r.phone}
-                    </a>
-                  )}
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </Accordion>
         </div>
@@ -278,7 +286,7 @@ export default function Home() {
       {studiesOpen && (
         <div className="modal-overlay" onClick={() => setStudiesOpen(false)}>
           <div
-            className="modal-panel"
+            className="modal-panel modal-lg"
             role="dialog"
             aria-modal="true"
             onClick={(e) => e.stopPropagation()}
@@ -314,7 +322,7 @@ export default function Home() {
       {skillsOpen && (
         <div className="modal-overlay" onClick={() => setSkillsOpen(false)}>
           <div
-            className="modal-panel"
+            className="modal-panel modal-lg"
             role="dialog"
             aria-modal="true"
             onClick={(e) => e.stopPropagation()}
