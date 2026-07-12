@@ -128,7 +128,7 @@ body.tj-mode .more-inline {
 .tj-timeline {
   position: relative;
   z-index: 1;
-  padding-right: 96px; /* zona reservada para la línea + nav */
+  padding-right: 120px; /* zona reservada para la línea + nav */
 }
 
 /* la línea recorre todo el viaje */
@@ -136,7 +136,7 @@ body.tj-mode .more-inline {
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 44px;
+  right: 56px;
   width: 4px;
   background: #ffffff;
   border: 1px solid var(--tj-line);
@@ -159,11 +159,12 @@ body.tj-mode .more-inline {
 .tj-stop {
   position: absolute;
   top: 50%;
-  right: -54px; /* centra el dot sobre la línea */
-  transform: translateY(-50%);
+  left: calc(100% + 62px); /* centro exacto de la línea */
+  transform: translate(-50%, -50%);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
   background: none;
   border: 0;
   padding: 0;
@@ -180,6 +181,7 @@ body.tj-mode .more-inline {
   padding: 2px 8px;
   border-radius: 999px;
   transition: color 0.35s ease;
+  white-space: nowrap;
 }
 .tj-step-dot {
   width: 15px;
@@ -209,11 +211,15 @@ body.tj-mode .more-inline {
    ============================================================ */
 .tj-item {
   position: relative;
-  min-height: 100vh;
+  min-height: 86vh;
   display: flex;
   align-items: center;
-  overflow: clip;
   padding: 40px 0;
+}
+/* tramo de viaje: espacio vacío entre escenas donde la línea
+   se rellena y se "ve" el recorrido */
+.tj-item + .tj-item {
+  margin-top: 58vh;
 }
 
 /* escena de planos: ocupa todo el item */
@@ -221,6 +227,7 @@ body.tj-mode .more-inline {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  overflow: clip;
 }
 .tj-plane {
   position: absolute;
@@ -233,8 +240,8 @@ body.tj-mode .more-inline {
 }
 /* protagonista: grande, abajo a la derecha, sangrando del borde */
 .tj-plane--main {
-  right: -3%;
-  bottom: -9%;
+  right: -2%;
+  bottom: -6%;
   width: min(940px, 72vw);
   z-index: 2;
 }
@@ -423,14 +430,17 @@ body.tj-mode .more-inline {
     padding: 0 14px;
   }
   .tj-timeline {
-    padding-right: 32px;
+    padding-right: 36px;
   }
   .tj-track {
-    right: 11px;
+    right: 13px;
     width: 3px;
   }
   .tj-stop {
-    right: -27px;
+    left: calc(100% + 21.5px);
+  }
+  .tj-item + .tj-item {
+    margin-top: 26vh;
   }
   .tj-step-year { display: none; }
   .tj-step-dot {
