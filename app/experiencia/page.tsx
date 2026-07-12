@@ -64,10 +64,27 @@ type Layer = {
 };
 
 const SCENES: Layer[][] = [
-  /* 0 · Bizagi — en la luna, Saturno a lo lejos */
+  /* 0 · Bizagi — en la luna: superficie al frente, estrellas en
+     plano medio y Saturno al fondo */
   [
-    { src: `${ART}/moon.png`, cls: "main", speed: -0.05 },
-    { src: `${ART}/saturno.png`, cls: "far", speed: 0.22 },
+    {
+      src: `${ART}/moon.png`,
+      cls: "free",
+      speed: -0.05,
+      style: { bottom: "-6%", right: "-2%", width: "min(1100px, 88vw)", zIndex: 3 },
+    },
+    {
+      src: `${ART}/estrellas.png`,
+      cls: "free",
+      speed: 0.1,
+      style: { top: "0", left: "0", width: "100%", zIndex: 1, opacity: 0.75 },
+    },
+    {
+      src: `${ART}/saturno.png`,
+      cls: "free",
+      speed: 0.26,
+      style: { top: "5%", left: "6%", width: "clamp(150px, 19vw, 280px)", zIndex: 0, opacity: 0.65 },
+    },
   ],
   /* 1 · Inter Rapidísimo — Saturno grande, astronauta flotando, Tierra al fondo */
   [
