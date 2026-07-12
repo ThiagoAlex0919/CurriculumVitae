@@ -71,7 +71,8 @@ const SCENES: Layer[][] = [
       src: `${ART}/moon.png`,
       cls: "free",
       speed: -0.05,
-      style: { bottom: "-6%", right: "-2%", width: "min(1100px, 88vw)", zIndex: 3 },
+      /* full-bleed: los bordes del lienzo quedan fuera de la escena */
+      style: { bottom: "-14%", left: "-2%", width: "104%", zIndex: 3 },
     },
     {
       src: `${ART}/estrellas.png`,
