@@ -90,24 +90,6 @@ body.tj-mode .more-inline {
   cursor: pointer;
   font-family: inherit;
 }
-.tj-nav-year {
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--tj-ink-mute);
-  background: rgba(241, 242, 243, 0.92);
-  padding: 2px 7px;
-  border-radius: 999px;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translateX(6px);
-  transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
-}
-.tj-stepper button:hover .tj-nav-year,
-.tj-stepper button.on .tj-nav-year {
-  opacity: 1;
-  transform: translateX(0);
-}
 .tj-nav-dot {
   width: 9px;
   height: 9px;
@@ -124,9 +106,6 @@ body.tj-mode .more-inline {
   border-color: var(--tj-accent);
   box-shadow: 0 0 0 3px rgba(47, 128, 237, 0.18);
   transform: scale(1.15);
-}
-.tj-stepper button.on .tj-nav-year {
-  color: var(--tj-accent);
 }
 
 /* ---------- Secciones ---------- */

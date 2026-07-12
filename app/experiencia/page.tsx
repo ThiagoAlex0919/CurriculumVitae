@@ -99,8 +99,8 @@ const SCENES: Layer[][] = [
     {
       src: `${ART}/astronauta2.png`,
       cls: "free",
-      speed: -0.11,
-      style: { top: "10%", right: "26%", width: "clamp(280px, 32vw, 470px)", zIndex: 4 },
+      speed: -0.07 /* casi la misma que Saturno para que viajen juntos */,
+      style: { top: "26%", right: "18%", width: "clamp(280px, 32vw, 460px)", zIndex: 4 },
     },
     {
       src: `${ART}/estrellas.png`,
@@ -265,10 +265,8 @@ export default function ExperienciaPage() {
                 className={active === id ? "on" : ""}
                 onClick={() => goTo(id)}
                 aria-label={`${j.company} (${j.period})`}
+                title={j.company}
               >
-                <span className="tj-nav-year">
-                  {i === 0 ? L(TX.today) : startYear(j.period)}
-                </span>
                 <span className="tj-nav-dot" />
               </button>
             );
