@@ -117,8 +117,7 @@ const SCENES: Layer[][] = [
     },
   ],
   /* 2 · Entelgy (WebMaster) — frente: ovni; plano medio: marte;
-     fondo: estrellas.
-     TODO: cambiar cuerposselestes.webp por marte.webp cuando exista */
+     fondo: estrellas */
   [
     {
       src: `${ART}/ovni.webp`,
@@ -127,7 +126,7 @@ const SCENES: Layer[][] = [
       style: { bottom: "-4%", right: "2%", width: "min(620px, 46vw)", zIndex: 3 },
     },
     {
-      src: `${ART}/cuerposselestes.webp`,
+      src: `${ART}/martes.webp`,
       cls: "free",
       speed: 0.12,
       style: { top: "14%", left: "10%", width: "clamp(200px, 24vw, 340px)", zIndex: 1, opacity: 0.85 },
