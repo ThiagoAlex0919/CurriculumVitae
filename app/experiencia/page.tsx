@@ -85,7 +85,7 @@ const SCENES: Layer[][] = [
       src: `${ART}/saturno.webp`,
       cls: "free",
       speed: 0.34,
-      style: { top: "5%", left: "6%", width: "clamp(150px, 19vw, 280px)", zIndex: 0, opacity: 0.65 },
+      style: { top: "5%", left: "6%", width: "clamp(130px, 16vw, 230px)", zIndex: 0, opacity: 0.65 },
     },
   ],
   /* 1 · Inter Rapidísimo — frente: Saturno + astronauta flotando;
@@ -95,13 +95,13 @@ const SCENES: Layer[][] = [
       src: `${ART}/saturno.webp`,
       cls: "free",
       speed: -0.08,
-      style: { bottom: "-8%", right: "-3%", width: "min(860px, 64vw)", zIndex: 3 },
+      style: { bottom: "-8%", right: "-3%", width: "min(700px, 54vw)", zIndex: 3 },
     },
     {
       src: `${ART}/astronauta2.webp`,
       cls: "free",
       speed: -0.11 /* casi la misma que Saturno para que viajen juntos */,
-      style: { top: "26%", right: "18%", width: "clamp(280px, 32vw, 460px)", zIndex: 4 },
+      style: { top: "28%", right: "16%", width: "clamp(240px, 27vw, 390px)", zIndex: 4 },
     },
     {
       src: `${ART}/estrellas.webp`,
@@ -113,13 +113,31 @@ const SCENES: Layer[][] = [
       src: `${ART}/ovni.webp`,
       cls: "free",
       speed: 0.34,
-      style: { top: "4%", left: "7%", width: "clamp(140px, 17vw, 250px)", zIndex: 0, opacity: 0.6 },
+      style: { top: "4%", left: "7%", width: "clamp(120px, 15vw, 210px)", zIndex: 0, opacity: 0.6 },
     },
   ],
-  /* 2 · Entelgy (WebMaster) — la Tierra en primer plano */
+  /* 2 · Entelgy (WebMaster) — frente: ovni; plano medio: marte;
+     fondo: estrellas.
+     TODO: cambiar cuerposselestes.webp por marte.webp cuando exista */
   [
-    { src: `${ART}/tierra.webp`, cls: "main", speed: -0.08 },
-    { src: `${ART}/astronauta.webp`, cls: "far", speed: 0.3 },
+    {
+      src: `${ART}/ovni.webp`,
+      cls: "free",
+      speed: -0.08,
+      style: { bottom: "-4%", right: "2%", width: "min(620px, 46vw)", zIndex: 3 },
+    },
+    {
+      src: `${ART}/cuerposselestes.webp`,
+      cls: "free",
+      speed: 0.12,
+      style: { top: "14%", left: "10%", width: "clamp(200px, 24vw, 340px)", zIndex: 1, opacity: 0.85 },
+    },
+    {
+      src: `${ART}/estrellas.webp`,
+      cls: "free",
+      speed: 0.3,
+      style: { top: "0", left: "0", width: "100%", zIndex: 0, opacity: 0.6 },
+    },
   ],
   /* 3 · Área Andina — astronauta protagonista */
   [

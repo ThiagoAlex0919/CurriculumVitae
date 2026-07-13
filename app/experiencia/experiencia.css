@@ -175,7 +175,7 @@ body.tj-mode .more-inline {
   50% { transform: translateY(8px); opacity: 1; }
 }
 .tj-hero-astro {
-  width: min(360px, 66vw);
+  width: min(300px, 56vw);
   height: auto;
   margin-top: 6px;
   animation: tj-drift 7s ease-in-out infinite;
@@ -299,7 +299,7 @@ body.tj-mode .more-inline {
 .tj-plane--main {
   right: -2%;
   bottom: -6%;
-  width: min(940px, 72vw);
+  width: min(780px, 60vw);
   z-index: 2;
 }
 .tj-plane--main img {
@@ -308,7 +308,7 @@ body.tj-mode .more-inline {
 }
 /* plano lejano: pequeño, arriba a la izquierda, tenue */
 .tj-plane--far {
-  width: clamp(120px, 15vw, 210px);
+  width: clamp(110px, 13vw, 180px);
   top: 7%;
   left: 5%;
   z-index: 1;
@@ -319,7 +319,7 @@ body.tj-mode .more-inline {
 }
 /* acompañante: plano medio, entre la tarjeta y el protagonista */
 .tj-plane--companion {
-  width: clamp(160px, 19vw, 280px);
+  width: clamp(140px, 17vw, 240px);
   top: 16%;
   right: 34%;
   z-index: 3;
