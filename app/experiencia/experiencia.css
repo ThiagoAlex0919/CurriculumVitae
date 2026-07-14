@@ -103,15 +103,17 @@ body.tj-mode .more-inline {
   align-items: flex-end;
 }
 .tj-stepper button {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 9px;
   background: none;
   border: 0;
   padding: 2px;
   cursor: pointer;
   font-family: inherit;
 }
+
+/* tooltip con el nombre de la experiencia */
 .tj-nav-tip {
   position: absolute;
   right: calc(100% + 10px);
@@ -131,84 +133,29 @@ body.tj-mode .more-inline {
   box-shadow: 0 4px 14px rgba(1, 30, 43, 0.12);
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
-.tj-stepper button {
-  position: relative;
-}
 .tj-stepper button:hover .tj-nav-tip,
 .tj-stepper button:focus-visible .tj-nav-tip {
   opacity: 1;
   transform: translate(0, -50%);
 }
+
+/* dot: inactivo azul sólido · activo dona con centro blanco */
 .tj-nav-dot {
-  width: 9px;
-  height: 9px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  border: 2px solid var(--tj-ink-mute);
-  background: transparent;
+  border: 2.5px solid var(--tj-accent);
+  background: var(--tj-accent);
   transition: all 0.25s ease;
 }
-.tj-stepper button:hover .tj-nav-tip {
-  position: absolute;
-  right: calc(100% + 10px);
-  top: 50%;
-  transform: translate(6px, -50%);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  font-weight: 500;
-  color: var(--tj-ink);
-  background: var(--tj-card);
-  border: 1px solid var(--tj-line);
-  border-radius: 999px;
-  padding: 4px 12px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  box-shadow: 0 4px 14px rgba(1, 30, 43, 0.12);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+.tj-stepper button:hover .tj-nav-dot {
+  transform: scale(1.2);
 }
-.tj-stepper button {
-  position: relative;
-}
-.tj-stepper button:hover .tj-nav-tip,
-.tj-stepper button:focus-visible .tj-nav-tip {
-  opacity: 1;
-  transform: translate(0, -50%);
-}
-.tj-nav-dot {
-  border-color: var(--tj-accent);
-}
-.tj-stepper button.on .tj-nav-tip {
-  position: absolute;
-  right: calc(100% + 10px);
-  top: 50%;
-  transform: translate(6px, -50%);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  font-weight: 500;
-  color: var(--tj-ink);
-  background: var(--tj-card);
-  border: 1px solid var(--tj-line);
-  border-radius: 999px;
-  padding: 4px 12px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  box-shadow: 0 4px 14px rgba(1, 30, 43, 0.12);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-.tj-stepper button {
-  position: relative;
-}
-.tj-stepper button:hover .tj-nav-tip,
-.tj-stepper button:focus-visible .tj-nav-tip {
-  opacity: 1;
-  transform: translate(0, -50%);
-}
-.tj-nav-dot {
-  background: var(--tj-accent);
+.tj-stepper button.on .tj-nav-dot {
+  background: #ffffff;
   border-color: var(--tj-accent);
   box-shadow: 0 0 0 3px rgba(47, 128, 237, 0.18);
-  transform: scale(1.15);
+  transform: scale(1.25);
 }
 
 /* ---------- Secciones ---------- */
