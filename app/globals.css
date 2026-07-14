@@ -1368,7 +1368,7 @@ p {
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  background: var(--surface-2);
+  background: transparent;
   color: var(--ink);
   display: flex;
   align-items: center;
