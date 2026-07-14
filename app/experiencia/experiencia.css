@@ -477,6 +477,22 @@ body.tj-mode .more-inline {
   color: #ffffff;
   transform: translateX(4px);
 }
+.tj-cta--big {
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 700;
+  padding: 16px 36px;
+  background: var(--tj-accent);
+  color: #ffffff;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  margin-bottom: 10px;
+}
+.tj-cta--big:hover {
+  background: var(--tj-accent-deep);
+  color: #ffffff;
+  transform: translateY(-3px);
+}
 .tj-cta--ghost {
   border-color: var(--tj-line);
   color: var(--tj-ink-soft);

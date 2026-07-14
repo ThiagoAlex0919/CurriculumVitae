@@ -145,25 +145,91 @@ const SCENES: Layer[][] = [
       style: { top: "4%", left: "7%", width: "clamp(120px, 15vw, 210px)", zIndex: 0, opacity: 0.6 },
     },
   ],
-  /* 3 · Área Andina — astronauta protagonista */
+  /* 3 · Área Andina — frente: estación lunar; medio: estrellas;
+     fondo: satélite pequeño */
   [
-    { src: `${ART}/astronauta.webp`, cls: "main", speed: -0.08, flip: true },
-    { src: `${ART}/saturno.webp`, cls: "far", speed: 0.3 },
+    {
+      src: `${ART}/estacion.webp`,
+      cls: "free",
+      speed: -0.08,
+      style: { bottom: "-6%", right: "-2%", width: "min(760px, 58vw)", zIndex: 3 },
+    },
+    {
+      src: `${ART}/estrellas.webp`,
+      cls: "free",
+      speed: 0.14,
+      style: { top: "0", left: "0", width: "100%", zIndex: 1, opacity: 0.75 },
+    },
+    {
+      src: `${ART}/satelite.webp`,
+      cls: "free",
+      speed: 0.34,
+      style: { top: "5%", left: "7%", width: "clamp(110px, 14vw, 190px)", zIndex: 0, opacity: 0.6 },
+    },
   ],
-  /* 4 · Entelgy (Liferay) */
+  /* 4 · Entelgy (Liferay) — frente: satélite; astronauta pequeño;
+     fondo: estrellas */
   [
-    { src: `${ART}/saturno.webp`, cls: "main", speed: -0.08, flip: true },
-    { src: `${ART}/tierra.webp`, cls: "far", speed: 0.3, flip: true },
+    {
+      src: `${ART}/satelite.webp`,
+      cls: "free",
+      speed: -0.08,
+      style: { bottom: "-4%", right: "0%", width: "min(600px, 46vw)", zIndex: 3 },
+    },
+    {
+      src: `${ART}/astronauta.webp`,
+      cls: "free",
+      speed: -0.11,
+      style: { top: "16%", right: "24%", width: "clamp(170px, 19vw, 280px)", zIndex: 4 },
+    },
+    {
+      src: `${ART}/estrellas.webp`,
+      cls: "free",
+      speed: 0.14,
+      style: { top: "0", left: "0", width: "100%", zIndex: 1, opacity: 0.75 },
+    },
   ],
-  /* 5 · Brain Media */
+  /* 5 · Brain Media — frente: astronauta; tierra pequeña; fondo: estrellas */
   [
-    { src: `${ART}/tierra.webp`, cls: "main", speed: -0.08, flip: true },
-    { src: `${ART}/astronauta.webp`, cls: "far", speed: 0.3, flip: true },
+    {
+      src: `${ART}/astronauta.webp`,
+      cls: "free",
+      speed: -0.08,
+      style: { bottom: "-4%", right: "-2%", width: "min(620px, 48vw)", zIndex: 3 },
+    },
+    {
+      src: `${ART}/tierra.webp`,
+      cls: "free",
+      speed: 0.34,
+      style: { top: "6%", left: "8%", width: "clamp(130px, 16vw, 230px)", zIndex: 0, opacity: 0.65 },
+    },
+    {
+      src: `${ART}/estrellas.webp`,
+      cls: "free",
+      speed: 0.14,
+      style: { top: "0", left: "0", width: "100%", zIndex: 1, opacity: 0.75 },
+    },
   ],
-  /* 6 · ESAP — se ve venir el despegue */
+  /* 6 · ESAP — frente: la Tierra con la galaxia encima; fondo: estrellas */
   [
-    { src: `${ART}/astronauta.webp`, cls: "main", speed: -0.08 },
-    { src: `${ART}/innicion_.webp`, cls: "far", speed: 0.3 },
+    {
+      src: `${ART}/tierra.webp`,
+      cls: "free",
+      speed: -0.08,
+      style: { bottom: "-8%", right: "-3%", width: "min(680px, 52vw)", zIndex: 3 },
+    },
+    {
+      src: `${ART}/galaxia.webp`,
+      cls: "free",
+      speed: -0.11,
+      style: { top: "18%", right: "14%", width: "clamp(220px, 26vw, 380px)", zIndex: 4 },
+    },
+    {
+      src: `${ART}/estrellas.webp`,
+      cls: "free",
+      speed: 0.14,
+      style: { top: "0", left: "0", width: "100%", zIndex: 1, opacity: 0.75 },
+    },
   ],
   /* 7 · Manuela Beltrán — ignición */
   [{ src: `${ART}/innicion_.webp`, cls: "main", speed: -0.08 }],
@@ -442,7 +508,12 @@ export default function ExperienciaPage() {
         {/* Cierre */}
         <section className="tj-section tj-final" id="tj-final">
           <div className="tj-reveal">
-            <h2>{L(TX.finalTitle)}</h2>
+            <button
+              className="tj-cta tj-cta--big"
+              onClick={() => goTo("tj-stop-0")}
+            >
+              {L(TX.finalTitle)} ↑
+            </button>
             <p>{L(TX.finalSub)}</p>
             <div className="tj-final-ctas">
               <Link href="/trayectoria" className="tj-cta">
