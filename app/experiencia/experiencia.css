@@ -478,20 +478,26 @@ body.tj-mode .more-inline {
   transform: translateX(4px);
 }
 .tj-cta--big {
-  font-size: clamp(20px, 3vw, 32px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 14px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 28px;
   font-weight: 700;
-  padding: 16px 36px;
   background: var(--tj-accent);
   color: #ffffff;
   border: 0;
   cursor: pointer;
   font-family: inherit;
-  margin-bottom: 10px;
 }
 .tj-cta--big:hover {
   background: var(--tj-accent-deep);
   color: #ffffff;
-  transform: translateY(-3px);
+  transform: translateY(-4px);
 }
 .tj-cta--ghost {
   border-color: var(--tj-line);

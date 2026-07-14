@@ -167,20 +167,20 @@ const SCENES: Layer[][] = [
       style: { top: "5%", left: "7%", width: "clamp(110px, 14vw, 190px)", zIndex: 0, opacity: 0.6 },
     },
   ],
-  /* 4 · Entelgy (Liferay) — frente: satélite; astronauta pequeño;
-     fondo: estrellas */
+  /* 4 · Entelgy (Liferay) — frente: satélite destacado;
+     fondo: astronauta pequeño y estrellas */
   [
     {
       src: `${ART}/satelite.webp`,
       cls: "free",
       speed: -0.08,
-      style: { bottom: "-4%", right: "0%", width: "min(600px, 46vw)", zIndex: 3 },
+      style: { bottom: "-6%", right: "-2%", width: "min(720px, 55vw)", zIndex: 3 },
     },
     {
       src: `${ART}/astronauta.webp`,
       cls: "free",
-      speed: -0.11,
-      style: { top: "16%", right: "24%", width: "clamp(170px, 19vw, 280px)", zIndex: 4 },
+      speed: 0.34,
+      style: { top: "6%", left: "8%", width: "clamp(120px, 15vw, 210px)", zIndex: 0, opacity: 0.6 },
     },
     {
       src: `${ART}/estrellas.webp`,
@@ -210,19 +210,19 @@ const SCENES: Layer[][] = [
       style: { top: "0", left: "0", width: "100%", zIndex: 1, opacity: 0.75 },
     },
   ],
-  /* 6 · ESAP — frente: la Tierra con la galaxia encima; fondo: estrellas */
+  /* 6 · ESAP — frente: la Tierra protagonista; fondo: galaxia y estrellas */
   [
     {
       src: `${ART}/tierra.webp`,
       cls: "free",
       speed: -0.08,
-      style: { bottom: "-8%", right: "-3%", width: "min(680px, 52vw)", zIndex: 3 },
+      style: { bottom: "-10%", right: "-3%", width: "min(780px, 58vw)", zIndex: 3 },
     },
     {
       src: `${ART}/galaxia.webp`,
       cls: "free",
-      speed: -0.11,
-      style: { top: "18%", right: "14%", width: "clamp(220px, 26vw, 380px)", zIndex: 4 },
+      speed: 0.34,
+      style: { top: "5%", left: "7%", width: "clamp(140px, 17vw, 250px)", zIndex: 0, opacity: 0.55 },
     },
     {
       src: `${ART}/estrellas.webp`,
@@ -511,8 +511,10 @@ export default function ExperienciaPage() {
             <button
               className="tj-cta tj-cta--big"
               onClick={() => goTo("tj-stop-0")}
+              aria-label={L(TX.finalTitle)}
+              title={L(TX.finalTitle)}
             >
-              {L(TX.finalTitle)} ↑
+              ↑
             </button>
             <p>{L(TX.finalSub)}</p>
             <div className="tj-final-ctas">
