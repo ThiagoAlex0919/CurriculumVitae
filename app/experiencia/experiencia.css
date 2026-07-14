@@ -594,9 +594,9 @@ body.tj-mode .more-inline {
    hue-rotate devuelve el azul a su sitio.
    ============================================================ */
 body.tj-mode.tj-dark {
-  --tj-ink: #eef2ff;
+  --tj-ink: #f1fafe;
   --tj-ink-soft: #f1fafe;
-  --tj-ink-mute: #6b76a0;
+  --tj-ink-mute: #f1fafe;
   --tj-line: rgba(140, 160, 220, 0.2);
   --tj-card: rgba(13, 20, 44, 0.82);
   background-color: #050815;
