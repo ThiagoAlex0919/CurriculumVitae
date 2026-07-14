@@ -595,7 +595,7 @@ body.tj-mode .more-inline {
    ============================================================ */
 body.tj-mode.tj-dark {
   --tj-ink: #eef2ff;
-  --tj-ink-soft: #aab4d4;
+  --tj-ink-soft: #f1fafe;
   --tj-ink-mute: #6b76a0;
   --tj-line: rgba(140, 160, 220, 0.2);
   --tj-card: rgba(13, 20, 44, 0.82);
