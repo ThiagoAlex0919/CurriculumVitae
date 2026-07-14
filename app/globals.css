@@ -1206,7 +1206,7 @@ p {
 .more-inline {
   border: 0;
   background: transparent;
-  color: var(--ink-mute);
+  color: #2f80ed;
   font-family: var(--sans);
   font-weight: 500;
   font-size: inherit;
@@ -1214,7 +1214,6 @@ p {
   cursor: pointer;
 }
 .more-inline:hover {
-  color: var(--ink);
   text-decoration: underline;
 }
 
@@ -1711,7 +1710,7 @@ p {
   margin-left: auto;
   border: 0;
   background: transparent;
-  color: var(--accent);
+  color: #2f80ed;
   font-family: var(--sans);
   font-weight: 500;
   font-size: 13.5px;
