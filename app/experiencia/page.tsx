@@ -116,26 +116,33 @@ const SCENES: Layer[][] = [
       style: { top: "4%", left: "7%", width: "clamp(120px, 15vw, 210px)", zIndex: 0, opacity: 0.6 },
     },
   ],
-  /* 2 · Entelgy (WebMaster) — frente: ovni; plano medio: marte;
-     fondo: estrellas */
+  /* 2 · Entelgy (WebMaster) — como la escena de Saturno:
+     frente: Marte + ovni sobrevolándolo; plano medio: estrellas;
+     fondo: satélite */
   [
-    {
-      src: `${ART}/ovni.webp`,
-      cls: "free",
-      speed: -0.08,
-      style: { bottom: "-4%", right: "2%", width: "min(620px, 46vw)", zIndex: 3 },
-    },
     {
       src: `${ART}/martes.webp`,
       cls: "free",
-      speed: 0.12,
-      style: { top: "14%", left: "10%", width: "clamp(200px, 24vw, 340px)", zIndex: 1, opacity: 0.85 },
+      speed: -0.08,
+      style: { bottom: "-8%", right: "-3%", width: "min(700px, 54vw)", zIndex: 3 },
+    },
+    {
+      src: `${ART}/ovni.webp`,
+      cls: "free",
+      speed: -0.11 /* casi la misma que Marte para que viajen juntos */,
+      style: { top: "24%", right: "16%", width: "clamp(240px, 27vw, 390px)", zIndex: 4 },
     },
     {
       src: `${ART}/estrellas.webp`,
       cls: "free",
-      speed: 0.3,
-      style: { top: "0", left: "0", width: "100%", zIndex: 0, opacity: 0.6 },
+      speed: 0.14,
+      style: { top: "0", left: "0", width: "100%", zIndex: 1, opacity: 0.75 },
+    },
+    {
+      src: `${ART}/satelite.webp`,
+      cls: "free",
+      speed: 0.34,
+      style: { top: "4%", left: "7%", width: "clamp(120px, 15vw, 210px)", zIndex: 0, opacity: 0.6 },
     },
   ],
   /* 3 · Área Andina — astronauta protagonista */
