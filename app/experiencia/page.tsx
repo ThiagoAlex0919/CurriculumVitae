@@ -210,10 +210,10 @@ const SCENES: Layer[][] = [
       style: { top: "0", left: "0", width: "100%", zIndex: 1, opacity: 0.75 },
     },
   ],
-  /* 6 · ESAP — frente: la Tierra protagonista; fondo: galaxia y estrellas */
+  /* 6 · ESAP — frente: la Tierra line-art; fondo: galaxia y estrellas */
   [
     {
-      src: `${ART}/tierra.webp`,
+      src: `${ART}/tierra-line.webp`,
       cls: "free",
       speed: -0.08,
       style: { bottom: "-10%", right: "-3%", width: "min(780px, 58vw)", zIndex: 3 },
@@ -386,8 +386,8 @@ export default function ExperienciaPage() {
             className={active === "tj-hero" ? "on" : ""}
             onClick={() => goTo("tj-hero")}
             aria-label={L(TX.title)}
-            title={L(TX.title)}
           >
+            <span className="tj-nav-tip">{L(TX.title)}</span>
             <span className="tj-nav-dot" />
           </button>
           {journey.map((j, i) => {
@@ -398,8 +398,8 @@ export default function ExperienciaPage() {
                 className={active === id ? "on" : ""}
                 onClick={() => goTo(id)}
                 aria-label={`${j.company} (${j.period})`}
-                title={j.company}
               >
+                <span className="tj-nav-tip">{j.company}</span>
                 <span className="tj-nav-dot" />
               </button>
             );
