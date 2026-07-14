@@ -412,7 +412,9 @@ export default function ExperienciaPage() {
             <p className="tj-eyebrow">{L(TX.eyebrow)}</p>
             <h1>{L(TX.title)}</h1>
             <p>{L(TX.heroSub)}</p>
-            <div className="tj-scroll-cue">↓ {L(TX.cue)}</div>
+            <button className="tj-scroll-cue" onClick={() => goTo("tj-stop-0")}>
+              ↓ {L(TX.cue)}
+            </button>
           </div>
           <img
             className="tj-hero-astro"
@@ -510,9 +512,9 @@ export default function ExperienciaPage() {
           <div className="tj-reveal">
             <button
               className="tj-cta tj-cta--big"
-              onClick={() => goTo("tj-stop-0")}
-              aria-label={L(TX.finalTitle)}
-              title={L(TX.finalTitle)}
+              onClick={() => goTo("tj-hero")}
+              aria-label={L(TX.title)}
+              title={L(TX.title)}
             >
               ↑
             </button>
