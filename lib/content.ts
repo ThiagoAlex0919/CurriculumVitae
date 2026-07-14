@@ -74,6 +74,7 @@ export const profile = {
     en: "Senior Product Designer with over 10 years of experience creating, evolving and optimizing digital products in highly complex environments. I have led design initiatives with multidisciplinary teams to build clear, accessible and business-oriented experiences. My approach integrates research, systemic and critical thinking, interaction design and design systems to turn complex processes into simple, scalable, people-centered solutions. I specialize in aligning strategy, design and technology, ensuring high standards of usability, consistency and value at every touchpoint. I work with an AI First mindset applied to the end-to-end product cycle, integrating artificial intelligence from discovery through delivery and operations to accelerate research, optimize decision-making, automate processes and enable more efficient, scalable and personalized experiences. I stand out for turning design into a strategic enabler of innovation, operational efficiency and competitive advantage.",
   } as Localized,
   links: [
+    { label: "LinkedIn", url: "https://www.linkedin.com/in/alexanderomero/", icon: "linkedin" },
     { label: "Behance", url: "https://www.behance.net/alexromera9d92", icon: "behance" },
     { label: "Email", url: "mailto:alex.romer.av@gmail.com", icon: "mail" },
     { label: "WhatsApp", url: "https://wa.me/573134689786", icon: "whatsapp" },
