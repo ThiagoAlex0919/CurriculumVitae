@@ -1649,8 +1649,8 @@ p {
 .xcard-logo img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  padding: 6px;
+  object-fit: cover;
+  padding: 0;
 }
 .xcard-meta {
   font-size: 13px;
