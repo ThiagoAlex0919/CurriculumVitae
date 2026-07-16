@@ -33,7 +33,147 @@ const TX = {
   portfolio: { es: "Ver portafolio", en: "View portfolio" },
   contact: { es: "Iniciar contacto", en: "Make contact" },
   today: { es: "Hoy", en: "Now" },
+  lblMission: { es: "Misión", en: "Mission" },
+  lblCurrentMission: { es: "Misión actual", en: "Current mission" },
+  lblContext: { es: "Contexto", en: "Context" },
+  lblRole: { es: "Mi rol", en: "My role" },
+  explore: { es: "Explorar proyectos", en: "Explore projects" },
 };
+
+/* ------------------------------------------------------------------
+   Contenido de las tarjetas (misión / contexto / mi rol)
+   Índice = posición en journey (0 = Bizagi ... 7 = Manuela Beltrán)
+   ------------------------------------------------------------------ */
+type CardInfo = {
+  mission: { es: string; en: string };
+  context: { es: string; en: string };
+  role: { es: string; en: string };
+  href: string;
+};
+
+const CARD_BIZAGI: CardInfo = {
+  mission: {
+    es: "Diseño de experiencias empresariales impulsadas por IA.",
+    en: "Designing AI-powered enterprise experiences.",
+  },
+  context: {
+    es: "Bizagi desarrolla plataformas Enterprise para automatización de procesos y transformación digital utilizadas por organizaciones de todo el mundo. Actualmente la compañía lidera la incorporación de Inteligencia Artificial en su ecosistema de productos.",
+    en: "Bizagi builds Enterprise platforms for process automation and digital transformation used by organizations worldwide. The company is currently leading the adoption of Artificial Intelligence across its product ecosystem.",
+  },
+  role: {
+    es: "Como Senior UX Designer formo parte del equipo global de producto, liderando el diseño de experiencias para capacidades de Inteligencia Artificial, plataformas Enterprise y sistemas de diseño, colaborando con Product Managers, ingeniería e investigación para construir soluciones escalables.",
+    en: "As a Senior UX Designer I'm part of the global product team, leading experience design for AI capabilities, Enterprise platforms and design systems, collaborating with Product Managers, engineering and research to build scalable solutions.",
+  },
+  href: "/trayectoria/bizagi",
+};
+
+const CARD_INTER: CardInfo = {
+  mission: {
+    es: "Evolucionando hacia el diseño de producto.",
+    en: "Evolving into Product Design.",
+  },
+  context: {
+    es: "Inter Rapidísimo es una de las compañías líderes en logística y transporte en Colombia, con millones de usuarios y procesos operativos distribuidos a nivel nacional.",
+    en: "Inter Rapidísimo is one of Colombia's leading logistics and shipping companies, with millions of users and operational processes distributed nationwide.",
+  },
+  role: {
+    es: "Como Diseñador UX/UI en el área de producto participé en el diseño y evolución de plataformas digitales para clientes y colaboradores, colaborando con equipos de producto y desarrollo para mejorar procesos críticos del negocio.",
+    en: "As a UX/UI Designer on the product team I helped design and evolve digital platforms for customers and employees, working with product and development teams to improve business-critical processes.",
+  },
+  href: "/trayectoria",
+};
+
+const CARD_ENTELGY: CardInfo = {
+  mission: {
+    es: "Uniendo diseño, tecnología y negocio.",
+    en: "Bridging design, technology and business.",
+  },
+  context: {
+    es: "A través de Entelgy trabajé para Banco Itaú, una de las principales entidades financieras de Latinoamérica, participando en iniciativas digitales orientadas al área comercial.",
+    en: "Through Entelgy I worked for Banco Itaú, one of Latin America's leading financial institutions, contributing to digital initiatives focused on the commercial area.",
+  },
+  role: {
+    es: "Desempeñé funciones como Webmaster, Front-end y Diseñador UI, colaborando en la construcción y mantenimiento de experiencias digitales para campañas, productos y servicios financieros.",
+    en: "I worked as Webmaster, Front-end and UI Designer, helping build and maintain digital experiences for campaigns, products and financial services.",
+  },
+  href: "/trayectoria",
+};
+
+const CARD_ANDINA: CardInfo = {
+  mission: {
+    es: "Escalando contenidos digitales y ecosistemas de aprendizaje.",
+    en: "Scaling digital content and learning ecosystems.",
+  },
+  context: {
+    es: "La Fundación Universitaria del Área Andina impulsaba la transformación de sus programas virtuales mediante plataformas educativas y contenidos digitales para miles de estudiantes.",
+    en: "Fundación Universitaria del Área Andina was transforming its virtual programs through educational platforms and digital content for thousands of students.",
+  },
+  role: {
+    es: "Como Coordinador de Gestión de Contenidos lideré la organización, producción y calidad de los recursos digitales del área virtual, garantizando consistencia, accesibilidad y una experiencia de aprendizaje eficiente.",
+    en: "As Content Management Coordinator I led the organization, production and quality of the virtual area's digital resources, ensuring consistency, accessibility and an efficient learning experience.",
+  },
+  href: "/trayectoria",
+};
+
+const CARD_BRAIN: CardInfo = {
+  mission: {
+    es: "Conectando la creatividad con los productos digitales.",
+    en: "Connecting creativity with digital products.",
+  },
+  context: {
+    es: "Brain Media era una agencia especializada en desarrollo de productos digitales, experiencias web y soluciones para diferentes marcas y sectores.",
+    en: "Brain Media was an agency specialized in digital product development, web experiences and solutions for different brands and industries.",
+  },
+  role: {
+    es: "Como Director de Producción Web coordiné el desarrollo de proyectos digitales, integrando diseño, desarrollo y objetivos comerciales para entregar productos alineados con las necesidades de cada cliente.",
+    en: "As Web Production Director I coordinated the development of digital projects, integrating design, development and business goals to deliver products aligned with each client's needs.",
+  },
+  href: "/trayectoria",
+};
+
+const CARD_ESAP: CardInfo = {
+  mission: {
+    es: "Diseñando experiencias de aprendizaje significativas.",
+    en: "Designing meaningful learning experiences.",
+  },
+  context: {
+    es: "La Escuela Superior de Administración Pública (ESAP) forma servidores públicos en Colombia mediante programas presenciales y virtuales orientados al fortalecimiento institucional.",
+    en: "The Escuela Superior de Administración Pública (ESAP) trains public servants in Colombia through on-site and virtual programs aimed at institutional strengthening.",
+  },
+  role: {
+    es: "Como Diseñador Gráfico E-learning participé en la creación de contenidos interactivos para programas virtuales, transformando información técnica en experiencias de aprendizaje claras y accesibles.",
+    en: "As an E-learning Graphic Designer I helped create interactive content for virtual programs, turning technical information into clear, accessible learning experiences.",
+  },
+  href: "/trayectoria",
+};
+
+const CARD_UMB: CardInfo = {
+  mission: {
+    es: "Construyendo las bases del diseño digital.",
+    en: "Building the foundations of digital design.",
+  },
+  context: {
+    es: "La Universidad Manuela Beltrán es una institución de educación superior reconocida por su enfoque en innovación y educación virtual. Durante esta etapa participé en el fortalecimiento de contenidos digitales dirigidos a estudiantes y docentes.",
+    en: "Universidad Manuela Beltrán is a higher-education institution known for its focus on innovation and virtual education. During this stage I helped strengthen digital content aimed at students and teachers.",
+  },
+  role: {
+    es: "Como Diseñador Gráfico en el área virtual desarrollé piezas digitales, recursos educativos y materiales visuales para plataformas de aprendizaje, asegurando una comunicación clara y consistente en los diferentes entornos académicos.",
+    en: "As a Graphic Designer in the virtual area I created digital pieces, educational resources and visual materials for learning platforms, ensuring clear, consistent communication across academic environments.",
+  },
+  href: "/trayectoria",
+};
+
+/* índice alineado con journey (experience[]): 0=Bizagi ... 7=UMB */
+const CARDS: CardInfo[] = [
+  CARD_BIZAGI,
+  CARD_INTER,
+  CARD_ENTELGY /* Entelgy · WebMaster Itaú */,
+  CARD_ANDINA,
+  CARD_ENTELGY /* Entelgy · Liferay (Itaú/CorpBanca) */,
+  CARD_BRAIN,
+  CARD_ESAP,
+  CARD_UMB,
+];
 
 /* ==================================================================
    MOTOR DE CAPAS POR ESCENA
@@ -239,6 +379,20 @@ const startYear = (period: string) => {
   const m = period.match(/\d{4}/);
   return m ? parseInt(m[0], 10) : 0;
 };
+
+/* Logo de empresa con fallback a iniciales (cuando existan los
+   archivos en /public/logos aparecerán automáticamente) */
+function CompanyLogo({ logo, initials }: { logo?: string; initials: string }) {
+  const [failed, setFailed] = useState(false);
+  if (!logo || failed) {
+    return <span className="tj-logo tj-logo--initials">{initials}</span>;
+  }
+  return (
+    <span className="tj-logo">
+      <img src={logo} alt="" onError={() => setFailed(true)} />
+    </span>
+  );
+}
 
 export default function ExperienciaPage() {
   const { t, locale } = useI18n();
@@ -446,6 +600,7 @@ export default function ExperienciaPage() {
             const isLast = i === total - 1;
             const num = total - i; /* cronológico: MB = 01, Bizagi = 08 */
             const layers = SCENES[i % SCENES.length];
+            const card = CARDS[i % CARDS.length];
             return (
               <Fragment key={id}>
               <article className="tj-item" id={id}>
@@ -473,19 +628,29 @@ export default function ExperienciaPage() {
                       ? `${L(TX.launch)} · ${L(TX.mission)} 01 · ${j.period}`
                       : `${L(TX.mission)} ${String(num).padStart(2, "0")} · ${j.period}`}
                   </div>
-                  <h2>{j.company}</h2>
-                  <div className="tj-role">{t(j.role)}</div>
-                  {j.location && <div className="tj-period">{t(j.location)}</div>}
-                  {j.summary && (
-                    <ReadMore text={t(j.summary)} limit={260} className="tj-industry" />
-                  )}
-                  <div className="tj-chips">
-                    {j.functions.slice(0, 6).map((f, k) => (
-                      <span className="tj-chip" key={k}>
-                        {t(f)}
-                      </span>
-                    ))}
+
+                  <div className="tj-card-head">
+                    <CompanyLogo logo={j.logo} initials={j.initials} />
+                    <div>
+                      <h2>{j.company}</h2>
+                      <div className="tj-role">{t(j.role)}</div>
+                    </div>
                   </div>
+
+                  <div className="tj-block-label">
+                    {isFirst ? L(TX.lblCurrentMission) : L(TX.lblMission)}
+                  </div>
+                  <p className="tj-mission-text">{L(card.mission)}</p>
+
+                  <div className="tj-block-label">{L(TX.lblContext)}</div>
+                  <ReadMore text={L(card.context)} limit={230} className="tj-industry" />
+
+                  <div className="tj-block-label">{L(TX.lblRole)}</div>
+                  <ReadMore text={L(card.role)} limit={200} className="tj-industry" />
+
+                  <Link href={card.href} className="tj-cta tj-cta--card">
+                    {L(TX.explore)} →
+                  </Link>
                   {isLast && <p className="tj-origin">{L(TX.origin)}</p>}
                 </div>
               </article>

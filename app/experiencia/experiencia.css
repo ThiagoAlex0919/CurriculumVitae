@@ -448,6 +448,71 @@ body.tj-mode .more-inline {
   font-weight: 500;
 }
 
+/* cabecera de tarjeta: logo + empresa + rol */
+.tj-card-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 4px;
+}
+.tj-logo {
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 1px solid var(--tj-line);
+}
+.tj-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+}
+.tj-logo--initials {
+  background: rgba(47, 128, 237, 0.12);
+  color: var(--tj-accent);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.tj-card-head h2 {
+  font-size: clamp(22px, 2.4vw, 30px);
+}
+.tj-card-head .tj-role {
+  margin-top: 2px;
+}
+
+/* bloques Mission / Context / Mi rol */
+.tj-block-label {
+  margin-top: 18px;
+  margin-bottom: 4px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tj-ink-mute);
+  font-weight: 500;
+}
+.tj-mission-text {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--tj-ink);
+  font-weight: 500;
+}
+.tj-card .tj-industry {
+  margin-top: 0;
+}
+
+/* CTA de la tarjeta */
+.tj-cta--card {
+  margin-top: 22px;
+}
+
 /* chips de funciones */
 .tj-chips {
   display: flex;
