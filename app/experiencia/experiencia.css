@@ -403,24 +403,22 @@ body.tj-mode .more-inline {
 .tj-card--featured {
   border-color: rgba(47, 128, 237, 0.45);
 }
-.tj-mission {
+.tj-card-top {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 11.5px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #919ca1;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 14px;
 }
-.tj-mission::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, var(--tj-line), transparent);
+.tj-mission {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #919ca1;
+  text-align: right;
 }
 .tj-card h2 {
-  font-size: clamp(24px, 2.8vw, 34px);
+  font-size: 24px;
   font-weight: 700;
 }
 .tj-role {
@@ -436,9 +434,9 @@ body.tj-mode .more-inline {
   margin-top: 4px;
 }
 .tj-industry {
-  margin-top: 16px;
+  margin: 0;
   font-size: 14px;
-  line-height: 1.7;
+  line-height: 1.65;
 }
 .tj-origin {
   margin: 18px 0 0;
@@ -448,13 +446,6 @@ body.tj-mode .more-inline {
   font-weight: 500;
 }
 
-/* cabecera de tarjeta: logo + empresa + rol */
-.tj-card-head {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 4px;
-}
 .tj-logo {
   flex: 0 0 52px;
   width: 52px;
@@ -462,8 +453,10 @@ body.tj-mode .more-inline {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: 0;
+  background: #ffffff;
+  border: 1px solid var(--tj-line);
+  border-radius: 8px;
+  overflow: hidden;
 }
 .tj-logo img {
   width: 100%;
@@ -472,33 +465,27 @@ body.tj-mode .more-inline {
 }
 .tj-logo--initials {
   background: rgba(47, 128, 237, 0.12);
-  border-radius: 12px;
+  border-radius: 8px;
   color: var(--tj-accent);
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.04em;
 }
-.tj-card-head h2 {
-  font-size: clamp(22px, 2.4vw, 30px);
-}
-.tj-card-head .tj-role {
-  margin-top: 2px;
-}
 
 /* bloques Mission / Context / Mi rol */
 .tj-block-label {
-  margin-top: 18px;
+  margin-top: 16px;
   margin-bottom: 4px;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--tj-ink-mute);
-  font-weight: 500;
+  font-weight: 600;
 }
 .tj-mission-text {
   margin: 0;
-  font-size: 15.5px;
-  line-height: 1.55;
+  font-size: 14px;
+  line-height: 1.6;
   color: var(--tj-ink);
   font-weight: 500;
 }
@@ -513,28 +500,6 @@ body.tj-mode .more-inline {
   font-size: 12.5px;
 }
 
-/* bloque expandible "Mi rol" */
-.tj-roleblock {
-  margin-top: 14px;
-}
-.tj-role-toggle {
-  background: none;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--tj-accent);
-  letter-spacing: 0.02em;
-  transition: color 0.2s ease;
-}
-.tj-role-toggle:hover {
-  color: var(--tj-accent-deep);
-}
-.tj-rolebody {
-  margin-top: 8px;
-}
 
 /* chips de funciones */
 .tj-chips {

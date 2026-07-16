@@ -379,23 +379,6 @@ const startYear = (period: string) => {
   return m ? parseInt(m[0], 10) : 0;
 };
 
-/* "Mi rol": bloque expandible — el toggle reemplaza al "ver más" */
-function RoleToggle({ label, text }: { label: string; text: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="tj-roleblock">
-      <button
-        className="tj-role-toggle"
-        onClick={() => setOpen((o) => !o)}
-        aria-expanded={open}
-      >
-        {label} {open ? "−" : "+"}
-      </button>
-      {open && <p className="tj-industry tj-rolebody">{text}</p>}
-    </div>
-  );
-}
-
 /* Logo de empresa con fallback a iniciales (cuando existan los
    archivos en /public/logos aparecerán automáticamente) */
 function CompanyLogo({ logo, initials }: { logo?: string; initials: string }) {
@@ -637,21 +620,19 @@ export default function ExperienciaPage() {
                 </div>
 
                 <div className={`tj-card tj-reveal ${isFirst ? "tj-card--featured" : ""}`}>
-                  <div className="tj-mission">
-                    {isFirst
-                      ? `${L(TX.currentWorld)} · ${j.period}`
-                      : isLast
-                      ? `${L(TX.launch)} · ${L(TX.mission)} 01 · ${j.period}`
-                      : `${L(TX.mission)} ${String(num).padStart(2, "0")} · ${j.period}`}
-                  </div>
-
-                  <div className="tj-card-head">
+                  <div className="tj-card-top">
                     <CompanyLogo logo={j.logo} initials={j.initials} />
-                    <div>
-                      <h2>{j.company}</h2>
-                      <div className="tj-role">{t(j.role)}</div>
+                    <div className="tj-mission">
+                      {isFirst
+                        ? `${L(TX.currentWorld)} · ${j.period}`
+                        : isLast
+                        ? `${L(TX.launch)} · ${L(TX.mission)} 01 · ${j.period}`
+                        : `${L(TX.mission)} ${String(num).padStart(2, "0")} · ${j.period}`}
                     </div>
                   </div>
+
+                  <h2>{j.company}</h2>
+                  <div className="tj-role">{t(j.role)}</div>
 
                   <div className="tj-block-label">
                     {isFirst ? L(TX.lblCurrentMission) : L(TX.lblMission)}
@@ -661,7 +642,8 @@ export default function ExperienciaPage() {
                   <div className="tj-block-label">{L(TX.lblContext)}</div>
                   <p className="tj-industry">{L(card.context)}</p>
 
-                  <RoleToggle label={L(TX.lblRole)} text={L(card.role)} />
+                  <div className="tj-block-label">{L(TX.lblRole)}</div>
+                  <p className="tj-industry">{L(card.role)}</p>
 
                   <Link href={card.href} className="tj-cta tj-cta--card">
                     {L(TX.explore)} →
