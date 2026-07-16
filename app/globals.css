@@ -1206,10 +1206,12 @@ p {
 .more-inline {
   border: 0;
   background: transparent;
-  color: #2f80ed;
+  color: #02425f;
   font-family: var(--sans);
-  font-weight: 500;
-  font-size: inherit;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   padding: 0;
   cursor: pointer;
 }
@@ -1572,13 +1574,14 @@ p {
   margin-bottom: 10px;
 }
 
-/* Experiencia — 1 columna; 2 columnas en pantallas > 1600 */
+/* Experiencia — 1 columna; 2 columnas en pantallas > 2000 */
 .exp-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
+  align-items: start; /* cada tarjeta con su altura natural (cerrada = pequeña) */
 }
-@media (min-width: 1701px) {
+@media (min-width: 2001px) {
   .exp-grid {
     grid-template-columns: 1fr 1fr;
   }
