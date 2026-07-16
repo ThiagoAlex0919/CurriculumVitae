@@ -70,9 +70,6 @@ export default function ExperienceCard({
       )}
 
       <div className="xcard-foot">
-        {open && job.location && (
-          <span className="xcard-loc">{t(job.location)}</span>
-        )}
         <button
           type="button"
           className="xcard-toggle"
@@ -81,6 +78,9 @@ export default function ExperienceCard({
         >
           {open ? t(ui.home.readLess) : t(ui.home.readMore)}
         </button>
+        {open && job.location && (
+          <span className="xcard-loc">{t(job.location)}</span>
+        )}
       </div>
     </div>
   );
