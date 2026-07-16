@@ -1574,17 +1574,12 @@ p {
   margin-bottom: 10px;
 }
 
-/* Experiencia — 1 columna; 2 columnas en pantallas > 2000 */
+/* Experiencia — siempre una columna */
 .exp-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
-  align-items: start; /* cada tarjeta con su altura natural (cerrada = pequeña) */
-}
-@media (min-width: 2001px) {
-  .exp-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+  align-items: start;
 }
 
 /* ============================================================
