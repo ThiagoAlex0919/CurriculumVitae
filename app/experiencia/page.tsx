@@ -37,6 +37,8 @@ const TX = {
   lblContext: { es: "Contexto", en: "Context" },
   lblRole: { es: "Mi rol", en: "My role" },
   explore: { es: "Explorar proyectos", en: "Explore projects" },
+  seeLess: { es: "Ver menos", en: "See less" },
+  seeMore: { es: "Ver más", en: "See more" },
 };
 
 /* ------------------------------------------------------------------
@@ -393,6 +395,75 @@ function CompanyLogo({ logo, initials }: { logo?: string; initials: string }) {
   );
 }
 
+/* Tarjeta de experiencia: nace desplegada; "Ver menos" colapsa
+   Contexto y Mi rol dejando solo la misión */
+function ExpCard({
+  j,
+  card,
+  isFirst,
+  isLast,
+  num,
+}: {
+  j: (typeof experience)[number];
+  card: CardInfo;
+  isFirst: boolean;
+  isLast: boolean;
+  num: number;
+}) {
+  const { t, locale } = useI18n();
+  const L = (o: { es: string; en: string }) => o[locale as "es" | "en"] ?? o.es;
+  const [open, setOpen] = useState(true);
+
+  return (
+    <div className={`tj-card tj-reveal ${isFirst ? "tj-card--featured" : ""}`}>
+      <div className="tj-card-top">
+        <CompanyLogo logo={j.logo} initials={j.initials} />
+        <div className="tj-card-topright">
+          <div className="tj-mission">
+            {isFirst
+              ? `${L(TX.currentWorld)} · ${j.period}`
+              : isLast
+              ? `${L(TX.launch)} · ${L(TX.mission)} 01 · ${j.period}`
+              : `${L(TX.mission)} ${String(num).padStart(2, "0")} · ${j.period}`}
+          </div>
+          <div className="tj-role">{t(j.role)}</div>
+        </div>
+      </div>
+
+      <h2>{j.company}</h2>
+
+      <div className="tj-block-label">
+        {isFirst ? L(TX.lblCurrentMission) : L(TX.lblMission)}
+      </div>
+      <p className="tj-mission-text">{L(card.mission)}</p>
+
+      {open && (
+        <>
+          <div className="tj-block-label">{L(TX.lblContext)}</div>
+          <p className="tj-industry">{L(card.context)}</p>
+
+          <div className="tj-block-label">{L(TX.lblRole)}</div>
+          <p className="tj-industry">{L(card.role)}</p>
+        </>
+      )}
+
+      <div className="tj-card-foot">
+        <button
+          className="tj-see"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+        >
+          {open ? L(TX.seeLess) : L(TX.seeMore)}
+        </button>
+        <Link href={card.href} className="tj-cta tj-cta--card">
+          {L(TX.explore)} →
+        </Link>
+      </div>
+      {isLast && <p className="tj-origin">{L(TX.origin)}</p>}
+    </div>
+  );
+}
+
 export default function ExperienciaPage() {
   const { t, locale } = useI18n();
   const L = (o: { es: string; en: string }) => o[locale as "es" | "en"] ?? o.es;
@@ -619,37 +690,13 @@ export default function ExperienciaPage() {
                   ))}
                 </div>
 
-                <div className={`tj-card tj-reveal ${isFirst ? "tj-card--featured" : ""}`}>
-                  <div className="tj-card-top">
-                    <CompanyLogo logo={j.logo} initials={j.initials} />
-                    <div className="tj-mission">
-                      {isFirst
-                        ? `${L(TX.currentWorld)} · ${j.period}`
-                        : isLast
-                        ? `${L(TX.launch)} · ${L(TX.mission)} 01 · ${j.period}`
-                        : `${L(TX.mission)} ${String(num).padStart(2, "0")} · ${j.period}`}
-                    </div>
-                  </div>
-
-                  <h2>{j.company}</h2>
-                  <div className="tj-role">{t(j.role)}</div>
-
-                  <div className="tj-block-label">
-                    {isFirst ? L(TX.lblCurrentMission) : L(TX.lblMission)}
-                  </div>
-                  <p className="tj-mission-text">{L(card.mission)}</p>
-
-                  <div className="tj-block-label">{L(TX.lblContext)}</div>
-                  <p className="tj-industry">{L(card.context)}</p>
-
-                  <div className="tj-block-label">{L(TX.lblRole)}</div>
-                  <p className="tj-industry">{L(card.role)}</p>
-
-                  <Link href={card.href} className="tj-cta tj-cta--card">
-                    {L(TX.explore)} →
-                  </Link>
-                  {isLast && <p className="tj-origin">{L(TX.origin)}</p>}
-                </div>
+                <ExpCard
+                  j={j}
+                  card={card}
+                  isFirst={isFirst}
+                  isLast={isLast}
+                  num={num}
+                />
               </article>
               {!isLast && (
                 <div className="tj-gap" aria-hidden>

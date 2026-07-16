@@ -405,21 +405,29 @@ body.tj-mode .more-inline {
 }
 .tj-card-top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 14px;
+}
+.tj-card-topright {
+  text-align: right;
 }
 .tj-mission {
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: #919ca1;
-  text-align: right;
+}
+.tj-card-topright .tj-role {
+  margin-top: 3px;
+  font-size: 13px;
 }
 .tj-card h2 {
   font-size: 24px;
   font-weight: 700;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--tj-line);
 }
 .tj-role {
   margin-top: 8px;
@@ -493,9 +501,31 @@ body.tj-mode .more-inline {
   margin-top: 0;
 }
 
-/* CTA de la tarjeta */
-.tj-cta--card {
+/* pie de tarjeta */
+.tj-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin-top: 20px;
+}
+.tj-see {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #02425f;
+  transition: color 0.2s ease;
+}
+.tj-see:hover {
+  color: var(--tj-accent);
+}
+.tj-cta--card {
   padding: 8px 18px;
   font-size: 12.5px;
 }
@@ -763,6 +793,13 @@ body.tj-mode.tj-dark .mobile-credits {
 .tj-dark .tj-cta--ghost:hover {
   background: var(--tj-ink);
   color: #050815;
+}
+
+.tj-dark .tj-see {
+  color: var(--tj-ink-soft);
+}
+.tj-dark .tj-see:hover {
+  color: var(--tj-accent);
 }
 
 /* nubes-plataforma de la luna/ignición mantienen su blanco al invertir,
