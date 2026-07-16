@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { experience } from "@/lib/content";
 import PageHeader from "@/components/PageHeader";
-import ReadMore from "@/components/ReadMore";
 import Icon from "@/components/Icon";
 import "./experiencia.css";
 
@@ -380,6 +379,23 @@ const startYear = (period: string) => {
   return m ? parseInt(m[0], 10) : 0;
 };
 
+/* "Mi rol": bloque expandible — el toggle reemplaza al "ver más" */
+function RoleToggle({ label, text }: { label: string; text: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="tj-roleblock">
+      <button
+        className="tj-role-toggle"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+      >
+        {label} {open ? "−" : "+"}
+      </button>
+      {open && <p className="tj-industry tj-rolebody">{text}</p>}
+    </div>
+  );
+}
+
 /* Logo de empresa con fallback a iniciales (cuando existan los
    archivos en /public/logos aparecerán automáticamente) */
 function CompanyLogo({ logo, initials }: { logo?: string; initials: string }) {
@@ -643,10 +659,9 @@ export default function ExperienciaPage() {
                   <p className="tj-mission-text">{L(card.mission)}</p>
 
                   <div className="tj-block-label">{L(TX.lblContext)}</div>
-                  <ReadMore text={L(card.context)} limit={230} className="tj-industry" />
+                  <p className="tj-industry">{L(card.context)}</p>
 
-                  <div className="tj-block-label">{L(TX.lblRole)}</div>
-                  <ReadMore text={L(card.role)} limit={200} className="tj-industry" />
+                  <RoleToggle label={L(TX.lblRole)} text={L(card.role)} />
 
                   <Link href={card.href} className="tj-cta tj-cta--card">
                     {L(TX.explore)} →
