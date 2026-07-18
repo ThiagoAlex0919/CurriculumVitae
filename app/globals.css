@@ -1909,6 +1909,39 @@ p {
 }
 
 
+/* ---- Tooltips del sidebar colapsado ---- */
+.sb-tip {
+  display: none;
+}
+.app-shell[data-collapsed="true"] .sidebar {
+  overflow: visible;
+}
+.app-shell[data-collapsed="true"] .sb-link .sb-tip {
+  display: block;
+  position: absolute;
+  left: calc(100% + 16px);
+  top: 50%;
+  transform: translate(-4px, -50%);
+  background: var(--accent-dark);
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 5px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: var(--shadow);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 130;
+}
+.app-shell[data-collapsed="true"] .sb-link:hover .sb-tip,
+.app-shell[data-collapsed="true"] .sb-link:focus-visible .sb-tip {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
 /* ============ Impresión de la hoja de vida ============ */
 @media print {
   body {
@@ -1932,4 +1965,57 @@ p {
   * {
     box-shadow: none !important;
   }
+  /* la vista interactiva se oculta: se imprime la versión completa */
+  .dash {
+    display: none !important;
+  }
+  .print-resume {
+    display: block !important;
+  }
+}
+
+/* CV imprimible (oculto en pantalla) */
+.print-resume {
+  display: none;
+  color: #111;
+  font-size: 12px;
+  line-height: 1.55;
+  max-width: 100%;
+}
+.print-resume h1 {
+  font-size: 22px;
+  margin: 0 0 2px;
+  color: #111;
+}
+.print-resume h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 3px;
+  margin: 14px 0 6px;
+  color: #111;
+}
+.print-resume h3 {
+  font-size: 12.5px;
+  margin: 8px 0 1px;
+  color: #111;
+}
+.print-resume p {
+  margin: 0 0 4px;
+}
+.print-resume .pr-role {
+  font-weight: 600;
+  font-size: 13px;
+}
+.print-resume .pr-tagline {
+  font-style: italic;
+}
+.print-resume .pr-contact,
+.print-resume .pr-meta {
+  font-size: 11px;
+  color: #444;
+}
+.print-resume .pr-exp {
+  page-break-inside: avoid;
 }

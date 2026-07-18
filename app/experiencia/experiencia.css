@@ -817,5 +817,49 @@ body.tj-mode.tj-dark .mobile-credits {
   color: var(--tj-accent);
 }
 
+/* el menú (sidebar / barra móvil) también toma la versión oscura */
+body.tj-mode.tj-dark .sidebar {
+  background: #0a1024;
+  border-color: rgba(140, 160, 220, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+body.tj-mode.tj-dark .sb-menu-ico,
+body.tj-mode.tj-dark .sb-ico {
+  color: #8fb8e8;
+}
+body.tj-mode.tj-dark .sb-menu-label,
+body.tj-mode.tj-dark .sb-title {
+  color: #f1fafe;
+}
+body.tj-mode.tj-dark .sb-eyebrow,
+body.tj-mode.tj-dark .sb-rights {
+  color: #6b76a0;
+}
+body.tj-mode.tj-dark .sb-link.active .sb-ico,
+body.tj-mode.tj-dark .sb-link.active .sb-title {
+  color: #5eead4;
+}
+body.tj-mode.tj-dark .sidebar .lang {
+  border-color: rgba(140, 160, 220, 0.2);
+}
+body.tj-mode.tj-dark .sidebar .lang button {
+  color: #6b76a0;
+}
+body.tj-mode.tj-dark .sidebar .lang button.on {
+  background: #5eead4;
+  color: #04202a;
+}
+body.tj-mode.tj-dark .mobile-nav {
+  background: #0a1024;
+  border-color: rgba(140, 160, 220, 0.2);
+}
+body.tj-mode.tj-dark .mnav-label {
+  color: #aab4d4;
+}
+body.tj-mode.tj-dark .sb-tip {
+  background: #5eead4;
+  color: #04202a;
+}
+
 /* nubes-plataforma de la luna/ignición mantienen su blanco al invertir,
    el suelo blanco se vuelve oscuro: correcto para el modo noche */

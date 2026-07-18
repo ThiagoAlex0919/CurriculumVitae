@@ -26,6 +26,110 @@ const initials = profile.name
   .slice(0, 2)
   .join("");
 
+
+/* ------------------------------------------------------------------
+   Hoja de vida imprimible: TODA la información expandida.
+   Solo visible en @media print (la vista interactiva se oculta).
+   ------------------------------------------------------------------ */
+function PrintResume() {
+  const { t } = useI18n();
+  return (
+    <div className="print-resume" aria-hidden>
+      <header className="pr-head">
+        <h1>{profile.name}</h1>
+        <p className="pr-role">{t(profile.role)}</p>
+        <p className="pr-tagline">{t(profile.tagline)}</p>
+        <p className="pr-contact">
+          {profile.location} · {profile.email} · {profile.phones.join(" / ")}
+        </p>
+        <p className="pr-contact">
+          {profile.links.map((l) => `${l.label}: ${l.url.replace("mailto:", "")}`).join("  ·  ")}
+        </p>
+      </header>
+
+      <section>
+        <h2>{t({ es: "Perfil", en: "Profile" })}</h2>
+        <p>{t(profile.summary)}</p>
+      </section>
+
+      <section>
+        <h2>{t({ es: "Habilidades", en: "Skills" })}</h2>
+        {skills.map((s, i) => (
+          <p key={i}>
+            <strong>{t(s.category)}:</strong> {s.items.join(", ")}
+          </p>
+        ))}
+      </section>
+
+      <section>
+        <h2>{t({ es: "Experiencia laboral", en: "Work experience" })}</h2>
+        {experience.map((e, i) => (
+          <article key={i} className="pr-exp">
+            <h3>
+              {e.company} — {t(e.role)}
+            </h3>
+            <p className="pr-meta">
+              {e.period}
+              {e.location ? ` · ${t(e.location)}` : ""}
+            </p>
+            {e.summary && <p>{t(e.summary)}</p>}
+            <p className="pr-meta">
+              {e.functions.map((f) => t(f)).join(" · ")}
+            </p>
+          </article>
+        ))}
+      </section>
+
+      <section>
+        <h2>{t({ es: "Educación", en: "Education" })}</h2>
+        {education.map((e, i) => (
+          <p key={i}>
+            <strong>{t(e.degree)}</strong> — {e.institution} ({e.period})
+          </p>
+        ))}
+      </section>
+
+      <section>
+        <h2>{t({ es: "Otros estudios", en: "Other studies" })}</h2>
+        {otherStudies.map((o, i) => (
+          <p key={i}>
+            <strong>{t(o.name)}</strong> — {o.institution} ({o.year})
+          </p>
+        ))}
+      </section>
+
+      <section>
+        <h2>{t({ es: "Premios y reconocimientos", en: "Awards" })}</h2>
+        {awards.map((a, i) => (
+          <p key={i}>
+            <strong>{t(a.title)}</strong> — {a.org} ({a.year})
+          </p>
+        ))}
+      </section>
+
+      <section>
+        <h2>{t({ es: "Referencias personales", en: "Personal references" })}</h2>
+        {referencesPersonal.map((r, i) => (
+          <p key={i}>
+            <strong>{r.name}</strong> — {t(r.role)}, {r.company}
+            {r.phone ? ` · ${r.phone}` : ""}
+          </p>
+        ))}
+      </section>
+
+      <section>
+        <h2>{t({ es: "Referencias familiares", en: "Family references" })}</h2>
+        {referencesFamily.map((r, i) => (
+          <p key={i}>
+            <strong>{r.name}</strong> — {t(r.occupation)}, {r.company}
+            {r.phone ? ` · ${r.phone}` : ""}
+          </p>
+        ))}
+      </section>
+    </div>
+  );
+}
+
 export default function Home() {
   const { t } = useI18n();
   const [studiesOpen, setStudiesOpen] = useState(false);
@@ -36,6 +140,8 @@ export default function Home() {
   const featuredStudies = otherStudies.filter((s) => s.featured);
 
   return (
+    <>
+    <PrintResume />
     <div className="dash">
       <div className="dash-grid">
         {/* ---------- Columna fija — perfil ---------- */}
@@ -367,5 +473,6 @@ export default function Home() {
         </div>
       )}
     </div>
+    </>
   );
 }

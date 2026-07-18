@@ -398,8 +398,11 @@ function Collapse({ open, children }: { open: boolean; children: React.ReactNode
     if (open) {
       /* de 0 a la altura real, y al terminar vuelve a auto */
       el.style.height = "0px";
-      void el.offsetHeight; /* reflow */
-      el.style.height = `${target}px`;
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          el.style.height = `${target}px`;
+        })
+      );
       const done = () => {
         el.style.height = "auto";
         el.removeEventListener("transitionend", done);
@@ -408,8 +411,11 @@ function Collapse({ open, children }: { open: boolean; children: React.ReactNode
     } else {
       /* de auto a la altura real, y de ahí a 0 (animable) */
       el.style.height = `${target}px`;
-      void el.offsetHeight; /* reflow */
-      el.style.height = "0px";
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          el.style.height = "0px";
+        })
+      );
     }
   }, [open]);
 
@@ -514,16 +520,10 @@ export default function ExperienciaPage() {
   const [active, setActive] = useState("tj-hero");
   const [dark, setDark] = useState(false);
 
-  /* tema: claro (canvas de puntos) u oscuro (espacio profundo) */
-  useEffect(() => {
-    const stored = window.localStorage.getItem("exp-theme");
-    if (stored === "dark") setDark(true);
-  }, []);
+  /* tema: SIEMPRE inicia claro; el oscuro es elección del usuario
+     durante la sesión (toggle luna/sol) */
   useEffect(() => {
     document.body.classList.toggle("tj-dark", dark);
-    try {
-      window.localStorage.setItem("exp-theme", dark ? "dark" : "light");
-    } catch {}
   }, [dark]);
 
   /* Modo espacial en <body>, solo mientras la página vive */

@@ -42,7 +42,6 @@ export default function Sidebar({
             key={l.href}
             href={l.href}
             className={`sb-link ${isActive(l.href) ? "active" : ""}`}
-            title={t(l.title)}
           >
             <span className="sb-ico">
               <Icon name={l.icon} size={20} />
@@ -51,6 +50,7 @@ export default function Sidebar({
               <span className="sb-eyebrow">{t(l.sub)}</span>
               <span className="sb-title">{t(l.title)}</span>
             </span>
+            <span className="sb-tip">{t(l.title)}</span>
           </Link>
         ))}
       </nav>
