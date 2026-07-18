@@ -823,6 +823,9 @@ body.tj-mode.tj-dark .sidebar {
   border-color: rgba(140, 160, 220, 0.2);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
 }
+body.tj-mode.tj-dark .sb-top {
+  border-bottom-color: rgba(140, 160, 220, 0.2);
+}
 body.tj-mode.tj-dark .sb-menu-ico,
 body.tj-mode.tj-dark .sb-ico {
   color: #8fb8e8;

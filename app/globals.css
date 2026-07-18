@@ -749,15 +749,15 @@ p {
   gap: 12px;
   max-width: 2600px;
   margin-left: 0;
-  transition: max-width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    margin-left 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.25s ease, padding 0.25s ease;
+  transition: max-width 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    margin-left 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease, padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .content-header .ch-label {
   max-width: 420px;
   overflow: hidden;
   white-space: nowrap;
-  transition: opacity 0.3s ease, max-width 0.4s ease;
+  transition: opacity 0.5s ease, max-width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 /* al iniciar: compacto y alineado a la derecha (sin repetir el título del hero) */
 .content-header.is-compact {
@@ -1939,6 +1939,22 @@ p {
   }
 }
 
+
+/* ---- Colapso animado reutilizable (componente Collapse) ---- */
+.collapse {
+  overflow: hidden;
+  opacity: 0;
+  transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s ease;
+}
+.collapse.is-open {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .collapse {
+    transition: none;
+  }
+}
 
 /* ---- Tooltips del sidebar colapsado ---- */
 .sb-tip {

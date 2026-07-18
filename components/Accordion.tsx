@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Icon from "./Icon";
+import Collapse from "./Collapse";
 
 export default function Accordion({
   title,
@@ -34,7 +35,9 @@ export default function Accordion({
           <Icon name="chevron-down" size={18} />
         </span>
       </button>
-      {open && <div className="acc-body">{children}</div>}
+      <Collapse open={open}>
+        <div className="acc-body">{children}</div>
+      </Collapse>
     </section>
   );
 }

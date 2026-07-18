@@ -454,7 +454,8 @@ function ExpCard({
 }) {
   const { t, locale } = useI18n();
   const L = (o: { es: string; en: string }) => o[locale as "es" | "en"] ?? o.es;
-  const [open, setOpen] = useState(true);
+  /* nace abierta solo la actual (Bizagi); las demás contraídas */
+  const [open, setOpen] = useState(isFirst);
 
   return (
     <div className={`tj-card tj-reveal ${isFirst ? "tj-card--featured" : ""}`}>
