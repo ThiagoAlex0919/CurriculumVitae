@@ -437,15 +437,15 @@ function ExpCard({
       </div>
       <p className="tj-mission-text">{L(card.mission)}</p>
 
-      {open && (
-        <>
+      <div className={`tj-collapse ${open ? "is-open" : ""}`} aria-hidden={!open}>
+        <div className="tj-collapse-inner">
           <div className="tj-block-label">{L(TX.lblContext)}</div>
           <p className="tj-industry">{L(card.context)}</p>
 
           <div className="tj-block-label">{L(TX.lblRole)}</div>
           <p className="tj-industry">{L(card.role)}</p>
-        </>
-      )}
+        </div>
+      </div>
 
       <div className="tj-card-foot">
         <button

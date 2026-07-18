@@ -501,6 +501,23 @@ body.tj-mode .more-inline {
   margin-top: 0;
 }
 
+/* colapso animado de contexto + mi rol (ease-out suave) */
+.tj-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+}
+.tj-collapse.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.tj-collapse-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
 /* pie de tarjeta */
 .tj-card-foot {
   display: flex;
@@ -707,6 +724,9 @@ body.tj-mode .more-inline {
   .tj-final .tj-reveal {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+  .tj-collapse {
     transition: none;
   }
 }

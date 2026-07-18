@@ -551,13 +551,6 @@ export const sideNav: {
   short: Localized; // etiqueta corta para la barra móvil
 }[] = [
   {
-    href: "/",
-    icon: "resume",
-    sub: { es: "Sobre mí", en: "About" },
-    title: { es: "Hoja de vida", en: "Resume" },
-    short: { es: "Resumen", en: "Resume" },
-  },
-  {
     href: "/experiencia",
     icon: "career",
     sub: { es: "Experiencia", en: "Experience" },
@@ -577,6 +570,13 @@ export const sideNav: {
     sub: { es: "Experimentos", en: "Experiments" },
     title: { es: "Laboratorio", en: "Lab" },
     short: { es: "Lab", en: "Lab" },
+  },
+  {
+    href: "/",
+    icon: "resume",
+    sub: { es: "Sobre mí", en: "About" },
+    title: { es: "Hoja de vida", en: "Resume" },
+    short: { es: "Resumen", en: "Resume" },
   },
   {
     href: "/contacto",
