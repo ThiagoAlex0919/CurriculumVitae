@@ -747,9 +747,9 @@ p {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  max-width: 2600px;
+  width: 100%;
   margin-left: 0;
-  transition: max-width 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+  transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     margin-left 0.7s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.4s ease, padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -761,7 +761,7 @@ p {
 }
 /* al iniciar: compacto y alineado a la derecha (sin repetir el título del hero) */
 .content-header.is-compact {
-  max-width: 190px;
+  width: 190px;
   margin-left: auto;
   padding: 9px 12px;
 }
@@ -1929,7 +1929,7 @@ p {
   }
   /* en móvil el header queda a lo ancho, sin encogerse */
   .content-header.is-compact {
-    max-width: none;
+    width: auto;
     margin-left: 0;
     padding: 12px 16px;
   }

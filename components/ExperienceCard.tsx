@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useI18n, type Localized } from "@/lib/i18n";
 import { ui } from "@/lib/content";
+import Collapse from "./Collapse";
 
 type Job = {
   company: string;
@@ -65,8 +66,10 @@ export default function ExperienceCard({
         ))}
       </div>
 
-      {open && job.summary && (
-        <p className="xcard-summary">{t(job.summary)}</p>
+      {job.summary && (
+        <Collapse open={open}>
+          <p className="xcard-summary">{t(job.summary)}</p>
+        </Collapse>
       )}
 
       <div className="xcard-foot">
