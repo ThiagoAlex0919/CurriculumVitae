@@ -381,6 +381,45 @@ const startYear = (period: string) => {
   return m ? parseInt(m[0], 10) : 0;
 };
 
+/* Colapso animado con altura medida por JS (ease-out fluido) */
+function Collapse({ open, children }: { open: boolean; children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const first = useRef(true);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (first.current) {
+      first.current = false;
+      el.style.height = open ? "auto" : "0px";
+      return;
+    }
+    const target = el.scrollHeight;
+    if (open) {
+      /* de 0 a la altura real, y al terminar vuelve a auto */
+      el.style.height = "0px";
+      void el.offsetHeight; /* reflow */
+      el.style.height = `${target}px`;
+      const done = () => {
+        el.style.height = "auto";
+        el.removeEventListener("transitionend", done);
+      };
+      el.addEventListener("transitionend", done);
+    } else {
+      /* de auto a la altura real, y de ahí a 0 (animable) */
+      el.style.height = `${target}px`;
+      void el.offsetHeight; /* reflow */
+      el.style.height = "0px";
+    }
+  }, [open]);
+
+  return (
+    <div ref={ref} className={`tj-collapse ${open ? "is-open" : ""}`} aria-hidden={!open}>
+      {children}
+    </div>
+  );
+}
+
 /* Logo de empresa con fallback a iniciales (cuando existan los
    archivos en /public/logos aparecerán automáticamente) */
 function CompanyLogo({ logo, initials }: { logo?: string; initials: string }) {
@@ -437,15 +476,13 @@ function ExpCard({
       </div>
       <p className="tj-mission-text">{L(card.mission)}</p>
 
-      <div className={`tj-collapse ${open ? "is-open" : ""}`} aria-hidden={!open}>
-        <div className="tj-collapse-inner">
-          <div className="tj-block-label">{L(TX.lblContext)}</div>
-          <p className="tj-industry">{L(card.context)}</p>
+      <Collapse open={open}>
+        <div className="tj-block-label">{L(TX.lblContext)}</div>
+        <p className="tj-industry">{L(card.context)}</p>
 
-          <div className="tj-block-label">{L(TX.lblRole)}</div>
-          <p className="tj-industry">{L(card.role)}</p>
-        </div>
-      </div>
+        <div className="tj-block-label">{L(TX.lblRole)}</div>
+        <p className="tj-industry">{L(card.role)}</p>
+      </Collapse>
 
       <div className="tj-card-foot">
         <button

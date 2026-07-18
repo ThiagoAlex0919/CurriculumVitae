@@ -13,19 +13,13 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const introTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem("sidebar-collapsed");
-    if (stored === "1") {
+    /* Intro en CADA carga: arranca expandido para que el usuario vea
+       el menú y, tras unos segundos, se contrae solo para darle
+       protagonismo al contenido. Después manda el usuario. */
+    if (window.innerWidth < 900) {
       setCollapsed(true);
-    } else if (stored === null) {
-      if (window.innerWidth < 900) {
-        setCollapsed(true);
-      } else {
-        /* Intro: arranca expandido para que el usuario vea el menú y,
-           tras unos segundos, se contrae solo para darle protagonismo
-           al contenido. Solo pasa mientras el usuario no haya tocado
-           el menú (sin preferencia guardada). */
-        introTimer.current = setTimeout(() => setCollapsed(true), 3500);
-      }
+    } else {
+      introTimer.current = setTimeout(() => setCollapsed(true), 3500);
     }
     setReady(true);
     return () => {
@@ -39,13 +33,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       clearTimeout(introTimer.current);
       introTimer.current = null;
     }
-    setCollapsed((c) => {
-      const next = !c;
-      try {
-        window.localStorage.setItem("sidebar-collapsed", next ? "1" : "0");
-      } catch {}
-      return next;
-    });
+    setCollapsed((c) => !c);
   };
 
   return (

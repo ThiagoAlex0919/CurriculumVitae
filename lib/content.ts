@@ -572,7 +572,7 @@ export const sideNav: {
     short: { es: "Lab", en: "Lab" },
   },
   {
-    href: "/",
+    href: "/hoja-de-vida",
     icon: "resume",
     sub: { es: "Sobre mí", en: "About" },
     title: { es: "Hoja de vida", en: "Resume" },

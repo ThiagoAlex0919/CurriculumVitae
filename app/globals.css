@@ -1907,3 +1907,29 @@ p {
     padding: 12px 16px;
   }
 }
+
+
+/* ============ Impresión de la hoja de vida ============ */
+@media print {
+  body {
+    background: #ffffff !important;
+    background-image: none !important;
+  }
+  .sidebar,
+  .mobile-nav,
+  .content-header,
+  .mobile-credits,
+  .social-btn--print,
+  .app-shell::before,
+  .app-shell::after {
+    display: none !important;
+  }
+  .app-main,
+  .app-shell[data-collapsed="true"] .app-main {
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+  * {
+    box-shadow: none !important;
+  }
+}
