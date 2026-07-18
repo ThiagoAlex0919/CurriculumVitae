@@ -857,8 +857,9 @@ body.tj-mode.tj-dark .mnav-label {
   color: #aab4d4;
 }
 body.tj-mode.tj-dark .sb-tip {
-  background: #5eead4;
-  color: #04202a;
+  background: var(--tj-card);
+  color: #f1fafe;
+  border-color: rgba(140, 160, 220, 0.2);
 }
 
 /* nubes-plataforma de la luna/ignición mantienen su blanco al invertir,

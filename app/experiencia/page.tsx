@@ -384,39 +384,36 @@ const startYear = (period: string) => {
 /* Colapso animado con altura medida por JS (ease-out fluido) */
 function Collapse({ open, children }: { open: boolean; children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
-  const first = useRef(true);
+  const mounted = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (first.current) {
-      first.current = false;
+
+    /* primer render: fija la altura sin animar */
+    if (!mounted.current) {
+      mounted.current = true;
       el.style.height = open ? "auto" : "0px";
       return;
     }
-    const target = el.scrollHeight;
-    if (open) {
-      /* de 0 a la altura real, y al terminar vuelve a auto */
-      el.style.height = "0px";
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => {
-          el.style.height = `${target}px`;
-        })
-      );
-      const done = () => {
-        el.style.height = "auto";
-        el.removeEventListener("transitionend", done);
-      };
-      el.addEventListener("transitionend", done);
-    } else {
-      /* de auto a la altura real, y de ahí a 0 (animable) */
-      el.style.height = `${target}px`;
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => {
-          el.style.height = "0px";
-        })
-      );
-    }
+
+    /* altura de partida real (aunque venga de "auto") */
+    const from = el.getBoundingClientRect().height;
+    el.style.height = `${from}px`;
+    el.getBoundingClientRect(); /* fuerza reflow para fijar el punto de inicio */
+
+    const to = open ? el.scrollHeight : 0;
+    requestAnimationFrame(() => {
+      el.style.height = `${to}px`;
+    });
+
+    const onEnd = (e: TransitionEvent) => {
+      if (e.propertyName !== "height") return; /* ignora el fade */
+      if (open) el.style.height = "auto"; /* deja fluir el contenido */
+      el.removeEventListener("transitionend", onEnd);
+    };
+    el.addEventListener("transitionend", onEnd);
+    return () => el.removeEventListener("transitionend", onEnd);
   }, [open]);
 
   return (

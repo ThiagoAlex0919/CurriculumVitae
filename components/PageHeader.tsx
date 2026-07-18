@@ -28,7 +28,7 @@ export default function PageHeader({ extra }: { extra?: React.ReactNode }) {
     : t(ui.headerLabel);
 
   return (
-    <div className={`content-header ${scrolled ? "is-stuck" : ""}`}>
+    <div className={`content-header ${scrolled ? "is-stuck" : "is-compact"}`}>
       <span className="ch-label">{label}</span>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
       {extra}
