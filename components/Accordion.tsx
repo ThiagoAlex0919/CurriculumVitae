@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Icon from "./Icon";
 import Collapse from "./Collapse";
 
@@ -15,12 +15,8 @@ export default function Accordion({
   id?: string;
   children: React.ReactNode;
 }) {
-  const [open, setOpen] = useState(true);
-
-  useEffect(() => {
-    // En móvil, todos cerrados menos el primero.
-    if (window.innerWidth <= 720 && index > 0) setOpen(false);
-  }, [index]);
+  /* nace abierto solo el primero (Perfil profesional); el resto cerrados */
+  const [open, setOpen] = useState(index === 0);
 
   return (
     <section id={id} className={`acc ${open ? "is-open" : ""}`}>

@@ -224,7 +224,7 @@ export default function Home() {
 
         {/* ---------- Columna de contenido ---------- */}
         <div className="dash-main">
-          <PageHeader />
+          <PageHeader alwaysExpanded />
 
           {/* Perfil — resumen (ver más) + top skills */}
           <Accordion title={t(ui.home.aboutTitle)} index={0}>
