@@ -2148,7 +2148,8 @@ p {
   width: auto;
   opacity: 0.95;
 }
-.tray-meta {
+/* barra inferior del banner: título (izq) + meta (der) sobre degradado */
+.tray-banner-bottom {
   position: absolute;
   left: 0;
   right: 0;
@@ -2156,15 +2157,45 @@ p {
   z-index: 2;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 28px;
-  padding: 34px 26px 18px;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px 28px;
+  padding: 64px 26px 22px;
   background: linear-gradient(
     to top,
-    rgba(6, 4, 24, 0.85) 0%,
+    rgba(6, 4, 24, 0.92) 0%,
     rgba(6, 4, 24, 0.55) 55%,
     rgba(6, 4, 24, 0) 100%
   );
+}
+.tray-banner-title {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tray-banner-h1 {
+  font-family: var(--serif);
+  font-size: clamp(24px, 3vw, 40px);
+  font-weight: 600;
+  line-height: 1.05;
+  color: #fff;
+  margin: 0;
+}
+.tray-banner-h1 .tray-hl {
+  color: var(--tray-yellow);
+}
+.tray-banner-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tray-violet);
+}
+.tray-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 22px;
 }
 .tray-meta-item {
   display: inline-flex;
@@ -2192,30 +2223,11 @@ p {
   align-items: flex-start;
   padding: 8px 4px 0;
 }
-.tray-intro-title {
-  font-family: var(--serif);
-  font-size: clamp(26px, 3.2vw, 38px);
-  font-weight: 600;
-  line-height: 1.1;
-  color: var(--ink);
-  margin: 0;
-}
-.tray-intro-name {
-  color: var(--accent);
-}
-.tray-eyebrow {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin: 12px 0 0;
-}
 .tray-intro-lead {
   font-size: 15.5px;
   line-height: 1.65;
   color: var(--ink-soft);
-  margin: 22px 0 0;
+  margin: 0;
   max-width: 1440px;
 }
 .tray-chips {
@@ -2245,9 +2257,8 @@ p {
 }
 .tray-chip::before {
   content: "";
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
+  width: 18px;
+  height: 1px;
   background: var(--ink-mute);
   flex: none;
 }
@@ -2406,10 +2417,15 @@ p {
 }
 
 @media (max-width: 720px) {
+  .tray-banner-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 56px 18px 18px;
+  }
   .tray-meta {
     justify-content: flex-start;
     gap: 6px 20px;
-    padding: 30px 18px 16px;
   }
   .tray-card-foot {
     flex-direction: column;
