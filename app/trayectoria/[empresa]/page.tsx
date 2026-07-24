@@ -50,52 +50,58 @@ export default function CompanyPage() {
           /* eslint-disable-next-line @next/next/no-img-element */
           <img src={company.logo} alt={company.name} className="tray-logo" />
         )}
-        <div className="tray-banner-bottom">
-          <div className="tray-banner-title">
-            <h1 className="tray-banner-h1">
-              {t(ui.company.projectsAt)}{" "}
-              <span className="tray-hl">{company.name}</span>
-            </h1>
-            <span className="tray-banner-label">
-              {t(ui.company.portfolioLabel)}
+        <div className="tray-banner-title">
+          <span className="tray-banner-label">
+            {t(ui.company.portfolioLabel)}
+          </span>
+          <h1 className="tray-banner-h1">
+            {t(ui.company.projectsAt)}{" "}
+            <span className="tray-hl">{company.name}</span>
+          </h1>
+        </div>
+        <div className="tray-meta">
+          <div className="tray-meta-item">
+            <span className="tray-meta-k">{t(ui.company.role)}</span>
+            <span className="tray-meta-v">
+              {t(company.roleShort ?? company.role)}
             </span>
           </div>
-          <div className="tray-meta">
+          {company.team && (
             <div className="tray-meta-item">
-              <span className="tray-meta-k">{t(ui.company.role)}</span>
-              <span className="tray-meta-v">
-                {t(company.roleShort ?? company.role)}
-              </span>
+              <span className="tray-meta-k">{t(ui.company.team)}</span>
+              <span className="tray-meta-v">{t(company.team)}</span>
             </div>
-            {company.team && (
-              <div className="tray-meta-item">
-                <span className="tray-meta-k">{t(ui.company.team)}</span>
-                <span className="tray-meta-v">{t(company.team)}</span>
-              </div>
-            )}
-            <div className="tray-meta-item">
-              <span className="tray-meta-k">{t(ui.company.period)}</span>
-              <span className="tray-meta-v">{company.period}</span>
-            </div>
+          )}
+          <div className="tray-meta-item">
+            <span className="tray-meta-k">{t(ui.company.period)}</span>
+            <span className="tray-meta-v">{company.period}</span>
           </div>
         </div>
       </div>
 
       {/* Intro de proyectos */}
-      <section className="tray-intro">
-        <p className="tray-intro-lead">
-          {t(company.projectsIntro ?? company.story)}
-        </p>
-        {company.clients.length > 0 && (
-          <div className="tray-chips">
-            <span className="tray-chips-label">{t(ui.company.clients)}</span>
-            <div className="tray-chips-row">
-              {company.clients.map((c) => (
-                <span className="tray-chip" key={c}>
-                  {c}
-                </span>
-              ))}
+      <section className={`tray-intro${company.illustration ? " has-media" : ""}`}>
+        <div className="tray-intro-text">
+          <p className="tray-intro-lead">
+            {t(company.projectsIntro ?? company.story)}
+          </p>
+          {company.clients.length > 0 && (
+            <div className="tray-chips">
+              <span className="tray-chips-label">{t(ui.company.clients)}</span>
+              <div className="tray-chips-row">
+                {company.clients.map((c) => (
+                  <span className="tray-chip" key={c}>
+                    {c}
+                  </span>
+                ))}
+              </div>
             </div>
+          )}
+        </div>
+        {company.illustration && (
+          <div className="tray-intro-media">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={company.illustration} alt="" />
           </div>
         )}
       </section>
