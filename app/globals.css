@@ -2233,16 +2233,23 @@ p {
 .tray-chips-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px 24px;
 }
 .tray-chip {
-  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--ink);
-  background: var(--accent-tint);
-  border: 1px solid transparent;
-  padding: 7px 14px;
-  border-radius: 999px;
+}
+.tray-chip::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
 }
 
 /* --- Featured Projects heading (con barra de acento) --- */
