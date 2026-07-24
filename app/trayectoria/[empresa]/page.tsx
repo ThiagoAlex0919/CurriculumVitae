@@ -128,9 +128,7 @@ export default function CompanyPage() {
                 </div>
                 <div className="tray-card-foot">
                   {p.focus && (
-                    <span className="tray-card-focus">
-                      {t(ui.company.focus)}: {t(p.focus)}
-                    </span>
+                    <span className="tray-card-focus">{t(p.focus)}</span>
                   )}
                   <span className="tray-card-cta">
                     {t(ui.company.viewCase)} →
