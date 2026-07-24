@@ -901,6 +901,7 @@ export const ui = {
     period: { es: "Periodo", en: "Period" },
     projectsAt: { es: "Proyectos en", en: "Projects at" },
     featured: { es: "Proyectos destacados", en: "Featured Projects" },
+    moreProjects: { es: "Siguientes proyectos", en: "More projects" },
     focus: { es: "Enfoque", en: "Focus" },
     viewCase: { es: "Ver caso de estudio", en: "View Case Study" },
   },
