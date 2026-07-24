@@ -25,6 +25,14 @@ export type Project = {
   after: Localized;
   solution: Localized;
   metrics: Metric[];
+  // --- Presentación de la tarjeta destacada (portafolio) ---
+  featured?: boolean; // aparece en "Featured Projects"
+  image?: string; // ruta en /public (ej. "/imagenes/ai-worker.webp")
+  product?: string; // etiqueta superior izquierda (ej. "Bizagi Studio")
+  category?: Localized; // etiqueta morada (ej. "AI Workers")
+  highlight?: Localized; // parte del nombre a resaltar en amarillo (ej. "AI Assistant")
+  cardSummary?: Localized; // texto corto en la tarjeta
+  focus?: Localized; // "Focus: ..." (ej. "Artificial Intelligence")
 };
 
 export type Company = {
@@ -40,6 +48,11 @@ export type Company = {
   profile: Localized; // tu perfil dentro de la empresa
   challenges: Localized; // desafíos del día a día
   projects: Project[];
+  // --- Presentación del banner (portafolio) ---
+  banner?: string; // ruta del banner en /public (ej. "/imagenes/banner-bizagi.png")
+  team?: Localized; // equipo (ej. "Producto")
+  roleShort?: Localized; // rol para la barra del banner (ej. "Senior UX Designer")
+  projectsIntro?: Localized; // párrafo introductorio de la sección de proyectos
 };
 
 export type LabEntry = {
@@ -612,6 +625,13 @@ export const companies: Company[] = [
       en: "B2B Software · Process automation (BPM) and low-code",
     },
     clients: ["Banca", "Seguros", "Sector público", "Retail", "Telecomunicaciones"],
+    banner: "/imagenes/banner-bizagi.png",
+    team: { es: "Producto", en: "Product" },
+    roleShort: { es: "Senior UX Designer", en: "Senior UX Designer" },
+    projectsIntro: {
+      es: "Una selección de los proyectos en los que he contribuido como parte del equipo de Producto. Cada proyecto representa un reto distinto: desde experiencias potenciadas con IA y plataformas de bajo código hasta sistemas de diseño y aplicaciones empresariales.",
+      en: "A selection of the projects I've contributed to as part of the Product team. Each project represents a different product challenge, from AI-powered experiences and low-code platforms to design systems and enterprise applications.",
+    },
     story: {
       es: "Bizagi es una plataforma de automatización de procesos de negocio y bajo código usada por grandes organizaciones a nivel global. Este es un texto de ejemplo sobre la empresa, su producto y su mercado: reemplázalo por tu propia narrativa.",
       en: "Bizagi is a business process automation and low-code platform used by large organizations worldwide. This is placeholder text about the company, its product and market: replace it with your own narrative.",
@@ -657,6 +677,16 @@ export const companies: Company[] = [
           { label: "Tiempo de tarea", value: "-38%", note: { es: "Crear un proceso", en: "To create a process" } },
           { label: "Adopción", value: "+27%", note: { es: "Uso de la función", en: "Feature usage" } },
         ],
+        featured: true,
+        image: "/imagenes/ai-worker.webp",
+        product: "Bizagi Studio",
+        category: { es: "Low-Code", en: "Low-Code" },
+        highlight: { es: "modelador", en: "modeler" },
+        cardSummary: {
+          es: "Rediseño del modelador de procesos para que crear automatizaciones sea más rápido, claro y guiado.",
+          en: "Redesigning the process modeler so building automations is faster, clearer and more guided.",
+        },
+        focus: { es: "Sistema de diseño", en: "Design System" },
       },
       {
         slug: "asistente-ia",
@@ -683,6 +713,16 @@ export const companies: Company[] = [
           { label: "ASP", value: "+19%", note: { es: "Satisfacción promedio", en: "Average satisfaction" } },
           { label: "NPS", value: "+14 pts", note: { es: "Beta interna", en: "Internal beta" } },
         ],
+        featured: true,
+        image: "/imagenes/ai-worker.webp",
+        product: "Bizagi Studio",
+        category: { es: "AI Workers", en: "AI Workers" },
+        highlight: { es: "con IA", en: "design assistant" },
+        cardSummary: {
+          es: "Diseño de asistentes inteligentes potenciados por el conocimiento de la organización para ayudar a las personas a interactuar con la información empresarial de forma más efectiva.",
+          en: "Designing intelligent assistants powered by organizational knowledge to help users interact with enterprise information more effectively.",
+        },
+        focus: { es: "Inteligencia Artificial", en: "Artificial Intelligence" },
       },
     ],
   },
@@ -850,6 +890,14 @@ export const ui = {
       es: "Desarrollos de UX/UI que diseñé en esta empresa.",
       en: "UX/UI work I designed at this company.",
     },
+    backPortfolio: { es: "Volver al portafolio", en: "Back to portfolio" },
+    role: { es: "Rol", en: "Role" },
+    team: { es: "Equipo", en: "Team" },
+    period: { es: "Periodo", en: "Period" },
+    projectsAt: { es: "Proyectos en", en: "Projects at" },
+    featured: { es: "Proyectos destacados", en: "Featured Projects" },
+    focus: { es: "Enfoque", en: "Focus" },
+    viewCase: { es: "Ver caso de estudio", en: "View Case Study" },
   },
   project: {
     forClient: { es: "Para", en: "For" },

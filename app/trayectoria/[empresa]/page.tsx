@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
+import type { Localized } from "@/lib/i18n";
 import { findCompany, ui } from "@/lib/content";
 
 export default function CompanyPage() {
@@ -12,86 +13,122 @@ export default function CompanyPage() {
 
   if (!company) return notFound();
 
+  const featured = company.projects.filter((p) => p.featured);
+  const cards = featured.length ? featured : company.projects;
+
+  // Resalta la parte "highlight" dentro del nombre del proyecto.
+  const renderTitle = (name: Localized, highlight?: Localized) => {
+    const full = t(name);
+    const hl = highlight ? t(highlight) : "";
+    if (!hl || !full.includes(hl)) return <>{full}</>;
+    const [before, ...rest] = full.split(hl);
+    return (
+      <>
+        {before}
+        <span className="tray-hl">{hl}</span>
+        {rest.join(hl)}
+      </>
+    );
+  };
+
   return (
-    <>
-      <header className="detail-head">
-        <div className="container">
-          <Link href="/trayectoria" className="backlink">
-            ← {t(ui.work.title)}
-          </Link>
-          <h1>{company.name}</h1>
-          <p style={{ maxWidth: 560, marginTop: 4 }}>
-            {t(company.role)} · {company.period}
-          </p>
-        </div>
-      </header>
-
-      <section>
-        <div className="container">
-          <div className="info-grid">
-            <div className="info-item">
-              <div className="k">{t(ui.company.industry)}</div>
-              <div className="v">{t(company.industry)}</div>
-            </div>
-            <div className="info-item">
-              <div className="k">{t(ui.company.clients)}</div>
-              <div className="v">{company.clients.join(" · ")}</div>
-            </div>
-            <div className="info-item">
-              <div className="k">{t(ui.nav.work)}</div>
-              <div className="v">{t(company.area)}</div>
-            </div>
+    <div className="tray-page">
+      {/* Banner */}
+      <div
+        className="tray-banner"
+        style={
+          company.banner
+            ? { backgroundImage: `url(${company.banner})` }
+            : undefined
+        }
+      >
+        <div className="tray-banner-overlay" />
+        <Link href="/trayectoria" className="tray-back">
+          ← {t(ui.company.backPortfolio)}
+        </Link>
+        <div className="tray-meta">
+          <div className="tray-meta-item">
+            <span className="tray-meta-k">{t(ui.company.role)}:</span>{" "}
+            <span className="tray-meta-v">
+              {t(company.roleShort ?? company.role)}
+            </span>
           </div>
+          {company.team && (
+            <div className="tray-meta-item">
+              <span className="tray-meta-k">{t(ui.company.team)}:</span>{" "}
+              <span className="tray-meta-v">{t(company.team)}</span>
+            </div>
+          )}
+          <div className="tray-meta-item">
+            <span className="tray-meta-k">{t(ui.company.period)}:</span>{" "}
+            <span className="tray-meta-v">{company.period}</span>
+          </div>
+        </div>
+      </div>
 
-          <div className="prose-block module">
-            <p className="lead-serif" style={{ margin: 0 }}>
-              {t(company.story)}
+      {/* Intro de proyectos */}
+      <section className="tray-section">
+        <h2 className="tray-h2">
+          {t(ui.company.projectsAt)} {company.name}
+        </h2>
+        <div className="tray-intro">
+          <p>{t(company.projectsIntro ?? company.story)}</p>
+          {company.clients.length > 0 && (
+            <p className="tray-clients">
+              <strong>{t(ui.company.clients)}:</strong>{" "}
+              {company.clients.join(" · ")}
             </p>
-          </div>
-
-          <div className="prose-block module">
-            <h2>{t(ui.company.profile)}</h2>
-            <p>{t(company.profile)}</p>
-          </div>
-
-          <div className="prose-block module">
-            <h2>{t(ui.company.challenges)}</h2>
-            <p>{t(company.challenges)}</p>
-          </div>
+          )}
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="section-head">
-            <p className="eyebrow">{t(ui.company.solutions)}</p>
-            <p>{t(ui.company.solutionsSub)}</p>
-          </div>
-          <div className="card-grid">
-            {company.projects.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/trayectoria/${company.slug}/${p.slug}`}
-                className="card"
-              >
-                <h3 style={{ marginBottom: 8 }}>{t(p.name)}</h3>
-                <div className="role" style={{ marginBottom: 14 }}>
-                  {t(p.client)} · {p.year}
+      {/* Featured Projects */}
+      <section className="tray-section">
+        <h2 className="tray-h2">{t(ui.company.featured)}</h2>
+        <div className="tray-cards">
+          {cards.map((p) => (
+            <Link
+              key={p.slug}
+              href={`/trayectoria/${company.slug}/${p.slug}`}
+              className="tray-card"
+              style={
+                p.image ? { backgroundImage: `url(${p.image})` } : undefined
+              }
+            >
+              <div className="tray-card-shade" />
+              <div className="tray-card-inner">
+                <div className="tray-card-head">
+                  <span className="tray-card-product">
+                    {p.product ?? company.name}
+                  </span>
+                  <span className="tray-card-year">{p.year}</span>
                 </div>
-                <div className="tag-list" style={{ marginBottom: 14 }}>
-                  {p.tags.map((tag) => (
-                    <span className="tag" key={tag}>
-                      {tag}
+                <div className="tray-card-body">
+                  {p.category && (
+                    <span className="tray-card-cat">{t(p.category)}</span>
+                  )}
+                  <h3 className="tray-card-title">
+                    {renderTitle(p.name, p.highlight)}
+                  </h3>
+                  <p className="tray-card-desc">
+                    {t(p.cardSummary ?? p.challenge)}
+                  </p>
+                </div>
+                <div className="tray-card-foot">
+                  {p.focus && (
+                    <span className="tray-card-focus">
+                      {t(ui.company.focus)}: {t(p.focus)}
                     </span>
-                  ))}
+                  )}
+                  <span className="tray-card-cta">
+                    {t(ui.company.viewCase)} →
+                  </span>
                 </div>
-                <p className="desc">{t(p.challenge)}</p>
-                <span className="arrow">→</span>
-              </Link>
-            ))}
-          </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
-    </>
+    </div>
   );
 }
