@@ -50,6 +50,7 @@ export type Company = {
   projects: Project[];
   // --- Presentación del banner (portafolio) ---
   banner?: string; // ruta del banner en /public (ej. "/imagenes/banner-bizagi.png")
+  logo?: string; // logo blanco de la empresa para el banner (ej. "/logos/bizagi-blanca.png")
   team?: Localized; // equipo (ej. "Producto")
   roleShort?: Localized; // rol para la barra del banner (ej. "Senior UX Designer")
   projectsIntro?: Localized; // párrafo introductorio de la sección de proyectos
@@ -626,6 +627,7 @@ export const companies: Company[] = [
     },
     clients: ["Banca", "Seguros", "Sector público", "Retail", "Telecomunicaciones"],
     banner: "/imagenes/banner-bizagi.png",
+    logo: "/logos/bizagi-blanca.png",
     team: { es: "Producto", en: "Product" },
     roleShort: { es: "Senior UX Designer", en: "Senior UX Designer" },
     projectsIntro: {

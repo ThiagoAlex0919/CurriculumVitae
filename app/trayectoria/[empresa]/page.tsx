@@ -44,40 +44,56 @@ export default function CompanyPage() {
       >
         <div className="tray-banner-overlay" />
         <Link href="/trayectoria" className="tray-back">
-          ← {t(ui.company.backPortfolio)}
+          <span aria-hidden>←</span> {t(ui.company.backPortfolio)}
         </Link>
+        {company.logo && (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img src={company.logo} alt={company.name} className="tray-logo" />
+        )}
         <div className="tray-meta">
           <div className="tray-meta-item">
-            <span className="tray-meta-k">{t(ui.company.role)}:</span>{" "}
+            <span className="tray-meta-k">{t(ui.company.role)}</span>
             <span className="tray-meta-v">
               {t(company.roleShort ?? company.role)}
             </span>
           </div>
           {company.team && (
             <div className="tray-meta-item">
-              <span className="tray-meta-k">{t(ui.company.team)}:</span>{" "}
+              <span className="tray-meta-k">{t(ui.company.team)}</span>
               <span className="tray-meta-v">{t(company.team)}</span>
             </div>
           )}
           <div className="tray-meta-item">
-            <span className="tray-meta-k">{t(ui.company.period)}:</span>{" "}
+            <span className="tray-meta-k">{t(ui.company.period)}</span>
             <span className="tray-meta-v">{company.period}</span>
           </div>
         </div>
       </div>
 
       {/* Intro de proyectos */}
-      <section className="tray-section">
-        <h2 className="tray-h2">
-          {t(ui.company.projectsAt)} {company.name}
-        </h2>
-        <div className="tray-intro">
-          <p>{t(company.projectsIntro ?? company.story)}</p>
+      <section className="tray-intro">
+        <div className="tray-intro-main">
+          <p className="tray-eyebrow">{t(ui.nav.work)}</p>
+          <h2 className="tray-intro-title">
+            {t(ui.company.projectsAt)}{" "}
+            <span className="tray-intro-name">{company.name}</span>
+          </h2>
+        </div>
+        <div className="tray-intro-side">
+          <p className="tray-intro-lead">
+            {t(company.projectsIntro ?? company.story)}
+          </p>
           {company.clients.length > 0 && (
-            <p className="tray-clients">
-              <strong>{t(ui.company.clients)}:</strong>{" "}
-              {company.clients.join(" · ")}
-            </p>
+            <div className="tray-chips">
+              <span className="tray-chips-label">{t(ui.company.clients)}</span>
+              <div className="tray-chips-row">
+                {company.clients.map((c) => (
+                  <span className="tray-chip" key={c}>
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </div>
           )}
         </div>
       </section>
