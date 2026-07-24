@@ -893,6 +893,7 @@ export const ui = {
       en: "UX/UI work I designed at this company.",
     },
     backPortfolio: { es: "Volver al portafolio", en: "Back to portfolio" },
+    portfolioLabel: { es: "Portafolio", en: "Portfolio" },
     role: { es: "Rol", en: "Role" },
     team: { es: "Equipo", en: "Team" },
     period: { es: "Periodo", en: "Period" },

@@ -72,30 +72,26 @@ export default function CompanyPage() {
 
       {/* Intro de proyectos */}
       <section className="tray-intro">
-        <div className="tray-intro-main">
-          <p className="tray-eyebrow">{t(ui.nav.work)}</p>
-          <h2 className="tray-intro-title">
-            {t(ui.company.projectsAt)}{" "}
-            <span className="tray-intro-name">{company.name}</span>
-          </h2>
-        </div>
-        <div className="tray-intro-side">
-          <p className="tray-intro-lead">
-            {t(company.projectsIntro ?? company.story)}
-          </p>
-          {company.clients.length > 0 && (
-            <div className="tray-chips">
-              <span className="tray-chips-label">{t(ui.company.clients)}</span>
-              <div className="tray-chips-row">
-                {company.clients.map((c) => (
-                  <span className="tray-chip" key={c}>
-                    {c}
-                  </span>
-                ))}
-              </div>
+        <h2 className="tray-intro-title">
+          {t(ui.company.projectsAt)}{" "}
+          <span className="tray-intro-name">{company.name}</span>
+        </h2>
+        <p className="tray-eyebrow">{t(ui.company.portfolioLabel)}</p>
+        <p className="tray-intro-lead">
+          {t(company.projectsIntro ?? company.story)}
+        </p>
+        {company.clients.length > 0 && (
+          <div className="tray-chips">
+            <span className="tray-chips-label">{t(ui.company.clients)}</span>
+            <div className="tray-chips-row">
+              {company.clients.map((c) => (
+                <span className="tray-chip" key={c}>
+                  {c}
+                </span>
+              ))}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </section>
 
       {/* Featured Projects */}
