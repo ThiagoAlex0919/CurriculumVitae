@@ -18,7 +18,6 @@ import Icon from "@/components/Icon";
 import Accordion from "@/components/Accordion";
 import ExperienceCard from "@/components/ExperienceCard";
 import ReadMore from "@/components/ReadMore";
-import PageHeader from "@/components/PageHeader";
 
 const initials = profile.name
   .split(" ")
@@ -197,7 +196,9 @@ export default function Home() {
             ))}
 
             <div className="profile-socials">
-              {profile.links.map((l) => (
+              {profile.links
+                .filter((l) => l.icon !== "mail" && l.icon !== "whatsapp")
+                .map((l) => (
                 <a
                   key={l.label}
                   href={l.url}
@@ -224,8 +225,6 @@ export default function Home() {
 
         {/* ---------- Columna de contenido ---------- */}
         <div className="dash-main">
-          <PageHeader alwaysExpanded />
-
           {/* Perfil — resumen (ver más) + top skills */}
           <Accordion title={t(ui.home.aboutTitle)} index={0}>
             <ReadMore

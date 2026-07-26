@@ -1255,12 +1255,10 @@ p {
 }
 /* Botón "Sobre el proyecto" dentro del menú de ajustes */
 .settings-about {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: block;
   width: 100%;
   margin-top: 6px;
-  padding: 11px 10px;
+  padding: 12px 4px 2px;
   border: 0;
   border-top: 1px solid var(--line);
   background: transparent;
@@ -1274,6 +1272,11 @@ p {
 }
 .settings-about:hover {
   color: var(--accent);
+}
+/* Énfasis "AI First" en el modal */
+.about-hl {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 /* Modal "Sobre el proyecto" */

@@ -118,8 +118,7 @@ export default function Settings({
           setAboutOpen(true);
         }}
       >
-        <Icon name="info" size={17} />
-        <span>{t(ui.about.nav)}</span>
+        {t(ui.about.nav)}
       </button>
     </>
   );
@@ -151,7 +150,7 @@ export default function Settings({
                 {imgOk ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img
-                    src={profile.photo}
+                    src="/imagenes/avatar-alex.png"
                     alt={profile.name}
                     onError={() => setImgOk(false)}
                   />
@@ -162,7 +161,21 @@ export default function Settings({
 
               <h3 className="about-name">{profile.name}</h3>
               <p className="about-role">{t(profile.role)}</p>
-              <p className="about-body">{t(ui.about.body)}</p>
+              <p className="about-body">
+                {(() => {
+                  const text = t(ui.about.body);
+                  const kw = "AI First";
+                  const i = text.indexOf(kw);
+                  if (i < 0) return text;
+                  return (
+                    <>
+                      {text.slice(0, i)}
+                      <span className="about-hl">{kw}</span>
+                      {text.slice(i + kw.length)}
+                    </>
+                  );
+                })()}
+              </p>
 
               <Link
                 href="/hoja-de-vida"
