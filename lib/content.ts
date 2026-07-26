@@ -1530,6 +1530,15 @@ export const ui = {
     light: { es: "Claro", en: "Light" },
     dark: { es: "Oscuro", en: "Dark" },
   },
+  about: {
+    nav: { es: "Sobre el proyecto", en: "About this project" },
+    body: {
+      es: "Este sitio es mi hoja de vida y portafolio personal: un proyecto propio diseñado y construido con una mentalidad AI First, con enfoque en claridad, accesibilidad y detalle. Reúne mi trayectoria, mis proyectos y mis experimentos en un mismo lugar, bilingüe (ES/EN) y con modo claro/oscuro.",
+      en: "This site is my personal resume and portfolio: a project I designed and built with an AI-First mindset, focused on clarity, accessibility and detail. It brings together my career, my projects and my experiments in one place, bilingual (ES/EN) and with light/dark mode.",
+    },
+    cta: { es: "Ver hoja de vida", en: "View resume" },
+    close: { es: "Cerrar", en: "Close" },
+  },
   home: {
     aboutTitle: { es: "Perfil profesional", en: "Professional profile" },
     skillsTitle: { es: "Skills y conocimiento", en: "Skills & knowledge" },

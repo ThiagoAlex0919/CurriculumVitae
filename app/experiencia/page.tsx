@@ -3,8 +3,8 @@
 import { Fragment, useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
+import { useTheme } from "@/lib/theme";
 import { experience } from "@/lib/content";
-import Icon from "@/components/Icon";
 import "./experiencia.css";
 
 /* Textos locales de la sección (aislados de lib/content) */
@@ -506,6 +506,7 @@ function ExpCard({
 
 export default function ExperienciaPage() {
   const { t, locale } = useI18n();
+  const { theme } = useTheme();
   const L = (o: { es: string; en: string }) => o[locale as "es" | "en"] ?? o.es;
 
   /* Del presente (Bizagi) al origen (Manuela Beltrán) */
@@ -515,13 +516,13 @@ export default function ExperienciaPage() {
   const timelineRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState("tj-hero");
-  const [dark, setDark] = useState(false);
 
-  /* tema: SIEMPRE inicia claro; el oscuro es elección del usuario
-     durante la sesión (toggle luna/sol) */
+  /* El modo oscuro de esta sección se controla desde el tema GLOBAL
+     (Ajustes). Cuando el tema global es "dark", se aplica el diseño
+     espacial oscuro de la línea de tiempo. */
   useEffect(() => {
-    document.body.classList.toggle("tj-dark", dark);
-  }, [dark]);
+    document.body.classList.toggle("tj-dark", theme === "dark");
+  }, [theme]);
 
   /* Modo espacial en <body>, solo mientras la página vive */
   useEffect(() => {
@@ -621,14 +622,6 @@ export default function ExperienciaPage() {
 
   return (
     <>
-      <button
-        className="tj-theme-float"
-        onClick={() => setDark((d) => !d)}
-        aria-label={dark ? "Modo claro" : "Modo oscuro"}
-        title={dark ? "Modo claro" : "Modo oscuro"}
-      >
-        <Icon name={dark ? "sun" : "moon"} size={18} />
-      </button>
       <div className="tj-scene">
         {/* Universo de fondo: constelaciones sutiles sobre el canvas */}
         <div className="tj-stars tj-stars--far" />
