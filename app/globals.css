@@ -2216,31 +2216,65 @@ p {
   font-weight: 600;
 }
 
-/* --- Intro + proyecto protagonista (40/60, misma altura) --- */
-.tray-spotlight {
+/* --- Sobre mi trabajo (70) + sectores (30) --- */
+.tray-about {
   display: grid;
-  grid-template-columns: 4fr 6fr;
-  gap: 44px;
-  align-items: stretch;
+  grid-template-columns: 7fr 3fr;
+  gap: 56px;
+  align-items: start;
   padding: 8px 4px 0;
 }
-.tray-spotlight-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
+.tray-eyebrow2 {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 14px;
 }
 .tray-intro-lead {
-  font-size: 15.5px;
-  line-height: 1.65;
+  font-size: 16px;
+  line-height: 1.7;
   color: var(--ink-soft);
   margin: 0;
-  max-width: 560px;
+  max-width: 760px;
 }
-@media (max-width: 900px) {
-  .tray-spotlight {
+.tray-about-sectors {
+  border-left: 1px solid var(--line);
+  padding-left: 40px;
+}
+.tray-sector-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.tray-sector {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink);
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+}
+.tray-sector:first-child {
+  padding-top: 0;
+}
+.tray-sector:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+@media (max-width: 820px) {
+  .tray-about {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+  .tray-about-sectors {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid var(--line);
+    padding-top: 22px;
   }
 }
 .tray-chips {

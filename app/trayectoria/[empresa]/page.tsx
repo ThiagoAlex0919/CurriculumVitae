@@ -14,14 +14,6 @@ export default function CompanyPage() {
 
   if (!company) return notFound();
 
-  // Proyecto protagonista = el destacado más reciente (o el primero).
-  const featured = company.projects.filter((p) => p.featured);
-  const pool = featured.length ? featured : company.projects;
-  const hero = [...pool].sort(
-    (a, b) => Number(b.year) - Number(a.year)
-  )[0];
-  const rest = company.projects.filter((p) => p.slug !== hero?.slug);
-
   // Resalta la parte "highlight" dentro del nombre del proyecto.
   const renderTitle = (name: Localized, highlight?: Localized) => {
     const full = t(name);
@@ -115,35 +107,35 @@ export default function CompanyPage() {
         </div>
       </div>
 
-      {/* Intro + proyecto protagonista (40/60) */}
-      <section className="tray-spotlight">
-        <div className="tray-spotlight-text">
+      {/* Sobre mi trabajo (70) + sectores (30) */}
+      <section className="tray-about">
+        <div className="tray-about-work">
+          <span className="tray-eyebrow2">{t(ui.company.workLabel)}</span>
           <p className="tray-intro-lead">
             {t(company.projectsIntro ?? company.story)}
           </p>
-          {company.clients.length > 0 && (
-            <div className="tray-chips">
-              <span className="tray-chips-label">{t(ui.company.clients)}</span>
-              <div className="tray-chips-row">
-                {company.clients.map((c) => (
-                  <span className="tray-chip" key={c}>
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
-        {hero && renderCard(hero, true)}
+        {company.clients.length > 0 && (
+          <div className="tray-about-sectors">
+            <span className="tray-eyebrow2">{t(ui.company.sectors)}</span>
+            <ul className="tray-sector-list">
+              {company.clients.map((c) => (
+                <li className="tray-sector" key={c}>
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
 
-      {/* Siguientes proyectos */}
-      {rest.length > 0 && (
-        <section className="tray-section">
-          <h2 className="tray-h2">{t(ui.company.moreProjects)}</h2>
-          <div className="tray-cards">{rest.map((p) => renderCard(p))}</div>
-        </section>
-      )}
+      {/* Grid de proyectos */}
+      <section className="tray-section">
+        <h2 className="tray-h2">{t(ui.company.projectsTitle)}</h2>
+        <div className="tray-cards">
+          {company.projects.map((p) => renderCard(p))}
+        </div>
+      </section>
     </div>
   );
 }
