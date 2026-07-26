@@ -1581,6 +1581,10 @@ export const ui = {
     },
     bannerTitle: { es: "My Works", en: "My Works" },
     bannerLabel: { es: "Portafolio", en: "Portfolio" },
+    bannerSub: {
+      es: "Una selección de proyectos de producto y diseño — en empresas y de forma independiente.",
+      en: "A selection of product & design projects — in-house and independent.",
+    },
     filtersLabel: { es: "Filtrar por", en: "Filter by" },
     filterCompany: { es: "Empresa", en: "Company" },
     filterYear: { es: "Año", en: "Year" },

@@ -51,18 +51,23 @@ export default function TrayectoriaPage() {
 
   return (
     <div className="tray-page">
-      {/* Banner "My Works" — mismo patrón que las páginas internas */}
-      <div
-        className="tray-banner"
-        style={{ backgroundImage: `url(/imagenes/my-work.png)` }}
-      >
-        <div className="tray-banner-overlay" />
-        <div className="tray-banner-bottom">
-          <div className="tray-banner-title">
-            <span className="tray-banner-label">{t(ui.work.bannerLabel)}</span>
-            <h1 className="tray-banner-h1">{t(ui.work.bannerTitle)}</h1>
-          </div>
+      {/* Banner "My Works" — composición clara: texto a la izquierda, ilustración protagonista a la derecha */}
+      <div className="works-banner">
+        <div className="works-banner-glow" aria-hidden />
+        <div className="works-banner-text">
+          <span className="works-banner-eyebrow">{t(ui.work.bannerLabel)}</span>
+          <h1 className="works-banner-h1">
+            My <span>Works</span>
+          </h1>
+          <p className="works-banner-sub">{t(ui.work.bannerSub)}</p>
         </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="works-banner-art"
+          src="/imagenes/my-work.png"
+          alt=""
+          aria-hidden
+        />
       </div>
 
       {/* Barra de filtros */}

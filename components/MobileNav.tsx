@@ -12,10 +12,10 @@ const byHref = (href: string) => sideNav.find((l) => l.href === href)!;
 
 // Orden en la barra: experience, portfolio, lab, resume
 const mainItems = [
-  byHref("/#experiencia"),
+  byHref("/experiencia"),
   byHref("/trayectoria"),
   byHref("/laboratorio"),
-  byHref("/"),
+  byHref("/hoja-de-vida"),
 ];
 const contactItem = byHref("/contacto");
 
