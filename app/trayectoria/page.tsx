@@ -1,45 +1,145 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { companies, ui } from "@/lib/content";
+import type { Company, Project } from "@/lib/content";
+
+type Work = { company: Company; project: Project };
+
+const ALL = "__all__";
 
 export default function TrayectoriaPage() {
   const { t } = useI18n();
 
-  return (
-    <>
-      <header className="detail-head">
-        <div className="container">
-          <p className="eyebrow">{t(ui.nav.work)}</p>
-          <h1>{t(ui.work.title)}</h1>
-          <p style={{ maxWidth: 560 }}>{t(ui.work.subtitle)}</p>
-        </div>
-      </header>
+  // Aplana todos los proyectos de todas las empresas en un solo listado.
+  const works: Work[] = useMemo(
+    () =>
+      companies.flatMap((company) =>
+        company.projects.map((project) => ({ company, project }))
+      ),
+    []
+  );
 
-      <section style={{ paddingBottom: 40 }}>
-        <div className="container">
-          <div className="card-grid">
-            {companies.map((c) => (
-              <Link href={`/trayectoria/${c.slug}`} className="card" key={c.slug}>
-                <div className="card-top">
-                  <div className="badge-init">{c.initials}</div>
-                  <div>
-                    <h3>{c.name}</h3>
-                    <div className="role">{t(c.role)}</div>
-                    <div className="period">{c.period}</div>
-                  </div>
-                </div>
-                <p className="desc">{t(c.industry)}</p>
-                <span className="arrow">
-                  {c.projects.length}{" "}
-                  {t(ui.company.solutions).toLowerCase()} →
-                </span>
-              </Link>
-            ))}
+  // Opciones de filtro (por ahora: empresa y año).
+  const companyNames = useMemo(
+    () => Array.from(new Set(works.map((w) => w.company.name))).sort(),
+    [works]
+  );
+  const years = useMemo(
+    () =>
+      Array.from(new Set(works.map((w) => w.project.year))).sort(
+        (a, b) => Number(b) - Number(a)
+      ),
+    [works]
+  );
+
+  const [company, setCompany] = useState<string>(ALL);
+  const [year, setYear] = useState<string>(ALL);
+
+  const filtered = works
+    .filter((w) => (company === ALL ? true : w.company.name === company))
+    .filter((w) => (year === ALL ? true : w.project.year === year))
+    .sort((a, b) => Number(b.project.year) - Number(a.project.year));
+
+  const hasFilters = company !== ALL || year !== ALL;
+  const clear = () => {
+    setCompany(ALL);
+    setYear(ALL);
+  };
+
+  return (
+    <div className="tray-page">
+      {/* Banner "My Works" — mismo patrón que las páginas internas */}
+      <div
+        className="tray-banner"
+        style={{ backgroundImage: `url(/imagenes/my-work.png)` }}
+      >
+        <div className="tray-banner-overlay" />
+        <div className="tray-banner-bottom">
+          <div className="tray-banner-title">
+            <span className="tray-banner-label">{t(ui.work.bannerLabel)}</span>
+            <h1 className="tray-banner-h1">{t(ui.work.bannerTitle)}</h1>
           </div>
         </div>
+      </div>
+
+      {/* Barra de filtros */}
+      <section className="works-filters">
+        <div className="works-filters-row">
+          <span className="works-filters-label">{t(ui.work.filtersLabel)}</span>
+
+          <label className="works-select">
+            <span className="works-select-k">{t(ui.work.filterCompany)}</span>
+            <select
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            >
+              <option value={ALL}>{t(ui.work.filterAll)}</option>
+              {companyNames.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="works-select">
+            <span className="works-select-k">{t(ui.work.filterYear)}</span>
+            <select value={year} onChange={(e) => setYear(e.target.value)}>
+              <option value={ALL}>{t(ui.work.filterAll)}</option>
+              {years.map((y) => (
+                <option key={y} value={y}>
+                  {y}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <span className="works-count">
+            {filtered.length} {t(ui.work.resultsCount)}
+          </span>
+
+          {hasFilters && (
+            <button type="button" className="works-clear" onClick={clear}>
+              {t(ui.work.clearFilters)}
+            </button>
+          )}
+        </div>
       </section>
-    </>
+
+      {/* Grid de proyectos (tarjeta simplificada) */}
+      {filtered.length === 0 ? (
+        <p className="works-empty">{t(ui.work.empty)}</p>
+      ) : (
+        <div className="works-grid">
+          {filtered.map(({ company: c, project: p }) => (
+            <Link
+              key={`${c.slug}-${p.slug}`}
+              href={`/trayectoria/${c.slug}/${p.slug}`}
+              className="work-card"
+              style={
+                p.image ? { backgroundImage: `url(${p.image})` } : undefined
+              }
+            >
+              <div className="work-card-shade" />
+              <div className="work-card-inner">
+                <div className="work-card-head">
+                  <span className="work-card-company">{c.name}</span>
+                  <span className="work-card-year">{p.year}</span>
+                </div>
+                <div className="work-card-body">
+                  <h3 className="work-card-title">{t(p.name)}</h3>
+                  <span className="work-card-cta">
+                    {t(ui.company.viewCase)} →
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

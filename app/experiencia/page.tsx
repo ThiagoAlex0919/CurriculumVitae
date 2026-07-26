@@ -292,7 +292,8 @@ const SCENES: Layer[][] = [
       src: `${ART}/estacion.webp`,
       cls: "free",
       speed: -0.08,
-      style: { bottom: "-6%", right: "-2%", width: "min(760px, 58vw)", zIndex: 3 },
+      /* protagonista grande como la luna de Bizagi (full-bleed) */
+      style: { bottom: "-10%", left: "-2%", width: "104%", zIndex: 3 },
     },
     {
       src: `${ART}/estrellas.webp`,

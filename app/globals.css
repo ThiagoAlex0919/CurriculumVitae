@@ -2795,3 +2795,188 @@ p {
   }
 }
 
+/* =========================================================
+   PORTAFOLIO "My Works" — barra de filtros + grid simple
+   ========================================================= */
+.works-filters {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 16px 4px;
+}
+.works-filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 18px;
+}
+.works-filters-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.works-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.works-select-k {
+  color: var(--ink-mute);
+  font-weight: 500;
+}
+.works-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 34px 8px 14px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23919ca1' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+.works-select select:hover {
+  border-color: var(--accent);
+}
+.works-select select:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-tint);
+}
+.works-count {
+  font-size: 13px;
+  color: var(--ink-mute);
+}
+.works-clear {
+  margin-left: auto;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 4px;
+}
+.works-clear:hover {
+  text-decoration: underline;
+}
+.works-empty {
+  color: var(--ink-mute);
+  font-size: 15px;
+  padding: 24px 4px;
+}
+
+/* --- Grid de tarjetas simplificadas --- */
+.works-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 760px) {
+  .works-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1200px) {
+  .works-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1700px) {
+  .works-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.work-card {
+  position: relative;
+  display: block;
+  min-height: 300px;
+  border-radius: 18px;
+  overflow: hidden;
+  background-color: #1d2530;
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.work-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+.work-card-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 11, 18, 0.55) 0%,
+    rgba(8, 11, 18, 0.28) 34%,
+    rgba(5, 8, 14, 0.92) 100%
+  );
+}
+.work-card-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-height: 300px;
+  padding: 20px 22px;
+  color: #fff;
+}
+.work-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.work-card-company {
+  color: #fff;
+}
+.work-card-year {
+  color: var(--tray-yellow);
+}
+.work-card-body {
+  margin-top: auto;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+}
+.work-card-title {
+  font-family: var(--serif);
+  font-size: clamp(19px, 1.5vw, 23px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+  margin: 0;
+}
+.work-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--tray-blue);
+  padding: 9px 16px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: filter 0.18s ease;
+}
+.work-card:hover .work-card-cta {
+  filter: brightness(1.08);
+}
+
