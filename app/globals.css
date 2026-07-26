@@ -3039,36 +3039,31 @@ p {
   padding: 24px 4px;
 }
 
-/* --- Grid de tarjetas simplificadas (compactas) --- */
+/* --- Grid de tarjetas simplificadas (horizontales) --- */
 .works-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr; /* mini tablet y abajo → 1 columna */
   gap: 16px;
 }
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .works-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* tablet → 2 columnas */
   }
 }
-@media (min-width: 1000px) {
+@media (min-width: 1080px) {
   .works-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr); /* hasta 1440 → 3 columnas */
   }
 }
-@media (min-width: 1500px) {
+@media (min-width: 1441px) {
   .works-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-@media (max-width: 460px) {
-  .works-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(4, 1fr); /* superior a 1440 → 4 columnas */
   }
 }
 .work-card {
   position: relative;
   display: block;
-  min-height: 210px;
+  aspect-ratio: 3 / 2; /* más horizontal que cuadrada */
   border-radius: 14px;
   overflow: hidden;
   background-color: #1d2530;
@@ -3098,7 +3093,6 @@ p {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  min-height: 210px;
   padding: 14px 15px;
   color: #fff;
 }
