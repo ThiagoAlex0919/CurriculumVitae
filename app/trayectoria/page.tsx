@@ -38,6 +38,10 @@ export default function TrayectoriaPage() {
   const [company, setCompany] = useState<string>(ALL);
   const [year, setYear] = useState<string>(ALL);
 
+  // Datos para el banner
+  const yearMin = years.length ? years[years.length - 1] : "";
+  const yearMax = years.length ? years[0] : "";
+
   const filtered = works
     .filter((w) => (company === ALL ? true : w.company.name === company))
     .filter((w) => (year === ALL ? true : w.project.year === year))
@@ -51,15 +55,52 @@ export default function TrayectoriaPage() {
 
   return (
     <div className="tray-page">
-      {/* Banner "My Works" — composición clara: texto a la izquierda, ilustración protagonista a la derecha */}
+      {/* Banner "My Works" — fondo blanco, ilustración protagonista y acentos creativos */}
       <div className="works-banner">
-        <div className="works-banner-glow" aria-hidden />
+        <div className="works-banner-dots" aria-hidden />
+        <span className="works-accent works-accent--square" aria-hidden />
+        <span className="works-accent works-accent--plus" aria-hidden>
+          +
+        </span>
         <div className="works-banner-text">
-          <span className="works-banner-eyebrow">{t(ui.work.bannerLabel)}</span>
+          <span className="works-banner-eyebrow">
+            <span className="works-banner-spark" aria-hidden />
+            {t(ui.work.bannerLabel)}
+          </span>
           <h1 className="works-banner-h1">
-            My <span>Works</span>
+            My{" "}
+            <span className="works-banner-hl">
+              Works
+              <svg
+                className="works-banner-underline"
+                viewBox="0 0 200 12"
+                preserveAspectRatio="none"
+                aria-hidden
+              >
+                <path
+                  d="M2 8 C 50 2, 150 2, 198 7"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
           </h1>
           <p className="works-banner-sub">{t(ui.work.bannerSub)}</p>
+          <div className="works-banner-stats">
+            <span className="works-stat">
+              <strong>{companyNames.length}</strong> {t(ui.work.statCompanies)}
+            </span>
+            <span className="works-stat-dot" aria-hidden />
+            <span className="works-stat">
+              <strong>{works.length}</strong> {t(ui.work.statProjects)}
+            </span>
+            <span className="works-stat-dot" aria-hidden />
+            <span className="works-stat">
+              {yearMin} — {yearMax}
+            </span>
+          </div>
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

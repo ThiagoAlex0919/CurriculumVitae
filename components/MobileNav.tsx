@@ -24,7 +24,7 @@ export default function MobileNav() {
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
   const [moreOpen, setMoreOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
@@ -35,94 +35,92 @@ export default function MobileNav() {
     return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
-  const isActive = (href: string) => {
-    if (href.includes("#")) return false;
-    return href === "/" ? pathname === "/" : pathname.startsWith(href);
-  };
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <nav className="mobile-nav" aria-label={t(ui.menu)}>
-      {mainItems.map((l) => (
-        <Link
-          key={l.href}
-          href={l.href}
-          className={`mnav-item ${isActive(l.href) ? "active" : ""}`}
-        >
-          <span className="mnav-ico">
-            <Icon name={l.icon} size={19} />
-          </span>
-          <span className="mnav-label">{t(l.short)}</span>
-        </Link>
-      ))}
+    <nav className="mobile-nav" aria-label={t(ui.menu)} ref={ref}>
+      {moreOpen ? (
+        <div className="mnav-options">
+          <Link
+            href={contactItem.href}
+            className="mnav-opt-link"
+            onClick={() => setMoreOpen(false)}
+          >
+            <Icon name={contactItem.icon} size={18} />
+            {t(contactItem.short)}
+          </Link>
 
-      <div className="mnav-more" ref={ref}>
-        <button
-          className={`mnav-item ${moreOpen ? "active" : ""}`}
-          onClick={() => setMoreOpen((o) => !o)}
-          aria-expanded={moreOpen}
-          aria-label={t({ es: "Más", en: "More" })}
-        >
-          <span className="mnav-ico">
-            <Icon name="dots" size={19} />
-          </span>
-          <span className="mnav-label">{t({ es: "Más", en: "More" })}</span>
-        </button>
+          <span className="mnav-opt-sep" />
 
-        {moreOpen && (
-          <div className="mnav-more-menu" role="menu">
-            <Link
-              href={contactItem.href}
-              className="mnav-more-link"
-              onClick={() => setMoreOpen(false)}
+          <div className="lang" role="group" aria-label="Language">
+            <button
+              className={locale === "es" ? "on" : ""}
+              onClick={() => setLocale("es")}
+              aria-pressed={locale === "es"}
             >
-              <Icon name={contactItem.icon} size={18} />
-              {t(contactItem.short)}
-            </Link>
-
-            <div className="mnav-more-sep" />
-
-            <div className="settings-row">
-              <span className="settings-label">{t(ui.settings.language)}</span>
-              <div className="lang" role="group" aria-label="Language">
-                <button
-                  className={locale === "es" ? "on" : ""}
-                  onClick={() => setLocale("es")}
-                  aria-pressed={locale === "es"}
-                >
-                  ES
-                </button>
-                <button
-                  className={locale === "en" ? "on" : ""}
-                  onClick={() => setLocale("en")}
-                  aria-pressed={locale === "en"}
-                >
-                  EN
-                </button>
-              </div>
-            </div>
-
-            <div className="settings-row">
-              <span className="settings-label">{t(ui.settings.theme)}</span>
-              <div className="theme-toggle" role="group">
-                <button
-                  className={theme === "light" ? "on" : ""}
-                  onClick={() => setTheme("light")}
-                  aria-label={t(ui.settings.light)}
-                >
-                  <Icon name="sun" size={16} />
-                </button>
-                <button
-                  className={theme === "dark" ? "on" : ""}
-                  onClick={() => setTheme("dark")}
-                  aria-label={t(ui.settings.dark)}
-                >
-                  <Icon name="moon" size={16} />
-                </button>
-              </div>
-            </div>
+              ES
+            </button>
+            <button
+              className={locale === "en" ? "on" : ""}
+              onClick={() => setLocale("en")}
+              aria-pressed={locale === "en"}
+            >
+              EN
+            </button>
           </div>
-        )}
-      </div>
+
+          <div className="theme-toggle" role="group" aria-label={t(ui.settings.theme)}>
+            <button
+              className={theme === "light" ? "on" : ""}
+              onClick={() => setTheme("light")}
+              aria-label={t(ui.settings.light)}
+            >
+              <Icon name="sun" size={16} />
+            </button>
+            <button
+              className={theme === "dark" ? "on" : ""}
+              onClick={() => setTheme("dark")}
+              aria-label={t(ui.settings.dark)}
+            >
+              <Icon name="moon" size={16} />
+            </button>
+          </div>
+
+          <button
+            className="mnav-opt-close"
+            onClick={() => setMoreOpen(false)}
+            aria-label={t(ui.settings.title)}
+          >
+            <Icon name="x" size={18} />
+          </button>
+        </div>
+      ) : (
+        <>
+          {mainItems.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`mnav-item ${isActive(l.href) ? "active" : ""}`}
+            >
+              <span className="mnav-ico">
+                <Icon name={l.icon} size={19} />
+              </span>
+              <span className="mnav-label">{t(l.short)}</span>
+            </Link>
+          ))}
+          <button
+            className="mnav-item"
+            onClick={() => setMoreOpen(true)}
+            aria-label={t({ es: "Más", en: "More" })}
+          >
+            <span className="mnav-ico">
+              <Icon name="dots" size={19} />
+            </span>
+            <span className="mnav-label">{t({ es: "Más", en: "More" })}</span>
+          </button>
+        </>
+      )}
     </nav>
   );
 }

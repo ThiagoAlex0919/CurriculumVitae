@@ -1176,53 +1176,56 @@ p {
   font-size: 11px;
 }
 
-/* Botón "Más" de la barra móvil + su menú */
-.mnav-more {
-  flex: 1;
-  position: relative;
-  display: flex;
-}
-.mnav-more > .mnav-item {
-  width: 100%;
+/* Botón "Más": la barra usa un <button> con estilo de item */
+.mobile-nav > button.mnav-item {
   border: 0;
   background: transparent;
   cursor: pointer;
   font-family: var(--sans);
 }
-.mnav-more-menu {
-  position: absolute;
-  bottom: calc(100% + 12px);
-  right: 0;
-  width: 230px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  box-shadow: var(--shadow-hover);
-  padding: 12px;
-  z-index: 200;
-}
-.mnav-more-link {
+
+/* Opciones inline (reemplazan los items en la misma barra) */
+.mnav-options {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 8px;
-  border-radius: 10px;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 0 6px;
+}
+.mnav-opt-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   color: var(--ink);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
+  white-space: nowrap;
 }
-.mnav-more-link:hover {
-  background: var(--surface-2);
-}
-.mnav-more-link i {
+.mnav-opt-link i {
   color: var(--accent-dark);
 }
-.mnav-more-sep {
-  border-top: 1px solid var(--line);
-  margin: 6px 0;
+.mnav-opt-sep {
+  width: 1px;
+  height: 24px;
+  background: var(--line);
+  flex: 0 0 auto;
 }
-.mnav-more-menu .settings-row {
-  padding: 9px 8px;
+.mnav-opt-close {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: var(--surface-2);
+  border-radius: 9px;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.mnav-opt-close:hover {
+  color: var(--ink);
 }
 
 .mobile-credits {
@@ -2845,99 +2848,172 @@ p {
    PORTAFOLIO "My Works" — banner + filtros + grid simple
    ========================================================= */
 
-/* --- Banner claro y elegante: texto (izq) + ilustración protagonista (der) --- */
+/* --- Banner: fondo BLANCO puro (la ilustración se funde sin corte) + acentos creativos --- */
 .works-banner {
   position: relative;
   display: flex;
   align-items: center;
   overflow: hidden;
-  min-height: 300px;
+  min-height: 320px;
   border-radius: 22px;
   border: 1px solid var(--line);
-  background:
-    radial-gradient(
-      120% 140% at 88% 12%,
-      rgba(5, 136, 194, 0.14) 0%,
-      rgba(5, 136, 194, 0) 46%
-    ),
-    linear-gradient(100deg, #eaf3fb 0%, #f4f9fd 42%, #ffffff 74%);
+  background: #ffffff;
   box-shadow: var(--shadow);
-  padding: 0 clamp(24px, 4vw, 56px);
+  padding: 0 clamp(24px, 4vw, 60px);
 }
-/* halo suave detrás del título */
-.works-banner-glow {
+/* patrón de puntos sutil, solo detrás del texto (se desvanece antes de la imagen) */
+.works-banner-dots {
   position: absolute;
-  left: -6%;
-  top: -30%;
-  width: 46%;
-  height: 160%;
-  background: radial-gradient(
-    circle at 40% 50%,
-    rgba(2, 66, 95, 0.06) 0%,
-    rgba(2, 66, 95, 0) 70%
+  inset: 0;
+  background-image: radial-gradient(var(--dot) 1.4px, transparent 1.4px);
+  background-size: 20px 20px;
+  opacity: 0.55;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #000 0%,
+    #000 30%,
+    transparent 58%
   );
+  mask-image: linear-gradient(to right, #000 0%, #000 30%, transparent 58%);
   pointer-events: none;
+  z-index: 0;
+}
+/* acentos geométricos que hacen eco del wireframe de la ilustración */
+.works-accent {
+  position: absolute;
+  z-index: 2;
+  color: var(--accent);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.works-accent--square {
+  top: 40px;
+  left: 47%;
+  width: 26px;
+  height: 26px;
+  border: 3px solid currentColor;
+  border-radius: 7px;
+  transform: rotate(14deg);
+  opacity: 0.35;
+}
+.works-accent--plus {
+  bottom: 46px;
+  left: 42%;
+  font-family: var(--sans);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  opacity: 0.4;
 }
 .works-banner-text {
   position: relative;
-  z-index: 2;
-  max-width: 46%;
+  z-index: 3;
+  max-width: 48%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 34px 0;
+  gap: 14px;
+  padding: 36px 0;
 }
 .works-banner-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
 }
+.works-banner-spark {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
 .works-banner-h1 {
   font-family: var(--serif);
-  font-size: clamp(34px, 5.2vw, 62px);
+  font-size: clamp(36px, 5.4vw, 66px);
   font-weight: 700;
-  line-height: 1.02;
-  letter-spacing: -0.01em;
+  line-height: 1.0;
+  letter-spacing: -0.015em;
   color: var(--ink);
   margin: 0;
 }
-.works-banner-h1 span {
+.works-banner-hl {
+  position: relative;
   color: var(--accent);
+  white-space: nowrap;
+}
+.works-banner-underline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.16em;
+  width: 100%;
+  height: 0.28em;
+  color: var(--accent);
+  opacity: 0.85;
 }
 .works-banner-sub {
   font-size: clamp(14px, 1.1vw, 16px);
   line-height: 1.55;
   color: var(--ink-soft);
   margin: 2px 0 0;
-  max-width: 30ch;
+  max-width: 32ch;
 }
-/* la ilustración manda: grande, anclada abajo-derecha y sangrando al borde */
+/* fila de datos dinámicos */
+.works-banner-stats {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+.works-stat {
+  font-size: 13.5px;
+  color: var(--ink-mute);
+}
+.works-stat strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+.works-stat-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ink-mute);
+  opacity: 0.6;
+}
+/* la ilustración manda: grande, anclada abajo-derecha, sobre blanco (sin corte visible) */
 .works-banner-art {
   position: absolute;
-  right: -1%;
+  right: 0;
   bottom: 0;
-  height: 116%;
+  height: 122%;
   width: auto;
-  max-width: 64%;
+  max-width: 66%;
   object-fit: contain;
   object-position: bottom right;
   z-index: 1;
   pointer-events: none;
-  filter: drop-shadow(0 10px 24px rgba(2, 66, 95, 0.08));
 }
 @media (max-width: 860px) {
   .works-banner {
-    min-height: 260px;
+    min-height: 280px;
   }
   .works-banner-text {
-    max-width: 58%;
+    max-width: 60%;
   }
   .works-banner-art {
     max-width: 52%;
-    height: 104%;
-    opacity: 0.92;
+    height: 106%;
+  }
+  .works-accent--square {
+    left: 58%;
+  }
+  .works-accent--plus {
+    left: 54%;
   }
 }
 @media (max-width: 620px) {
@@ -2946,6 +3022,14 @@ p {
     align-items: flex-start;
     min-height: 0;
     padding: 26px 22px 0;
+  }
+  .works-banner-dots {
+    -webkit-mask-image: none;
+    mask-image: none;
+    opacity: 0.4;
+  }
+  .works-accent {
+    display: none;
   }
   .works-banner-text {
     max-width: 100%;
@@ -2956,7 +3040,7 @@ p {
     right: auto;
     bottom: auto;
     height: auto;
-    width: 84%;
+    width: 82%;
     max-width: 340px;
     align-self: flex-end;
   }
