@@ -131,7 +131,7 @@ export default function CompanyPage() {
 
       {/* Grid de proyectos */}
       <section className="tray-section">
-        <h2 className="tray-h2">{t(ui.company.projectsTitle)}</h2>
+        <h2 className="tray-eyebrow2">{t(ui.company.projectsTitle)}</h2>
         <div className="tray-cards">
           {company.projects.map((p) => renderCard(p))}
         </div>

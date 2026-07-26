@@ -2596,11 +2596,16 @@ p {
   flex: none;
 }
 
-/* --- Featured Projects heading (con barra de acento) --- */
+/* --- Proyectos: separado con un divider sutil --- */
 .tray-section {
   display: flex;
   flex-direction: column;
   gap: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 30px;
+}
+.tray-section .tray-eyebrow2 {
+  margin: 0;
 }
 .tray-h2 {
   position: relative;
