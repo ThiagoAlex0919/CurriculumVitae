@@ -2,14 +2,12 @@
 
 import { useI18n } from "@/lib/i18n";
 import { lab, ui } from "@/lib/content";
-import PageHeader from "@/components/PageHeader";
 
 export default function LabPage() {
   const { t } = useI18n();
 
   return (
     <>
-      <PageHeader />
       <header className="detail-head">
         <div className="container">
           <p className="eyebrow">{t(ui.nav.lab)}</p>

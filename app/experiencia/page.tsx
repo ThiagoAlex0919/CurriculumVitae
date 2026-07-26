@@ -4,7 +4,6 @@ import { Fragment, useEffect, useRef, useState, type CSSProperties } from "react
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { experience } from "@/lib/content";
-import PageHeader from "@/components/PageHeader";
 import Icon from "@/components/Icon";
 import "./experiencia.css";
 
@@ -622,18 +621,14 @@ export default function ExperienciaPage() {
 
   return (
     <>
-      <PageHeader
-        extra={
-          <button
-            className="tj-theme-btn"
-            onClick={() => setDark((d) => !d)}
-            aria-label={dark ? "Modo claro" : "Modo oscuro"}
-            title={dark ? "Modo claro" : "Modo oscuro"}
-          >
-            <Icon name={dark ? "sun" : "moon"} size={16} />
-          </button>
-        }
-      />
+      <button
+        className="tj-theme-float"
+        onClick={() => setDark((d) => !d)}
+        aria-label={dark ? "Modo claro" : "Modo oscuro"}
+        title={dark ? "Modo claro" : "Modo oscuro"}
+      >
+        <Icon name={dark ? "sun" : "moon"} size={18} />
+      </button>
       <div className="tj-scene">
         {/* Universo de fondo: constelaciones sutiles sobre el canvas */}
         <div className="tj-stars tj-stars--far" />

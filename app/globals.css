@@ -1220,6 +1220,33 @@ p {
   top: calc(100% + 10px);
   right: 0;
 }
+/* Engranaje como ítem del sidebar: mismo diseño que .sb-link */
+.settings--sidebar {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+.sb-settings {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--sans);
+  text-align: left;
+}
+.sb-settings.on .sb-ico,
+.sb-settings.on .sb-title {
+  color: var(--accent);
+}
+.settings-menu.sidebar {
+  bottom: calc(100% + 12px);
+  left: 0;
+  width: 236px;
+}
+.app-shell[data-collapsed="true"] .settings-menu.sidebar {
+  bottom: 0;
+  left: calc(100% + 16px);
+}
 .settings-title {
   font-size: 11px;
   letter-spacing: 0.09em;

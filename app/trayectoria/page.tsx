@@ -3,14 +3,12 @@
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 import { companies, ui } from "@/lib/content";
-import PageHeader from "@/components/PageHeader";
 
 export default function TrayectoriaPage() {
   const { t } = useI18n();
 
   return (
     <>
-      <PageHeader />
       <header className="detail-head">
         <div className="container">
           <p className="eyebrow">{t(ui.nav.work)}</p>

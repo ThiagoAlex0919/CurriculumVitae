@@ -57,7 +57,7 @@ export default function Sidebar({
       </nav>
 
       <div className="sb-bottom">
-        <Settings placement="up" />
+        <Settings variant="sidebar" />
         <p className="sb-rights">
           © {new Date().getFullYear()} {profile.name}
           <br />

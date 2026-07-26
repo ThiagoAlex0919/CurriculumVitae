@@ -2,14 +2,12 @@
 
 import { useI18n } from "@/lib/i18n";
 import { profile, ui } from "@/lib/content";
-import PageHeader from "@/components/PageHeader";
 
 export default function ContactPage() {
   const { t } = useI18n();
 
   return (
     <>
-      <PageHeader />
       <header className="detail-head">
         <div className="container">
           <p className="eyebrow">{t(ui.nav.contact)}</p>

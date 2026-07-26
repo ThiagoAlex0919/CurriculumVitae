@@ -90,6 +90,32 @@ body.tj-mode .more-inline {
   color: var(--tj-accent);
 }
 
+/* Toggle de modo oscuro flotante (reemplaza el header en /experiencia) */
+.tj-theme-float {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--tj-line);
+  background: var(--tj-bg, #fff);
+  color: var(--tj-ink);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(1, 30, 43, 0.1);
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+    transform 0.15s ease;
+}
+.tj-theme-float:hover {
+  border-color: var(--tj-accent);
+  color: var(--tj-accent);
+  transform: translateY(-1px);
+}
+
 /* ---------- Bullets de control de navegación (fijos) ---------- */
 .tj-stepper {
   position: fixed;
