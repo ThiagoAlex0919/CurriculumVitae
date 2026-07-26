@@ -1238,14 +1238,23 @@ p {
 .sb-settings.on .sb-title {
   color: var(--accent);
 }
+.sb-settings:focus {
+  outline: none;
+}
+.sb-settings:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+/* menú fijo para escapar del overflow:hidden del sidebar */
 .settings-menu.sidebar {
-  bottom: calc(100% + 12px);
-  left: 0;
+  position: fixed;
+  left: 26px;
+  bottom: 132px;
   width: 236px;
 }
 .app-shell[data-collapsed="true"] .settings-menu.sidebar {
-  bottom: 0;
-  left: calc(100% + 16px);
+  left: 100px;
+  bottom: 30px;
 }
 .settings-title {
   font-size: 11px;
