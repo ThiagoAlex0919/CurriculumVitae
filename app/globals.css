@@ -2233,42 +2233,45 @@ p {
   color: var(--accent);
   margin: 0 0 14px;
 }
+.tray-about-work {
+  padding-right: 40px;
+}
 .tray-intro-lead {
   font-size: 16px;
   line-height: 1.7;
   color: var(--ink-soft);
   margin: 0;
-  max-width: 760px;
 }
 .tray-about-sectors {
   border-left: 1px solid var(--line);
   padding-left: 40px;
 }
+/* tabla minimalista de sectores a dos columnas, llenando el contenedor */
 .tray-sector-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
 }
 .tray-sector {
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--ink);
-  padding: 11px 0;
+  padding: 11px 2px;
   border-bottom: 1px solid var(--line);
-}
-.tray-sector:first-child {
-  padding-top: 0;
 }
 .tray-sector:last-child {
   border-bottom: none;
-  padding-bottom: 0;
 }
 @media (max-width: 820px) {
   .tray-about {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+  .tray-about-work {
+    padding-right: 0;
   }
   .tray-about-sectors {
     border-left: none;

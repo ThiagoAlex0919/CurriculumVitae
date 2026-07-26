@@ -633,8 +633,8 @@ export const companies: Company[] = [
     team: { es: "Producto", en: "Product" },
     roleShort: { es: "Senior UX Designer", en: "Senior UX Designer" },
     projectsIntro: {
-      es: "Una selección de los proyectos en los que he contribuido como parte del equipo de Producto. Cada proyecto representa un reto distinto: desde experiencias potenciadas con IA y plataformas de bajo código hasta sistemas de diseño y aplicaciones empresariales.",
-      en: "A selection of the projects I've contributed to as part of the Product team. Each project represents a different product challenge, from AI-powered experiences and low-code platforms to design systems and enterprise applications.",
+      es: "Una selección de los proyectos en los que he contribuido como parte del equipo de Producto de Bizagi. Cada uno representó un reto distinto —desde experiencias potenciadas con IA y plataformas de bajo código hasta sistemas de diseño y aplicaciones empresariales— y en todos busqué traducir procesos complejos en soluciones claras, consistentes y centradas en las personas. Trabajé de la mano de equipos multidisciplinarios, del discovery al delivery, para asegurar que cada decisión de diseño aportara valor real al negocio y a quienes usan el producto.",
+      en: "A selection of the projects I've contributed to as part of Bizagi's Product team. Each one was a different challenge —from AI-powered experiences and low-code platforms to design systems and enterprise applications— and across all of them I worked to turn complex processes into clear, consistent, people-centered solutions. Partnering with cross-functional teams from discovery to delivery, I made sure every design decision added real value for the business and for the people using the product.",
     },
     story: {
       es: "Bizagi es una plataforma de automatización de procesos de negocio y bajo código usada por grandes organizaciones a nivel global. Este es un texto de ejemplo sobre la empresa, su producto y su mercado: reemplázalo por tu propia narrativa.",
