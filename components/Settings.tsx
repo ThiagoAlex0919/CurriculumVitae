@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
 import { ui } from "@/lib/content";
@@ -16,11 +17,16 @@ export default function Settings({
   const { t, locale, setLocale } = useI18n();
   const { theme, setTheme } = useTheme();
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState<{ left: number; bottom: number } | null>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      const n = e.target as Node;
+      if (wrapRef.current?.contains(n) || menuRef.current?.contains(n)) return;
+      setOpen(false);
     };
     const onEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
@@ -33,11 +39,17 @@ export default function Settings({
     };
   }, []);
 
-  const menu = (
-    <div
-      className={`settings-menu ${variant === "sidebar" ? "sidebar" : placement}`}
-      role="menu"
-    >
+  const toggle = () => {
+    if (!open && variant === "sidebar" && btnRef.current) {
+      const r = btnRef.current.getBoundingClientRect();
+      // menú fijo, anclado al botón: se abre hacia arriba
+      setPos({ left: r.left, bottom: window.innerHeight - r.top + 8 });
+    }
+    setOpen((o) => !o);
+  };
+
+  const menuInner = (
+    <>
       <div className="settings-title">{t(ui.settings.title)}</div>
 
       <div className="settings-row">
@@ -87,15 +99,16 @@ export default function Settings({
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 
   if (variant === "sidebar") {
     return (
-      <div className="settings settings--sidebar" ref={ref}>
+      <div className="settings settings--sidebar" ref={wrapRef}>
         <button
+          ref={btnRef}
           className={`sb-link sb-settings ${open ? "on" : ""}`}
-          onClick={() => setOpen((o) => !o)}
+          onClick={toggle}
           aria-label={t(ui.settings.title)}
           aria-expanded={open}
         >
@@ -107,13 +120,32 @@ export default function Settings({
           </span>
           <span className="sb-tip">{t(ui.settings.title)}</span>
         </button>
-        {open && menu}
+
+        {open &&
+          pos &&
+          typeof document !== "undefined" &&
+          createPortal(
+            <div
+              ref={menuRef}
+              className="settings-menu settings-menu--float"
+              role="menu"
+              style={{
+                position: "fixed",
+                left: pos.left,
+                bottom: pos.bottom,
+                width: 240,
+              }}
+            >
+              {menuInner}
+            </div>,
+            document.body
+          )}
       </div>
     );
   }
 
   return (
-    <div className="settings" ref={ref}>
+    <div className="settings" ref={wrapRef}>
       <button
         className={`settings-btn ${open ? "on" : ""}`}
         onClick={() => setOpen((o) => !o)}
@@ -122,7 +154,11 @@ export default function Settings({
       >
         <Icon name="gear" size={20} />
       </button>
-      {open && menu}
+      {open && (
+        <div className={`settings-menu ${placement}`} role="menu" ref={menuRef}>
+          {menuInner}
+        </div>
+      )}
     </div>
   );
 }

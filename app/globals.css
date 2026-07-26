@@ -1245,16 +1245,9 @@ p {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
-/* menú fijo para escapar del overflow:hidden del sidebar */
-.settings-menu.sidebar {
-  position: fixed;
-  left: 26px;
-  bottom: 132px;
-  width: 236px;
-}
-.app-shell[data-collapsed="true"] .settings-menu.sidebar {
-  left: 100px;
-  bottom: 30px;
+/* menú del engranaje: se renderiza en un portal (position fija por inline) */
+.settings-menu--float {
+  z-index: 300;
 }
 .settings-title {
   font-size: 11px;
