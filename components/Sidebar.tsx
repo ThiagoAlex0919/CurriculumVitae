@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
 import { ui, profile, sideNav } from "@/lib/content";
 import Icon from "./Icon";
+import Settings from "./Settings";
 
 export default function Sidebar({
   collapsed,
@@ -56,6 +57,7 @@ export default function Sidebar({
       </nav>
 
       <div className="sb-bottom">
+        <Settings placement="up" />
         <p className="sb-rights">
           © {new Date().getFullYear()} {profile.name}
           <br />

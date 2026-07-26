@@ -21,6 +21,9 @@ const map: Record<string, string> = {
   instagram: "ph-instagram-logo",
   linkedin: "ph-linkedin-logo",
   star: "ph-star",
+  gear: "ph-gear-six",
+  sun: "ph-sun",
+  moon: "ph-moon",
   x: "ph-x",
   chevron: "ph-caret-left",
   "chevron-down": "ph-caret-down",
@@ -28,8 +31,6 @@ const map: Record<string, string> = {
   phone: "ph-phone",
   plus: "ph-plus",
   minus: "ph-minus",
-  moon: "ph-moon",
-  sun: "ph-sun",
   print: "ph-printer",
 };
 

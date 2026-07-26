@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { I18nProvider } from "@/lib/i18n";
+import { ThemeProvider } from "@/lib/theme";
 import AppShell from "@/components/AppShell";
 
 export const metadata: Metadata = {
@@ -41,11 +42,19 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light');}catch(e){}",
+          }}
+        />
       </head>
       <body>
-        <I18nProvider>
-          <AppShell>{children}</AppShell>
-        </I18nProvider>
+        <ThemeProvider>
+          <I18nProvider>
+            <AppShell>{children}</AppShell>
+          </I18nProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

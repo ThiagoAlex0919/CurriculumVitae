@@ -540,7 +540,7 @@ p {
   left: 0;
   right: 0;
   height: 30px;
-  background: linear-gradient(to bottom, var(--bg) 40%, rgba(241, 242, 243, 0));
+  background: linear-gradient(to bottom, var(--bg) 40%, transparent);
   z-index: 88;
   pointer-events: none;
 }
@@ -551,7 +551,7 @@ p {
   left: 0;
   right: 0;
   height: 34px;
-  background: linear-gradient(to top, var(--bg) 40%, rgba(241, 242, 243, 0));
+  background: linear-gradient(to top, var(--bg) 40%, transparent);
   z-index: 88;
   pointer-events: none;
 }
@@ -1174,6 +1174,130 @@ p {
 
 .mobile-credits {
   display: none;
+}
+
+/* ============================================================
+   AJUSTES (engranaje + menú flotante)
+   ============================================================ */
+.settings {
+  position: relative;
+  display: inline-flex;
+}
+.settings-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.settings-btn:hover,
+.settings-btn.on {
+  color: var(--ink);
+  border-color: var(--ink-mute);
+}
+.settings-menu {
+  position: absolute;
+  z-index: 200;
+  width: 200px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow-hover);
+  padding: 14px;
+}
+.settings-menu.up {
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.settings-menu.down {
+  top: calc(100% + 10px);
+  right: 0;
+}
+.settings-title {
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 8px;
+}
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+}
+.settings-row + .settings-row {
+  border-top: 1px solid var(--line);
+}
+.settings-label {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.theme-toggle {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+}
+.theme-toggle button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 26px;
+  border: 0;
+  background: transparent;
+  color: var(--ink-mute);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.theme-toggle button.on {
+  background: var(--accent-dark);
+  color: #fff;
+}
+/* En el header, el engranaje solo aparece en móvil (en desktop está en el sidebar) */
+.content-header .settings {
+  display: none;
+}
+
+/* ============================================================
+   MODO OSCURO
+   ============================================================ */
+[data-theme="dark"] {
+  --bg: #12171d;
+  --dot: #242c35;
+  --card: #1b222a;
+  --ink: #e8edf2;
+  --ink-soft: #b7c1cb;
+  --ink-mute: #7f8b95;
+  --line: #2b333c;
+  --surface-2: #222a32;
+  --accent: #2f97d4;
+  --accent-dark: #86bde0;
+  --accent-tint: #103449;
+}
+[data-theme="dark"] .xcard-toggle,
+[data-theme="dark"] .more-inline {
+  color: #86bde0;
+}
+[data-theme="dark"] .lang button.on,
+[data-theme="dark"] .theme-toggle button.on {
+  background: var(--accent);
+  color: #fff;
+}
+[data-theme="dark"] .exp-badge.sm,
+[data-theme="dark"] .badge-init {
+  color: var(--ink);
 }
 
 /* ============================================================
@@ -1936,6 +2060,9 @@ p {
   .content-header.is-compact .ch-label {
     opacity: 1;
     max-width: 420px;
+  }
+  .content-header .settings {
+    display: inline-flex;
   }
 }
 

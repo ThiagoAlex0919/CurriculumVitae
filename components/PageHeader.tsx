@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
 import { ui } from "@/lib/content";
+import Settings from "./Settings";
 
 export default function PageHeader({
   extra,
@@ -12,7 +13,7 @@ export default function PageHeader({
   extra?: React.ReactNode;
   alwaysExpanded?: boolean;
 }) {
-  const { t, locale, setLocale } = useI18n();
+  const { t } = useI18n();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
 
@@ -40,24 +41,12 @@ export default function PageHeader({
   return (
     <div className={`content-header ${scrolled ? "is-stuck" : "is-compact"}`}>
       <span className="ch-label">{label}</span>
-      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-      {extra}
-      <div className="lang" role="group" aria-label="Language">
-        <button
-          className={locale === "es" ? "on" : ""}
-          onClick={() => setLocale("es")}
-          aria-pressed={locale === "es"}
-        >
-          ES
-        </button>
-        <button
-          className={locale === "en" ? "on" : ""}
-          onClick={() => setLocale("en")}
-          aria-pressed={locale === "en"}
-        >
-          EN
-        </button>
-      </div>
+      <div
+        className="ch-actions"
+        style={{ display: "flex", alignItems: "center", gap: 10 }}
+      >
+        {extra}
+        <Settings placement="down" />
       </div>
     </div>
   );
