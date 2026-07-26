@@ -6,7 +6,6 @@ import { useI18n } from "@/lib/i18n";
 import { ui, sideNav } from "@/lib/content";
 import Icon from "./Icon";
 import Settings from "./Settings";
-import AboutProject from "./AboutProject";
 
 export default function Sidebar({
   collapsed,
@@ -58,7 +57,6 @@ export default function Sidebar({
       </nav>
 
       <div className="sb-bottom">
-        <AboutProject />
         <Settings variant="sidebar" />
       </div>
     </aside>
