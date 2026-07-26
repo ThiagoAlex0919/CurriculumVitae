@@ -24,6 +24,7 @@ const map: Record<string, string> = {
   gear: "ph-gear-six",
   sun: "ph-sun",
   moon: "ph-moon",
+  dots: "ph-dots-three",
   x: "ph-x",
   chevron: "ph-caret-left",
   "chevron-down": "ph-caret-down",

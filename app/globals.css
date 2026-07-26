@@ -1176,6 +1176,55 @@ p {
   font-size: 11px;
 }
 
+/* Botón "Más" de la barra móvil + su menú */
+.mnav-more {
+  flex: 1;
+  position: relative;
+  display: flex;
+}
+.mnav-more > .mnav-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--sans);
+}
+.mnav-more-menu {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  width: 230px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow-hover);
+  padding: 12px;
+  z-index: 200;
+}
+.mnav-more-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+}
+.mnav-more-link:hover {
+  background: var(--surface-2);
+}
+.mnav-more-link i {
+  color: var(--accent-dark);
+}
+.mnav-more-sep {
+  border-top: 1px solid var(--line);
+  margin: 6px 0;
+}
+.mnav-more-menu .settings-row {
+  padding: 9px 8px;
+}
+
 .mobile-credits {
   display: none;
 }
@@ -2216,9 +2265,6 @@ p {
   .content-header.is-compact .ch-label {
     opacity: 1;
     max-width: 420px;
-  }
-  .content-header .settings {
-    display: inline-flex;
   }
 }
 
