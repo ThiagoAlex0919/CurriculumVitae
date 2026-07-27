@@ -2286,7 +2286,7 @@ p {
   .app-main,
   .app-shell[data-collapsed="true"] .app-main {
     margin-left: 0;
-    padding: 84px 14px 96px;
+    padding: 16px 14px 96px;
   }
   .mobile-credits {
     display: block;
@@ -3035,9 +3035,9 @@ p {
   position: absolute;
   right: clamp(20px, 5vw, 72px);
   bottom: 0;
-  height: 118%;
+  height: 108%;
   width: auto;
-  max-width: 58%;
+  max-width: 52%;
   object-fit: contain;
   object-position: bottom right;
   z-index: 1;
@@ -3053,28 +3053,28 @@ p {
 }
 @media (max-width: 860px) {
   .works-banner {
-    min-height: 280px;
+    min-height: 240px;
   }
   .works-banner-text {
-    max-width: 60%;
+    max-width: 56%;
   }
   .works-banner-art {
-    max-width: 52%;
-    height: 106%;
+    max-width: 48%;
+    height: 100%;
   }
   .works-accent--square {
-    left: 58%;
+    left: 56%;
   }
   .works-accent--plus {
-    left: 54%;
+    left: 52%;
   }
 }
+/* Móvil: banner compacto, texto e ilustración alineados (sin bajar la imagen) */
 @media (max-width: 620px) {
   .works-banner {
-    flex-direction: column;
-    align-items: flex-start;
-    min-height: 0;
-    padding: 26px 22px 0;
+    align-items: center;
+    min-height: 150px;
+    padding: 18px 18px;
   }
   .works-banner-dots {
     -webkit-mask-image: none;
@@ -3085,17 +3085,35 @@ p {
     display: none;
   }
   .works-banner-text {
-    max-width: 100%;
-    padding: 6px 0 4px;
+    max-width: 52%;
+    gap: 8px;
+    padding: 0;
+  }
+  .works-banner-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+  }
+  .works-banner-h1 {
+    font-size: 30px;
   }
   .works-banner-art {
-    position: relative;
-    right: auto;
+    position: absolute;
+    right: 8px;
+    top: 50%;
     bottom: auto;
+    transform: translateY(-50%);
     height: auto;
-    width: 82%;
-    max-width: 340px;
-    align-self: flex-end;
+    width: 46%;
+    max-width: 230px;
+    object-position: center right;
+  }
+}
+@media (max-width: 380px) {
+  .works-banner-h1 {
+    font-size: 26px;
+  }
+  .works-banner-text {
+    max-width: 54%;
   }
 }
 
