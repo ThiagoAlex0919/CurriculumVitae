@@ -548,7 +548,9 @@ export default function ExperienciaPage() {
     const stages = Array.from(document.querySelectorAll<HTMLElement>(".tj-stage"));
 
     let raf = 0;
+    let running = false;
     let shown = 0; // valor animado (tween)
+    let lastInput = 0; // último scroll/resize (ms)
 
     const frame = () => {
       const rect = timeline.getBoundingClientRect();
@@ -559,6 +561,7 @@ export default function ExperienciaPage() {
 
       /* tween ease-out: se acerca suavemente al objetivo */
       shown += (target - shown) * (prefersReduced ? 1 : 0.09);
+      if (Math.abs(target - shown) < 0.0004) shown = target; // asienta exacto
       fill.style.height = `${shown * 100}%`;
 
       /* nodos: se encienden cuando el relleno los alcanza */
@@ -588,11 +591,38 @@ export default function ExperienciaPage() {
         });
       }
 
+      /* Se detiene el bucle cuando el tween ya asentó y hace >250ms del
+         último gesto: en reposo el consumo de CPU baja a cero. Cualquier
+         scroll/resize lo reactiva. */
+      const settled = shown === target;
+      const idle = performance.now() - lastInput > 250;
+      if (settled && idle) {
+        running = false;
+        return;
+      }
       raf = requestAnimationFrame(frame);
     };
 
-    raf = requestAnimationFrame(frame);
-    return () => cancelAnimationFrame(raf);
+    const start = () => {
+      if (running) return;
+      running = true;
+      raf = requestAnimationFrame(frame);
+    };
+    const onInput = () => {
+      lastInput = performance.now();
+      start();
+    };
+
+    window.addEventListener("scroll", onInput, { passive: true });
+    window.addEventListener("resize", onInput);
+    lastInput = performance.now();
+    start(); // pintado inicial
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onInput);
+      window.removeEventListener("resize", onInput);
+    };
   }, []);
 
   /* Revelado de tarjetas + escena activa (bullets de navegación) */
@@ -623,6 +653,13 @@ export default function ExperienciaPage() {
 
   return (
     <>
+      {/* Preload del LCP (astronauta del hero) para acelerar el primer pintado */}
+      <link
+        rel="preload"
+        as="image"
+        href={`${ART}/astronauta.webp`}
+        fetchPriority="high"
+      />
       <div className="tj-scene">
         {/* Universo de fondo: constelaciones sutiles sobre el canvas */}
         <div className="tj-stars tj-stars--far" />
@@ -669,6 +706,8 @@ export default function ExperienciaPage() {
             src={`${ART}/astronauta.webp`}
             alt=""
             aria-hidden
+            fetchPriority="high"
+            decoding="async"
           />
         </section>
 

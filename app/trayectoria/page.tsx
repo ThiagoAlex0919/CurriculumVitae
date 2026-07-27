@@ -87,7 +87,7 @@ export default function TrayectoriaPage() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="works-banner-art"
-          src="/imagenes/my-work.png"
+          src="/imagenes/my-work.webp"
           alt=""
           aria-hidden
         />

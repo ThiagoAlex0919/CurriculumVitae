@@ -150,7 +150,7 @@ export default function Settings({
                 {imgOk ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img
-                    src="/imagenes/avatar-alex.png"
+                    src="/imagenes/avatar-alex.webp"
                     alt={profile.name}
                     onError={() => setImgOk(false)}
                   />
