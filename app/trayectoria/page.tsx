@@ -38,10 +38,6 @@ export default function TrayectoriaPage() {
   const [company, setCompany] = useState<string>(ALL);
   const [year, setYear] = useState<string>(ALL);
 
-  // Datos para el banner
-  const yearMin = years.length ? years[years.length - 1] : "";
-  const yearMax = years.length ? years[0] : "";
-
   const filtered = works
     .filter((w) => (company === ALL ? true : w.company.name === company))
     .filter((w) => (year === ALL ? true : w.project.year === year))
@@ -87,20 +83,6 @@ export default function TrayectoriaPage() {
               </svg>
             </span>
           </h1>
-          <p className="works-banner-sub">{t(ui.work.bannerSub)}</p>
-          <div className="works-banner-stats">
-            <span className="works-stat">
-              <strong>{companyNames.length}</strong> {t(ui.work.statCompanies)}
-            </span>
-            <span className="works-stat-dot" aria-hidden />
-            <span className="works-stat">
-              <strong>{works.length}</strong> {t(ui.work.statProjects)}
-            </span>
-            <span className="works-stat-dot" aria-hidden />
-            <span className="works-stat">
-              {yearMin} — {yearMax}
-            </span>
-          </div>
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

@@ -2899,10 +2899,10 @@ p {
   display: flex;
   align-items: center;
   overflow: hidden;
-  min-height: 320px;
+  min-height: 300px;
   border-radius: 22px;
   border: 1px solid var(--line);
-  background: #ffffff;
+  background: var(--card); /* blanco en claro, superficie oscura en dark */
   box-shadow: var(--shadow);
   padding: 0 clamp(24px, 4vw, 60px);
 }
@@ -3030,18 +3030,26 @@ p {
   background: var(--ink-mute);
   opacity: 0.6;
 }
-/* la ilustración manda: grande, anclada abajo-derecha, sobre blanco (sin corte visible) */
+/* la ilustración manda, pero con aire a la derecha (padding) */
 .works-banner-art {
   position: absolute;
-  right: 0;
+  right: clamp(20px, 5vw, 72px);
   bottom: 0;
-  height: 122%;
+  height: 118%;
   width: auto;
-  max-width: 66%;
+  max-width: 58%;
   object-fit: contain;
   object-position: bottom right;
   z-index: 1;
   pointer-events: none;
+}
+/* En oscuro: fondo oscuro (var--card) + invertir la ilustración para que las líneas
+   se vean claras, conservando el tono azul (mismo espíritu que las imágenes de trayectoria) */
+[data-theme="dark"] .works-banner-art {
+  filter: invert(1) hue-rotate(180deg) brightness(1.05);
+}
+[data-theme="dark"] .works-accent {
+  opacity: 0.28;
 }
 @media (max-width: 860px) {
   .works-banner {
@@ -3192,7 +3200,7 @@ p {
 .work-card {
   position: relative;
   display: block;
-  aspect-ratio: 3 / 2; /* más horizontal que cuadrada */
+  aspect-ratio: 16 / 10; /* más horizontal y menos alta */
   border-radius: 14px;
   overflow: hidden;
   background-color: #1d2530;
