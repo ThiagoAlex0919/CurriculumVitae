@@ -1184,48 +1184,47 @@ p {
   font-family: var(--sans);
 }
 
-/* Opciones inline (reemplazan los items en la misma barra) */
-.mnav-options {
+/* Panel de opciones anclado justo encima de la barra (estilo Safari) */
+.mnav-sheet {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  width: 240px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow-hover);
+  padding: 10px;
+  z-index: 200;
+}
+.mnav-sheet-link {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 11px;
   width: 100%;
-  padding: 0 6px;
-}
-.mnav-opt-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--sans);
+  padding: 11px 10px;
+  border-radius: 11px;
   color: var(--ink);
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 500;
-  white-space: nowrap;
 }
-.mnav-opt-link i {
+.mnav-sheet-link:hover {
+  background: var(--surface-2);
+}
+.mnav-sheet-link i {
   color: var(--accent-dark);
 }
-.mnav-opt-sep {
-  width: 1px;
-  height: 24px;
-  background: var(--line);
-  flex: 0 0 auto;
+.mnav-sheet-sep {
+  border-top: 1px solid var(--line);
+  margin: 6px 4px;
 }
-.mnav-opt-close {
-  flex: 0 0 auto;
-  width: 32px;
-  height: 32px;
-  border: 0;
-  background: var(--surface-2);
-  border-radius: 9px;
-  color: var(--ink-soft);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-.mnav-opt-close:hover {
-  color: var(--ink);
+.mnav-sheet .settings-row {
+  padding: 9px 10px;
 }
 
 .mobile-credits {
@@ -1475,6 +1474,41 @@ p {
 }
 /* En el header, el engranaje solo aparece en móvil (en desktop está en el sidebar) */
 .content-header .settings {
+  display: none;
+}
+
+/* Enlace "Acerca del proyecto" en el sidebar */
+.sb-about {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 11px;
+  color: var(--ink-soft);
+}
+.sb-about:hover {
+  background: var(--surface-2);
+}
+.sb-about.active {
+  color: var(--accent);
+}
+.sb-about i {
+  flex: 0 0 auto;
+  color: var(--accent-dark);
+}
+.sb-about.active i {
+  color: var(--accent);
+}
+.sb-about-text {
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+.app-shell[data-collapsed="true"] .sb-about {
+  justify-content: center;
+  padding: 9px 0;
+}
+.app-shell[data-collapsed="true"] .sb-about-text {
   display: none;
 }
 

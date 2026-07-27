@@ -7,6 +7,7 @@ import { useI18n } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
 import { ui, sideNav } from "@/lib/content";
 import Icon from "./Icon";
+import AboutModal from "./AboutModal";
 
 const byHref = (href: string) => sideNav.find((l) => l.href === href)!;
 
@@ -24,6 +25,7 @@ export default function MobileNav() {
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
   const [moreOpen, setMoreOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -39,88 +41,101 @@ export default function MobileNav() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
+    <>
     <nav className="mobile-nav" aria-label={t(ui.menu)} ref={ref}>
-      {moreOpen ? (
-        <div className="mnav-options">
+      {mainItems.map((l) => (
+        <Link
+          key={l.href}
+          href={l.href}
+          className={`mnav-item ${isActive(l.href) ? "active" : ""}`}
+        >
+          <span className="mnav-ico">
+            <Icon name={l.icon} size={19} />
+          </span>
+          <span className="mnav-label">{t(l.short)}</span>
+        </Link>
+      ))}
+
+      <button
+        className={`mnav-item ${moreOpen ? "active" : ""}`}
+        onClick={() => setMoreOpen((o) => !o)}
+        aria-expanded={moreOpen}
+        aria-label={t({ es: "Más", en: "More" })}
+      >
+        <span className="mnav-ico">
+          <Icon name="dots" size={19} />
+        </span>
+        <span className="mnav-label">{t({ es: "Más", en: "More" })}</span>
+      </button>
+
+      {moreOpen && (
+        <div className="mnav-sheet" role="menu">
+          <button
+            type="button"
+            className="mnav-sheet-link"
+            onClick={() => {
+              setMoreOpen(false);
+              setAboutOpen(true);
+            }}
+          >
+            <Icon name="info" size={18} />
+            {t(ui.about.nav)}
+          </button>
+
           <Link
             href={contactItem.href}
-            className="mnav-opt-link"
+            className="mnav-sheet-link"
             onClick={() => setMoreOpen(false)}
           >
             <Icon name={contactItem.icon} size={18} />
             {t(contactItem.short)}
           </Link>
 
-          <span className="mnav-opt-sep" />
+          <div className="mnav-sheet-sep" />
 
-          <div className="lang" role="group" aria-label="Language">
-            <button
-              className={locale === "es" ? "on" : ""}
-              onClick={() => setLocale("es")}
-              aria-pressed={locale === "es"}
-            >
-              ES
-            </button>
-            <button
-              className={locale === "en" ? "on" : ""}
-              onClick={() => setLocale("en")}
-              aria-pressed={locale === "en"}
-            >
-              EN
-            </button>
+          <div className="settings-row">
+            <span className="settings-label">{t(ui.settings.language)}</span>
+            <div className="lang" role="group" aria-label="Language">
+              <button
+                className={locale === "es" ? "on" : ""}
+                onClick={() => setLocale("es")}
+                aria-pressed={locale === "es"}
+              >
+                ES
+              </button>
+              <button
+                className={locale === "en" ? "on" : ""}
+                onClick={() => setLocale("en")}
+                aria-pressed={locale === "en"}
+              >
+                EN
+              </button>
+            </div>
           </div>
 
-          <div className="theme-toggle" role="group" aria-label={t(ui.settings.theme)}>
-            <button
-              className={theme === "light" ? "on" : ""}
-              onClick={() => setTheme("light")}
-              aria-label={t(ui.settings.light)}
-            >
-              <Icon name="sun" size={16} />
-            </button>
-            <button
-              className={theme === "dark" ? "on" : ""}
-              onClick={() => setTheme("dark")}
-              aria-label={t(ui.settings.dark)}
-            >
-              <Icon name="moon" size={16} />
-            </button>
+          <div className="settings-row">
+            <span className="settings-label">{t(ui.settings.theme)}</span>
+            <div className="theme-toggle" role="group" aria-label={t(ui.settings.theme)}>
+              <button
+                className={theme === "light" ? "on" : ""}
+                onClick={() => setTheme("light")}
+                aria-label={t(ui.settings.light)}
+              >
+                <Icon name="sun" size={16} />
+              </button>
+              <button
+                className={theme === "dark" ? "on" : ""}
+                onClick={() => setTheme("dark")}
+                aria-label={t(ui.settings.dark)}
+              >
+                <Icon name="moon" size={16} />
+              </button>
+            </div>
           </div>
-
-          <button
-            className="mnav-opt-close"
-            onClick={() => setMoreOpen(false)}
-            aria-label={t(ui.settings.title)}
-          >
-            <Icon name="x" size={18} />
-          </button>
         </div>
-      ) : (
-        <>
-          {mainItems.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={`mnav-item ${isActive(l.href) ? "active" : ""}`}
-            >
-              <span className="mnav-ico">
-                <Icon name={l.icon} size={19} />
-              </span>
-              <span className="mnav-label">{t(l.short)}</span>
-            </Link>
-          ))}
-          <button
-            className="mnav-item"
-            onClick={() => setMoreOpen(true)}
-            aria-label={t({ es: "Más", en: "More" })}
-          >
-            <span className="mnav-ico">
-              <Icon name="dots" size={19} />
-            </span>
-            <span className="mnav-label">{t({ es: "Más", en: "More" })}</span>
-          </button>
-        </>
       )}
     </nav>
+    <AboutModal open={aboutOpen} onClose={() => setAboutOpen(false)} />
+    </>
   );
 }
