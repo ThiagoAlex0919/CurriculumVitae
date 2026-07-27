@@ -1189,42 +1189,43 @@ p {
   position: absolute;
   bottom: calc(100% + 12px);
   right: 0;
-  width: 240px;
+  width: min(330px, 80vw);
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 20px;
   box-shadow: var(--shadow-hover);
-  padding: 10px;
+  padding: 2px 18px;
   z-index: 200;
 }
-.mnav-sheet-link {
+.mnav-row {
   display: flex;
   align-items: center;
-  gap: 11px;
+  justify-content: space-between;
+  gap: 12px;
   width: 100%;
+  min-height: 54px;
+  padding: 10px 0;
   border: 0;
   background: transparent;
   cursor: pointer;
-  text-align: left;
   font-family: var(--sans);
-  padding: 11px 10px;
-  border-radius: 11px;
+  text-align: left;
   color: var(--ink);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
 }
-.mnav-sheet-link:hover {
-  background: var(--surface-2);
-}
-.mnav-sheet-link i {
-  color: var(--accent-dark);
-}
-.mnav-sheet-sep {
+.mnav-row + .mnav-row {
   border-top: 1px solid var(--line);
-  margin: 6px 4px;
 }
-.mnav-sheet .settings-row {
-  padding: 9px 10px;
+.mnav-row--link {
+  transition: color 0.15s ease;
+}
+.mnav-row--link:hover {
+  color: var(--accent);
+}
+.mnav-row-label {
+  color: var(--ink-soft);
+  font-weight: 400;
 }
 
 .mobile-credits {

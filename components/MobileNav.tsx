@@ -70,31 +70,16 @@ export default function MobileNav() {
 
       {moreOpen && (
         <div className="mnav-sheet" role="menu">
-          <button
-            type="button"
-            className="mnav-sheet-link"
-            onClick={() => {
-              setMoreOpen(false);
-              setAboutOpen(true);
-            }}
-          >
-            <Icon name="info" size={18} />
-            {t(ui.about.nav)}
-          </button>
-
           <Link
             href={contactItem.href}
-            className="mnav-sheet-link"
+            className="mnav-row mnav-row--link"
             onClick={() => setMoreOpen(false)}
           >
-            <Icon name={contactItem.icon} size={18} />
             {t(contactItem.short)}
           </Link>
 
-          <div className="mnav-sheet-sep" />
-
-          <div className="settings-row">
-            <span className="settings-label">{t(ui.settings.language)}</span>
+          <div className="mnav-row">
+            <span className="mnav-row-label">{t(ui.settings.language)}</span>
             <div className="lang" role="group" aria-label="Language">
               <button
                 className={locale === "es" ? "on" : ""}
@@ -113,9 +98,13 @@ export default function MobileNav() {
             </div>
           </div>
 
-          <div className="settings-row">
-            <span className="settings-label">{t(ui.settings.theme)}</span>
-            <div className="theme-toggle" role="group" aria-label={t(ui.settings.theme)}>
+          <div className="mnav-row">
+            <span className="mnav-row-label">{t(ui.settings.theme)}</span>
+            <div
+              className="theme-toggle"
+              role="group"
+              aria-label={t(ui.settings.theme)}
+            >
               <button
                 className={theme === "light" ? "on" : ""}
                 onClick={() => setTheme("light")}
@@ -132,6 +121,17 @@ export default function MobileNav() {
               </button>
             </div>
           </div>
+
+          <button
+            type="button"
+            className="mnav-row mnav-row--link"
+            onClick={() => {
+              setMoreOpen(false);
+              setAboutOpen(true);
+            }}
+          >
+            {t(ui.about.nav)}
+          </button>
         </div>
       )}
     </nav>
