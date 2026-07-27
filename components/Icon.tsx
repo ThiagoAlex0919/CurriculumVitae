@@ -34,7 +34,6 @@ const map: Record<string, string> = {
   plus: "ph-plus",
   minus: "ph-minus",
   print: "ph-printer",
-  info: "ph-info",
 };
 
 export default function Icon({ name, size = 20, weight = "regular" }: IconProps) {
