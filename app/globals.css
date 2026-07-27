@@ -1184,18 +1184,23 @@ p {
   font-family: var(--sans);
 }
 
-/* Panel de opciones anclado justo encima de la barra (estilo Safari) */
+/* Al abrir "Más" se oculta la barra y aparece solo el panel */
+.mobile-nav.is-hidden {
+  display: none;
+}
+
+/* Panel de opciones anclado abajo (reemplaza la barra) */
 .mnav-sheet {
-  position: absolute;
-  bottom: calc(100% + 12px);
-  right: 0;
-  width: min(330px, 80vw);
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  width: min(360px, 82vw);
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 20px;
   box-shadow: var(--shadow-hover);
   padding: 2px 18px;
-  z-index: 200;
+  z-index: 96;
 }
 .mnav-row {
   display: flex;
@@ -1212,7 +1217,7 @@ p {
   text-align: left;
   color: var(--ink);
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 400;
 }
 .mnav-row + .mnav-row {
   border-top: 1px solid var(--line);
@@ -1541,6 +1546,11 @@ p {
 [data-theme="dark"] .exp-badge.sm,
 [data-theme="dark"] .badge-init {
   color: var(--ink);
+}
+/* En oscuro, el item activo de la barra usa azul (evita icono blanco sobre fondo claro) */
+[data-theme="dark"] .mnav-item.active .mnav-ico {
+  background: var(--accent);
+  color: #fff;
 }
 
 /* ============================================================

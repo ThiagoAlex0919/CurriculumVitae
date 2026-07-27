@@ -26,23 +26,27 @@ export default function MobileNav() {
   const pathname = usePathname();
   const [moreOpen, setMoreOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
-  const ref = useRef<HTMLElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!moreOpen) return;
     const onDoc = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node))
+      if (sheetRef.current && !sheetRef.current.contains(e.target as Node))
         setMoreOpen(false);
     };
     document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
-  }, []);
+  }, [moreOpen]);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <>
-    <nav className="mobile-nav" aria-label={t(ui.menu)} ref={ref}>
+    <nav
+      className={`mobile-nav ${moreOpen ? "is-hidden" : ""}`}
+      aria-label={t(ui.menu)}
+    >
       {mainItems.map((l) => (
         <Link
           key={l.href}
@@ -67,9 +71,10 @@ export default function MobileNav() {
         </span>
         <span className="mnav-label">{t({ es: "Más", en: "More" })}</span>
       </button>
+    </nav>
 
-      {moreOpen && (
-        <div className="mnav-sheet" role="menu">
+    {moreOpen && (
+      <div className="mnav-sheet" role="menu" ref={sheetRef}>
           <Link
             href={contactItem.href}
             className="mnav-row mnav-row--link"
@@ -132,9 +137,8 @@ export default function MobileNav() {
           >
             {t(ui.about.nav)}
           </button>
-        </div>
-      )}
-    </nav>
+      </div>
+    )}
     <AboutModal open={aboutOpen} onClose={() => setAboutOpen(false)} />
     </>
   );
