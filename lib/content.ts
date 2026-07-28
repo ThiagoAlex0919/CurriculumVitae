@@ -671,6 +671,7 @@ export const companies: Company[] = [
         client: { es: "Bizagi Studio", en: "Bizagi Studio" },
         role: { es: "Diseñador de producto", en: "Product Designer" },
         year: "2026",
+        storyStatus: "native",
         tags: ["Bizagi Studio", "Case Solutions", "UX"],
         challenge: {
           es: "Configurar y mantener Case Solutions implicaba abrir muchos modales y perder contexto.",
