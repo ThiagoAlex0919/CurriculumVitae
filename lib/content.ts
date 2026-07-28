@@ -1902,6 +1902,12 @@ export const ui = {
       en: "This project is already published on Behance. I'm preparing its full story here; meanwhile you can view the detailed case on Behance.",
     },
     badgeBehance: { es: "Behance", en: "Behance" },
+    openOnBehance: { es: "Abrir en Behance", en: "Open on Behance" },
+    closeModal: { es: "Cerrar", en: "Close" },
+    embedFallback: {
+      es: "Si el caso no carga aquí, ábrelo directamente en Behance.",
+      en: "If the case doesn't load here, open it directly on Behance.",
+    },
   },
   lab: {
     title: { es: "Laboratorio", en: "Lab" },
@@ -1931,4 +1937,17 @@ export function findProject(companySlug: string, projectSlug: string) {
   const company = findCompany(companySlug);
   const project = company?.projects.find((p) => p.slug === projectSlug);
   return { company, project };
+}
+
+// Un proyecto se muestra en el portafolio solo si está "listo": publicado en
+// Behance o con historia nativa. Los borradores (sin storyStatus) quedan en este
+// archivo como andamiaje y se muestran cuando les asignes un storyStatus.
+export const isProjectReady = (p: Project) =>
+  p.storyStatus === "behance" || p.storyStatus === "native";
+
+// ID numérico del proyecto de Behance a partir de su URL de galería
+// (https://www.behance.net/gallery/195893025/slug -> "195893025").
+export function behanceEmbedId(url?: string): string | null {
+  const m = url?.match(/gallery\/(\d+)/);
+  return m ? m[1] : null;
 }

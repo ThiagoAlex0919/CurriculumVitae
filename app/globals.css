@@ -3026,3 +3026,149 @@ p {
   transform: translateY(-1px);
 }
 
+/* Cards que son <button> (abren el modal de Behance): igualar al <a> */
+button.work-card,
+button.tray-card {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* ---------- Modal con Behance embebido ---------- */
+.behance-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(6, 9, 15, 0.72);
+  backdrop-filter: blur(3px);
+  animation: behance-fade 0.16s ease;
+}
+@keyframes behance-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.behance-modal {
+  display: flex;
+  flex-direction: column;
+  width: min(1100px, 100%);
+  height: min(90vh, 900px);
+  background: var(--card, #fff);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+}
+.behance-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px 12px 18px;
+  border-bottom: 1px solid var(--line, rgba(0, 0, 0, 0.08));
+  color: var(--ink);
+}
+.behance-modal-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.behance-modal-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+.behance-modal-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: #1769ff;
+  padding: 8px 13px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: filter 0.18s ease;
+}
+.behance-modal-open:hover {
+  filter: brightness(1.08);
+}
+.behance-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.06);
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+.behance-modal-close:hover {
+  background: rgba(0, 0, 0, 0.12);
+}
+.behance-modal-frame {
+  position: relative;
+  flex: 1;
+  background: #0f1622;
+}
+.behance-modal-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.behance-modal-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 24px;
+  color: #fff;
+  text-align: center;
+}
+.behance-modal-note {
+  margin: 0;
+  padding: 9px 16px;
+  font-size: 12px;
+  color: var(--ink-mute, #667);
+  border-top: 1px solid var(--line, rgba(0, 0, 0, 0.06));
+}
+@media (max-width: 640px) {
+  .behance-modal-overlay {
+    padding: 0;
+  }
+  .behance-modal {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  .behance-modal-open span,
+  .behance-modal-title {
+    font-size: 13px;
+  }
+}
+

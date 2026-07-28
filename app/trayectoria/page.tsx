@@ -3,8 +3,9 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
-import { companies, ui } from "@/lib/content";
+import { companies, ui, isProjectReady } from "@/lib/content";
 import type { Company, Project } from "@/lib/content";
+import BehanceModal from "@/components/BehanceModal";
 
 type Work = { company: Company; project: Project };
 
@@ -13,14 +14,20 @@ const ALL = "__all__";
 export default function TrayectoriaPage() {
   const { t } = useI18n();
 
-  // Aplana todos los proyectos de todas las empresas en un solo listado.
+  // Aplana los proyectos "listos" (Behance o historia nativa). Los borradores
+  // sin storyStatus quedan ocultos hasta que se les cree contenido.
   const works: Work[] = useMemo(
     () =>
       companies.flatMap((company) =>
-        company.projects.map((project) => ({ company, project }))
+        company.projects
+          .filter(isProjectReady)
+          .map((project) => ({ company, project }))
       ),
     []
   );
+
+  // Proyecto de Behance abierto en el modal (null = cerrado).
+  const [modalProject, setModalProject] = useState<Project | null>(null);
 
   // Opciones de filtro (por ahora: empresa y año).
   const companyNames = useMemo(
@@ -142,38 +149,66 @@ export default function TrayectoriaPage() {
         <p className="works-empty">{t(ui.work.empty)}</p>
       ) : (
         <div className="works-grid">
-          {filtered.map(({ company: c, project: p }) => (
-            <Link
-              key={`${c.slug}-${p.slug}`}
-              href={`/trayectoria/${c.slug}/${p.slug}`}
-              className="work-card"
-              style={
-                p.image ? { backgroundImage: `url(${p.image})` } : undefined
-              }
-            >
-              <div className="work-card-shade" />
-              <div className="work-card-inner">
-                <div className="work-card-head">
-                  <span className="work-card-company">{c.name}</span>
-                  <span className="work-card-head-right">
-                    {p.storyStatus === "behance" && (
-                      <span className="work-card-badge">
-                        {t(ui.project.badgeBehance)}
-                      </span>
-                    )}
-                    <span className="work-card-year">{p.year}</span>
-                  </span>
+          {filtered.map(({ company: c, project: p }) => {
+            const isBehance = p.storyStatus === "behance";
+            const inner = (
+              <>
+                <div className="work-card-shade" />
+                <div className="work-card-inner">
+                  <div className="work-card-head">
+                    <span className="work-card-company">{c.name}</span>
+                    <span className="work-card-head-right">
+                      {isBehance && (
+                        <span className="work-card-badge">
+                          {t(ui.project.badgeBehance)}
+                        </span>
+                      )}
+                      <span className="work-card-year">{p.year}</span>
+                    </span>
+                  </div>
+                  <div className="work-card-body">
+                    <h3 className="work-card-title">{t(p.name)}</h3>
+                    <span className="work-card-cta">
+                      {t(ui.company.viewCase)} →
+                    </span>
+                  </div>
                 </div>
-                <div className="work-card-body">
-                  <h3 className="work-card-title">{t(p.name)}</h3>
-                  <span className="work-card-cta">
-                    {t(ui.company.viewCase)} →
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
+              </>
+            );
+            const style = p.image
+              ? { backgroundImage: `url(${p.image})` }
+              : undefined;
+
+            // Behance -> abre modal embebido; nativo -> navega al caso.
+            return isBehance ? (
+              <button
+                key={`${c.slug}-${p.slug}`}
+                type="button"
+                className="work-card"
+                style={style}
+                onClick={() => setModalProject(p)}
+              >
+                {inner}
+              </button>
+            ) : (
+              <Link
+                key={`${c.slug}-${p.slug}`}
+                href={`/trayectoria/${c.slug}/${p.slug}`}
+                className="work-card"
+                style={style}
+              >
+                {inner}
+              </Link>
+            );
+          })}
         </div>
+      )}
+
+      {modalProject && (
+        <BehanceModal
+          project={modalProject}
+          onClose={() => setModalProject(null)}
+        />
       )}
     </div>
   );

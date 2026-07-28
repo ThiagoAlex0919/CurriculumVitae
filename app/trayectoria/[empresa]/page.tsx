@@ -1,18 +1,24 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
 import type { Localized } from "@/lib/i18n";
-import { findCompany, ui } from "@/lib/content";
+import { findCompany, ui, isProjectReady } from "@/lib/content";
 import type { Project } from "@/lib/content";
+import BehanceModal from "@/components/BehanceModal";
 
 export default function CompanyPage() {
   const { t } = useI18n();
   const params = useParams<{ empresa: string }>();
   const company = findCompany(params.empresa);
+  const [modalProject, setModalProject] = useState<Project | null>(null);
 
   if (!company) return notFound();
+
+  // Solo proyectos "listos" (Behance o historia nativa).
+  const shownProjects = company.projects.filter(isProjectReady);
 
   // Resalta la parte "highlight" dentro del nombre del proyecto.
   const renderTitle = (name: Localized, highlight?: Localized) => {
@@ -29,33 +35,59 @@ export default function CompanyPage() {
     );
   };
 
-  const renderCard = (p: Project, hero = false) => (
-    <Link
-      key={p.slug}
-      href={`/trayectoria/${company.slug}/${p.slug}`}
-      className={`tray-card${hero ? " tray-card--hero" : ""}`}
-      style={p.image ? { backgroundImage: `url(${p.image})` } : undefined}
-    >
-      <div className="tray-card-shade" />
-      <div className="tray-card-inner">
-        <div className="tray-card-head">
-          <span className="tray-card-product">{p.product ?? company.name}</span>
-          <span className="tray-card-year">{p.year}</span>
+  const renderCard = (p: Project, hero = false) => {
+    const isBehance = p.storyStatus === "behance";
+    const className = `tray-card${hero ? " tray-card--hero" : ""}`;
+    const style = p.image ? { backgroundImage: `url(${p.image})` } : undefined;
+    const inner = (
+      <>
+        <div className="tray-card-shade" />
+        <div className="tray-card-inner">
+          <div className="tray-card-head">
+            <span className="tray-card-product">
+              {p.product ?? company.name}
+            </span>
+            <span className="tray-card-year">{p.year}</span>
+          </div>
+          <div className="tray-card-body">
+            {p.category && (
+              <span className="tray-card-cat">{t(p.category)}</span>
+            )}
+            <h3 className="tray-card-title">
+              {renderTitle(p.name, p.highlight)}
+            </h3>
+            <p className="tray-card-desc">{t(p.cardSummary ?? p.challenge)}</p>
+          </div>
+          <div className="tray-card-foot">
+            {p.focus && <span className="tray-card-focus">{t(p.focus)}</span>}
+            <span className="tray-card-cta">{t(ui.company.viewCase)} →</span>
+          </div>
         </div>
-        <div className="tray-card-body">
-          {p.category && <span className="tray-card-cat">{t(p.category)}</span>}
-          <h3 className="tray-card-title">
-            {renderTitle(p.name, p.highlight)}
-          </h3>
-          <p className="tray-card-desc">{t(p.cardSummary ?? p.challenge)}</p>
-        </div>
-        <div className="tray-card-foot">
-          {p.focus && <span className="tray-card-focus">{t(p.focus)}</span>}
-          <span className="tray-card-cta">{t(ui.company.viewCase)} →</span>
-        </div>
-      </div>
-    </Link>
-  );
+      </>
+    );
+
+    // Behance -> modal embebido; nativo -> navega al caso.
+    return isBehance ? (
+      <button
+        key={p.slug}
+        type="button"
+        className={className}
+        style={style}
+        onClick={() => setModalProject(p)}
+      >
+        {inner}
+      </button>
+    ) : (
+      <Link
+        key={p.slug}
+        href={`/trayectoria/${company.slug}/${p.slug}`}
+        className={className}
+        style={style}
+      >
+        {inner}
+      </Link>
+    );
+  };
 
   return (
     <div className="tray-page">
@@ -133,9 +165,16 @@ export default function CompanyPage() {
       <section className="tray-section">
         <h2 className="tray-eyebrow2">{t(ui.company.projectsTitle)}</h2>
         <div className="tray-cards">
-          {company.projects.map((p) => renderCard(p))}
+          {shownProjects.map((p) => renderCard(p))}
         </div>
       </section>
+
+      {modalProject && (
+        <BehanceModal
+          project={modalProject}
+          onClose={() => setModalProject(null)}
+        />
+      )}
     </div>
   );
 }
