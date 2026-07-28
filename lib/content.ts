@@ -41,6 +41,10 @@ export type Project = {
   highlight?: Localized; // parte del nombre a resaltar en amarillo (ej. "AI Assistant")
   cardSummary?: Localized; // texto corto en la tarjeta
   focus?: Localized; // "Focus: ..." (ej. "Artificial Intelligence")
+  // --- Página de detalle del proyecto ---
+  heroImage?: string; // imagen grande del landing (ej. orchestration-home.png)
+  figmaUrl?: string; // enlace "Open in Figma"
+  about?: Localized[]; // puntos de la sección "About"
 };
 
 export type Company = {
@@ -59,6 +63,8 @@ export type Company = {
   // --- Presentación del banner (portafolio) ---
   banner?: string; // ruta del banner en /public (ej. "/imagenes/banner-bizagi.png")
   logo?: string; // logo blanco de la empresa para el banner (ej. "/logos/bizagi-blanca.png")
+  logoColor?: string; // logo a color (para fondos claros, ej. detalle de proyecto)
+  studio?: string; // etiqueta de marca en el detalle (ej. "Bizagi Latam")
   illustration?: string; // ilustración que acompaña el texto de intro
   team?: Localized; // equipo (ej. "Producto")
   roleShort?: Localized; // rol para la barra del banner (ej. "Senior UX Designer")
@@ -637,6 +643,8 @@ export const companies: Company[] = [
     clients: ["Banca", "Seguros", "Sector público", "Retail", "Telecomunicaciones"],
     banner: "/imagenes/bizagi/imagen-banner.webp",
     logo: "/logos/bizagi-blanca.png",
+    logoColor: "/logos/empresa-8.webp",
+    studio: "Bizagi Latam",
     illustration: "/imagenes/bizagi/ilustracion.webp",
     team: { es: "Producto", en: "Product" },
     roleShort: { es: "Senior UX Designer", en: "Senior UX Designer" },
@@ -658,47 +666,66 @@ export const companies: Company[] = [
     },
     projects: [
       {
-        slug: "rediseno-modelador",
-        name: { es: "Rediseño del modelador de procesos", en: "Process modeler redesign" },
-        client: { es: "Plataforma Bizagi Studio", en: "Bizagi Studio platform" },
-        role: { es: "Diseñador UX/UI líder", en: "Lead UX/UI Designer" },
-        year: "2023",
-        tags: ["UX Research", "UI", "Design System"],
+        slug: "orchestration-manager",
+        name: { es: "Orchestration manager", en: "Orchestration manager" },
+        client: { es: "Bizagi Studio", en: "Bizagi Studio" },
+        role: { es: "Diseñador de producto", en: "Product Designer" },
+        year: "2026",
+        tags: ["Bizagi Studio", "Case Solutions", "UX"],
         challenge: {
-          es: "Los usuarios tardaban demasiado en construir procesos por una interfaz densa y poco guiada. Reemplaza por el desafío real.",
-          en: "Users took too long to build processes due to a dense, poorly guided interface. Replace with the real challenge.",
+          es: "Configurar y mantener Case Solutions implicaba abrir muchos modales y perder contexto.",
+          en: "Setting up and maintaining Case Solutions meant opening many modals and losing context.",
         },
         process: {
-          es: "Investigación con usuarios, mapeo de flujos, prototipos iterativos en Figma y pruebas de usabilidad. Texto de ejemplo del proceso.",
-          en: "User research, flow mapping, iterative Figma prototypes and usability testing. Placeholder process text.",
+          es: "Diseño de una vista Expert unificada para orquestar la creación y edición de Case Solutions.",
+          en: "Designed a unified Expert view to orchestrate the creation and editing of Case Solutions.",
         },
         before: {
-          es: "Interfaz saturada, sin jerarquía clara y con acciones escondidas. (Aquí puedes añadir una imagen del antes.)",
-          en: "Cluttered interface, no clear hierarchy and hidden actions. (You can add a 'before' image here.)",
+          es: "Configuración fragmentada en múltiples modales.",
+          en: "Fragmented setup across multiple modals.",
         },
         after: {
-          es: "Layout guiado, acciones contextuales y un panel simplificado. (Aquí puedes añadir una imagen del después.)",
-          en: "Guided layout, contextual actions and a simplified panel. (You can add an 'after' image here.)",
+          es: "Una sola vista para crear, editar y propagar cambios.",
+          en: "A single view to create, edit and propagate changes.",
         },
         solution: {
-          es: "Un flujo de construcción por pasos con ayudas contextuales y componentes reutilizables del design system. Reemplaza por tu solución.",
-          en: "A step-by-step building flow with contextual help and reusable design-system components. Replace with your solution.",
+          es: "Orchestration manager: edición central de etapas base (Stage Base) con propagación automática a todos los Case Solutions.",
+          en: "Orchestration manager: central editing of base stages (Stage Base) with automatic propagation to every Case Solution.",
         },
         metrics: [
-          { label: "CES", value: "2.1 → 4.5 / 5", note: { es: "Esfuerzo del cliente", en: "Customer effort" } },
-          { label: "Tiempo de tarea", value: "-38%", note: { es: "Crear un proceso", en: "To create a process" } },
-          { label: "Adopción", value: "+27%", note: { es: "Uso de la función", en: "Feature usage" } },
+          { label: "Modales", value: "-90%", note: { es: "Al configurar", en: "When configuring" } },
+          { label: "Tiempo", value: "-40%", note: { es: "Mantenimiento", en: "Maintenance" } },
         ],
         featured: true,
-        image: "/imagenes/bizagi/trabajo-1.webp",
+        image: "/imagenes/bizagi/orchestration-manager.png",
+        heroImage: "/imagenes/bizagi/orchestration-home.png",
+        figmaUrl: "https://www.figma.com",
         product: "Bizagi Studio",
         category: { es: "Low-Code", en: "Low-Code" },
-        highlight: { es: "modelador", en: "modeler" },
+        highlight: { es: "manager", en: "manager" },
         cardSummary: {
-          es: "Rediseño del modelador de procesos para que crear automatizaciones sea más rápido, claro y guiado.",
-          en: "Redesigning the process modeler so building automations is faster, clearer and more guided.",
+          es: "Crear, editar y mantener Case Solutions desde una sola vista Expert, con propagación automática de las etapas base.",
+          en: "Create, edit and maintain Case Solutions from a single Expert view, with automatic propagation of base stages.",
         },
-        focus: { es: "Sistema de diseño", en: "Design System" },
+        focus: { es: "Case Solutions", en: "Case Solutions" },
+        about: [
+          {
+            es: "Crear, editar y mantener Case Solutions en Bizagi Studio desde la vista Expert.",
+            en: "Create, edit and maintain Case Solutions in Bizagi Studio from the Expert view.",
+          },
+          {
+            es: "Reutilizar para ahorrar tiempo en el mantenimiento.",
+            en: "Reuse components to save time on maintenance.",
+          },
+          {
+            es: "Configurar rápidamente nuevos Case Solutions sin perder contexto ni abrir 10 modales.",
+            en: "Quickly set up new Case Solutions without losing context or opening 10 modals.",
+          },
+          {
+            es: "Editar etapas centrales (Stage Base) y que los cambios se propaguen automáticamente a todos los Case Solutions que las usan.",
+            en: "Edit core stages (Stage Base) so changes automatically propagate to every Case Solution that uses them.",
+          },
+        ],
       },
       {
         slug: "asistente-ia",
@@ -1895,6 +1922,10 @@ export const ui = {
     solution: { es: "La solución", en: "The solution" },
     metrics: { es: "Datos de medición", en: "Measurement data" },
     back: { es: "Volver", en: "Back" },
+    about: { es: "Acerca de", en: "About" },
+    openFigma: { es: "Abrir en Figma", en: "Open in Figma" },
+    productLabel: { es: "Producto", en: "Product" },
+    yearLabel: { es: "Año", en: "Year" },
     viewOnBehance: { es: "Ver caso completo en Behance", en: "View full case on Behance" },
     behanceEyebrow: { es: "Caso publicado", en: "Published case" },
     behanceNote: {

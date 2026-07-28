@@ -1188,6 +1188,116 @@ p {
   font-weight: 600;
 }
 
+/* ============================================================
+   DETALLE DE PROYECTO (hero + About)
+   ============================================================ */
+.proj-page {
+  padding: 8px 4px 40px;
+}
+.proj-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  color: var(--ink-mute);
+  margin-bottom: 28px;
+  width: fit-content;
+  transition: color 0.15s ease;
+}
+.proj-back:hover {
+  color: var(--ink);
+}
+.proj-hero {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 40px 56px;
+  align-items: center;
+}
+.proj-hero-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.proj-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+.proj-brand img {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+.proj-title {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+.proj-meta {
+  font-size: 14px;
+  color: var(--ink-mute);
+  margin: 0 0 24px;
+}
+.proj-figma {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  padding: 11px 22px;
+  border-radius: 999px;
+  transition: filter 0.15s ease;
+}
+.proj-figma:hover {
+  filter: brightness(1.07);
+  color: #fff;
+}
+.proj-hero-media img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  box-shadow: var(--shadow);
+}
+.proj-divider {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 40px 0;
+}
+.proj-about {
+  max-width: 820px;
+}
+.proj-about-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0 0 18px;
+}
+.proj-about-item {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0 0 12px;
+}
+@media (max-width: 820px) {
+  .proj-hero {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .proj-hero-media {
+    order: -1;
+  }
+}
+
 /* Modal "Sobre el proyecto" */
 .about-overlay {
   position: fixed;
