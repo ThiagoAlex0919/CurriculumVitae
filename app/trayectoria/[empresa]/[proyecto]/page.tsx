@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
@@ -11,12 +12,16 @@ export default function ProjectPage() {
   const { t } = useI18n();
   const params = useParams<{ empresa: string; proyecto: string }>();
   const { company, project } = findProject(params.empresa, params.proyecto);
+  const [tagsOpen, setTagsOpen] = useState(false);
 
   if (!company || !project) return notFound();
 
   const isBehance = project.storyStatus === "behance";
   const cs = project.caseStudy;
   const L = ui.project.cs;
+
+  const resp = cs?.responsibilities ?? [];
+  const visibleTags = tagsOpen ? resp : resp.slice(0, 3);
 
   return (
     <div className="proj-page">
@@ -35,11 +40,25 @@ export default function ProjectPage() {
             <span>{company.studio ?? company.name}</span>
           </div>
           <h1 className="proj-title">{t(project.name)}</h1>
-          <p className="proj-meta">
-            {t(ui.project.productLabel)}: {project.product ?? company.name}
-            {"   ·   "}
-            {t(ui.project.yearLabel)}: {project.year}
-          </p>
+
+          {resp.length > 0 && (
+            <div className="proj-tags">
+              {visibleTags.map((r, i) => (
+                <span className="proj-tag" key={i}>
+                  {t(r)}
+                </span>
+              ))}
+              {resp.length > 3 && (
+                <button
+                  className="proj-tag proj-tag-more"
+                  onClick={() => setTagsOpen((o) => !o)}
+                >
+                  {tagsOpen ? t(L.viewLess) : `+${resp.length - 3}`}
+                </button>
+              )}
+            </div>
+          )}
+
           {project.figmaUrl && (
             <a
               className="proj-figma"
@@ -57,7 +76,19 @@ export default function ProjectPage() {
         </div>
       </section>
 
-      <hr className="proj-divider" />
+      {/* Meta bar horizontal (Producto, Rol, Año, Plataforma, Tipo) */}
+      {cs ? (
+        <div className="proj-metabar">
+          {cs.meta.map((m, i) => (
+            <div className="proj-metabar-item" key={i}>
+              <div className="proj-metabar-label">{t(m.label)}</div>
+              <div className="proj-metabar-value">{t(m.value)}</div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <hr className="proj-divider" />
+      )}
 
       {isBehance ? (
         <BehanceCase project={project} />
@@ -73,45 +104,25 @@ export default function ProjectPage() {
             ))}
           </section>
 
-          {/* About the project — meta */}
+          {/* The Challenge + Objectives (dos columnas) */}
           <section className="cs-section">
-            <h2 className="cs-title">{t(L.about)}</h2>
-            <div className="cs-meta">
-              {cs.meta.map((m, i) => (
-                <div className="cs-meta-item" key={i}>
-                  <div className="cs-meta-label">{t(m.label)}</div>
-                  <div className="cs-meta-value">{t(m.value)}</div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* The Challenge + Objectives */}
-          <section className="cs-section">
-            <h2 className="cs-title">{t(L.challenge)}</h2>
-            {cs.challenge.map((p, i) => (
-              <p className="cs-text" key={i}>
-                {t(p)}
-              </p>
-            ))}
-            <p className="cs-eyebrow cs-sublabel">{t(L.objectives)}</p>
-            <ul className="cs-list cs-check">
-              {cs.objectives.map((o, i) => (
-                <li key={i}>{t(o)}</li>
-              ))}
-            </ul>
-          </section>
-
-          {/* My Role */}
-          <section className="cs-section">
-            <h2 className="cs-title">{t(L.role)}</h2>
-            <p className="cs-text">{t(cs.roleIntro)}</p>
-            <div className="cs-chips">
-              {cs.responsibilities.map((r, i) => (
-                <span className="cs-chip" key={i}>
-                  {t(r)}
-                </span>
-              ))}
+            <div className="cs-two">
+              <div>
+                <h2 className="cs-title">{t(L.challenge)}</h2>
+                {cs.challenge.map((p, i) => (
+                  <p className="cs-text" key={i}>
+                    {t(p)}
+                  </p>
+                ))}
+              </div>
+              <div>
+                <p className="cs-eyebrow">{t(L.objectives)}</p>
+                <ul className="cs-list cs-check">
+                  {cs.objectives.map((o, i) => (
+                    <li key={i}>{t(o)}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </section>
 
@@ -122,7 +133,9 @@ export default function ProjectPage() {
             <div className="cs-cards">
               {cs.painPoints.map((p, i) => (
                 <div className="cs-card" key={i}>
-                  <div className="cs-card-num">{String(i + 1).padStart(2, "0")}</div>
+                  <div className="cs-card-num">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
                   <h3 className="cs-card-title">{t(p.title)}</h3>
                   <p className="cs-card-text">{t(p.text)}</p>
                 </div>
@@ -158,34 +171,44 @@ export default function ProjectPage() {
             )}
           </section>
 
-          {/* UX Outcomes */}
-          <section className="cs-section">
-            <h2 className="cs-title">{t(L.outcomes)}</h2>
-            {cs.outcomesIntro && <p className="cs-text">{t(cs.outcomesIntro)}</p>}
-            <ul className="cs-list cs-check">
-              {cs.outcomes.map((o, i) => (
-                <li key={i}>{t(o)}</li>
-              ))}
-            </ul>
-          </section>
-
-          {/* Experience Indicators */}
-          <section className="cs-section">
-            <h2 className="cs-title">{t(L.indicators)}</h2>
-            {cs.indicatorsNote && (
-              <p className="cs-note">{t(cs.indicatorsNote)}</p>
-            )}
-            <div className="cs-table">
-              <div className="cs-tr cs-th">
-                <span>{t(L.metricCol)}</span>
-                <span>{t(L.objectiveCol)}</span>
+          {/* Resultados + Indicadores (destacados) */}
+          <section className="cs-results">
+            <div className="cs-results-block">
+              <h2 className="cs-title">{t(L.outcomes)}</h2>
+              {cs.outcomesIntro && (
+                <p className="cs-text">{t(cs.outcomesIntro)}</p>
+              )}
+              <div className="cs-outcomes">
+                {cs.outcomes.map((o, i) => (
+                  <div className="cs-outcome" key={i}>
+                    <span className="cs-outcome-ic" aria-hidden>
+                      <Icon name="star" size={16} />
+                    </span>
+                    <span>{t(o)}</span>
+                  </div>
+                ))}
               </div>
-              {cs.indicators.map((ind, i) => (
-                <div className="cs-tr" key={i}>
-                  <span className="cs-metric-name">{t(ind.metric)}</span>
-                  <span>{t(ind.objective)}</span>
+            </div>
+
+            <div className="cs-results-block">
+              <h2 className="cs-title">{t(L.indicators)}</h2>
+              {cs.indicatorsNote && (
+                <p className="cs-note">{t(cs.indicatorsNote)}</p>
+              )}
+              <div className="cs-table">
+                <div className="cs-tr cs-th">
+                  <span>{t(L.metricCol)}</span>
+                  <span>{t(L.objectiveCol)}</span>
+                  <span>{t(L.valueCol)}</span>
                 </div>
-              ))}
+                {cs.indicators.map((ind, i) => (
+                  <div className="cs-tr" key={i}>
+                    <span className="cs-metric-name">{t(ind.metric)}</span>
+                    <span>{t(ind.objective)}</span>
+                    <span className="cs-metric-target">{t(ind.value)}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
         </article>

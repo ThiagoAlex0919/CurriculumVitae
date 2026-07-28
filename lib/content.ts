@@ -66,7 +66,7 @@ export type CaseStudy = {
   outcomesIntro?: Localized;
   outcomes: Localized[];
   indicatorsNote?: Localized;
-  indicators: { metric: Localized; objective: Localized }[];
+  indicators: { metric: Localized; objective: Localized; value: Localized }[];
 };
 
 export type Company = {
@@ -763,18 +763,10 @@ export const companies: Company[] = [
           ],
           meta: [
             { label: { es: "Producto", en: "Product" }, value: { es: "Bizagi Studio", en: "Bizagi Studio" } },
-            { label: { es: "Área", en: "Area" }, value: { es: "Producto", en: "Product" } },
             { label: { es: "Rol", en: "Role" }, value: { es: "Senior UX Designer", en: "Senior UX Designer" } },
             { label: { es: "Año", en: "Year" }, value: { es: "2026", en: "2026" } },
             { label: { es: "Plataforma", en: "Platform" }, value: { es: "Escritorio", en: "Desktop" } },
-            { label: { es: "Tipo de proyecto", en: "Project type" }, value: { es: "Nueva funcionalidad", en: "New Feature" } },
-            {
-              label: { es: "Usuarios objetivo", en: "Target users" },
-              value: {
-                es: "Analistas de negocio · Arquitectos de solución · Desarrolladores · Administradores",
-                en: "Business Analysts · Solution Architects · Developers · Administrators",
-              },
-            },
+            { label: { es: "Tipo", en: "Type" }, value: { es: "Nueva funcionalidad", en: "New Feature" } },
           ],
           challenge: [
             {
@@ -805,13 +797,13 @@ export const companies: Company[] = [
           responsibilities: [
             { es: "Product Discovery", en: "Product Discovery" },
             { es: "Análisis UX", en: "UX Analysis" },
-            { es: "Flujos de usuario", en: "User Flows" },
             { es: "Arquitectura de información", en: "Information Architecture" },
             { es: "Diseño de interacción", en: "Interaction Design" },
             { es: "Wireframing", en: "Wireframing" },
             { es: "UI de alta fidelidad", en: "High-Fidelity UI" },
             { es: "Validación de prototipos", en: "Prototype Validation" },
             { es: "Handoff a desarrollo", en: "Developer Handoff" },
+            { es: "Flujos de usuario", en: "User Flows" },
           ],
           problemIntro: {
             es: "Antes de proponer soluciones, trabajé con ingeniería para entender la arquitectura subyacente e identificar dónde experimentaban los usuarios la mayor complejidad. El análisis reveló tres puntos de dolor principales:",
@@ -890,11 +882,11 @@ export const companies: Company[] = [
             en: "Replace with measured values after release.",
           },
           indicators: [
-            { metric: { es: "CES", en: "CES" }, objective: { es: "Reducir el esfuerzo de configuración al montar un Case Solution.", en: "Reduce configuration effort during Case Solution setup." } },
-            { metric: { es: "CSAT", en: "CSAT" }, objective: { es: "Mejorar la satisfacción con los flujos de gestión de etapas.", en: "Improve satisfaction with stage management workflows." } },
-            { metric: { es: "NPS", en: "NPS" }, objective: { es: "Aumentar la confianza al configurar Case Solutions empresariales.", en: "Increase confidence in configuring enterprise Case Solutions." } },
-            { metric: { es: "Tasa de éxito de tarea", en: "Task Success Rate" }, objective: { es: "Crear y configurar etapas reutilizables con éxito.", en: "Successfully create and configure reusable stages." } },
-            { metric: { es: "Tiempo por tarea", en: "Time on Task" }, objective: { es: "Reducir el tiempo necesario para construir orquestaciones complejas.", en: "Reduce the time required to build complex orchestrations." } },
+            { metric: { es: "CES", en: "CES" }, objective: { es: "Reducir el esfuerzo de configuración al montar un Case Solution.", en: "Reduce configuration effort during Case Solution setup." }, value: { es: "≥ 4.5 / 5", en: "≥ 4.5 / 5" } },
+            { metric: { es: "CSAT", en: "CSAT" }, objective: { es: "Mejorar la satisfacción con los flujos de gestión de etapas.", en: "Improve satisfaction with stage management workflows." }, value: { es: "≥ 90%", en: "≥ 90%" } },
+            { metric: { es: "NPS", en: "NPS" }, objective: { es: "Aumentar la confianza al configurar Case Solutions empresariales.", en: "Increase confidence in configuring enterprise Case Solutions." }, value: { es: "≥ +40", en: "≥ +40" } },
+            { metric: { es: "Tasa de éxito de tarea", en: "Task Success Rate" }, objective: { es: "Crear y configurar etapas reutilizables con éxito.", en: "Successfully create and configure reusable stages." }, value: { es: "≥ 95%", en: "≥ 95%" } },
+            { metric: { es: "Tiempo por tarea", en: "Time on Task" }, objective: { es: "Reducir el tiempo necesario para construir orquestaciones complejas.", en: "Reduce the time required to build complex orchestrations." }, value: { es: "−40%", en: "−40%" } },
           ],
         },
       },
@@ -2110,6 +2102,9 @@ export const ui = {
       indicators: { es: "Indicadores de experiencia", en: "Experience Indicators" },
       metricCol: { es: "Métrica", en: "Metric" },
       objectiveCol: { es: "Objetivo", en: "Objective" },
+      valueCol: { es: "Valor", en: "Value" },
+      viewAll: { es: "Ver todos", en: "View all" },
+      viewLess: { es: "Ver menos", en: "View less" },
     },
     viewOnBehance: { es: "Ver caso completo en Behance", en: "View full case on Behance" },
     behanceEyebrow: { es: "Caso publicado", en: "Published case" },
