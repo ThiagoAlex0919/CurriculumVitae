@@ -15,10 +15,6 @@ export default function ProjectPage() {
   if (!company || !project) return notFound();
 
   const isBehance = project.storyStatus === "behance";
-  const aboutItems =
-    project.about && project.about.length
-      ? project.about
-      : [project.challenge, project.process, project.solution];
 
   return (
     <div className="proj-page">
@@ -55,10 +51,7 @@ export default function ProjectPage() {
         </div>
         <div className="proj-hero-media">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={project.heroImage ?? project.image}
-            alt={t(project.name)}
-          />
+          <img src={project.heroImage ?? project.image} alt={t(project.name)} />
         </div>
       </section>
 
@@ -67,14 +60,53 @@ export default function ProjectPage() {
       {isBehance ? (
         <BehanceCase project={project} />
       ) : (
-        <section className="proj-about">
-          <h2 className="proj-about-title">{t(ui.project.about)}</h2>
-          {aboutItems.map((item, i) => (
-            <p className="proj-about-item" key={i}>
-              {t(item)}
-            </p>
-          ))}
-        </section>
+        <div className="cs">
+          {/* Overview / Acerca de */}
+          {project.about && project.about.length > 0 && (
+            <section className="cs-section cs-overview">
+              <p className="cs-eyebrow">{t(ui.project.about)}</p>
+              <ul className="cs-list">
+                {project.about.map((item, i) => (
+                  <li key={i}>{t(item)}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* El desafío */}
+          <section className="cs-section">
+            <p className="cs-eyebrow">{t(ui.project.challenge)}</p>
+            <p className="cs-text">{t(project.challenge)}</p>
+          </section>
+
+          {/* Proceso */}
+          <section className="cs-section">
+            <p className="cs-eyebrow">{t(ui.project.process)}</p>
+            <p className="cs-text">{t(project.process)}</p>
+          </section>
+
+          {/* La solución */}
+          <section className="cs-section">
+            <p className="cs-eyebrow">{t(ui.project.solution)}</p>
+            <p className="cs-text cs-lead">{t(project.solution)}</p>
+          </section>
+
+          {/* Cifras */}
+          {project.metrics && project.metrics.length > 0 && (
+            <section className="cs-section">
+              <p className="cs-eyebrow">{t(ui.project.metrics)}</p>
+              <div className="cs-metrics">
+                {project.metrics.map((m, i) => (
+                  <div className="cs-metric" key={i}>
+                    <div className="cs-metric-value">{m.value}</div>
+                    <div className="cs-metric-label">{m.label}</div>
+                    <div className="cs-metric-note">{t(m.note)}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
       )}
     </div>
   );
