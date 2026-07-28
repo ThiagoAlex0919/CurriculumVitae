@@ -2949,3 +2949,80 @@ p {
   filter: brightness(1.08);
 }
 
+/* ---------- Badge Behance en la tarjeta ---------- */
+.work-card-head-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+.work-card-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #1769ff; /* azul Behance */
+  padding: 3px 8px;
+  border-radius: 999px;
+  line-height: 1;
+}
+
+/* ---------- Puente a Behance (página de detalle) ---------- */
+.behance-case {
+  overflow: hidden;
+  padding: 0;
+  max-width: 900px;
+  border-radius: 16px;
+}
+.behance-case-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #0f1622;
+  background-size: cover;
+  background-position: center top;
+  transition: filter 0.2s ease, transform 0.3s ease;
+}
+.behance-case-cover:hover {
+  filter: brightness(1.04);
+}
+.behance-case-body {
+  padding: 22px 24px 26px;
+}
+.behance-case-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1769ff;
+  margin-bottom: 10px;
+}
+.behance-case-note {
+  margin: 0 0 18px;
+  max-width: 62ch;
+  line-height: 1.6;
+}
+.behance-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: #1769ff; /* azul Behance */
+  padding: 11px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: filter 0.18s ease, transform 0.18s ease;
+}
+.behance-cta:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+

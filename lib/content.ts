@@ -19,12 +19,20 @@ export type Project = {
   role: Localized;
   year: string;
   tags: string[];
-  challenge: Localized;
-  process: Localized;
-  before: Localized;
-  after: Localized;
-  solution: Localized;
-  metrics: Metric[];
+  // --- Historia nativa (opcional mientras se construye) ---
+  // Si el proyecto todavía vive en Behance, estos campos pueden ir vacíos.
+  challenge?: Localized;
+  process?: Localized;
+  before?: Localized;
+  after?: Localized;
+  solution?: Localized;
+  metrics?: Metric[];
+  // --- Puente a Behance (contenido publicado antes de la historia nativa) ---
+  // storyStatus: "native" (por defecto) muestra las secciones de arriba.
+  // storyStatus: "behance" muestra la portada + botón "Ver caso en Behance".
+  // Para migrar: escribe la historia nativa y cambia storyStatus a "native".
+  storyStatus?: "native" | "behance";
+  behanceUrl?: string; // enlace al caso en Behance (ej. https://www.behance.net/gallery/...)
   // --- Presentación de la tarjeta destacada (portafolio) ---
   featured?: boolean; // aparece en "Featured Projects"
   image?: string; // ruta en /public (ej. "/imagenes/ai-worker.webp")
@@ -763,12 +771,39 @@ export const companies: Company[] = [
     },
     projects: [
       {
+        // Proyecto "solo Behance": sin campos de historia todavía.
+        // Cuando escribas la historia nativa, añade challenge/process/… y
+        // cambia storyStatus a "native".
+        slug: "pami",
+        name: { es: "PAMI", en: "PAMI" },
+        client: { es: "Inter Rapidísimo", en: "Inter Rapidísimo" },
+        role: { es: "Diseñador UX/UI", en: "UX/UI Designer" },
+        year: "2023",
+        tags: ["UX/UI", "Producto"],
+        storyStatus: "behance",
+        behanceUrl: "https://www.behance.net/gallery/195893025/PAMI-INTERRAPIDISIMO",
+        featured: true,
+        image:
+          "https://mir-s3-cdn-cf.behance.net/projects/404/c56adc195893025.Y3JvcCw4MTIsNjM1LDAsMg.png",
+        product: "Inter Rapidísimo",
+        category: { es: "UX/UI", en: "UX/UI" },
+        cardSummary: {
+          es: "Caso PAMI publicado en Behance. Historia completa en construcción.",
+          en: "PAMI case published on Behance. Full story in progress.",
+        },
+      },
+      {
         slug: "sistema-de-diseno",
-        name: { es: "Sistema de diseño", en: "Design system" },
+        name: { es: "Sistema de diseño + UI Kit", en: "Design system + UI Kit" },
         client: { es: "Plataformas Inter Rapidísimo", en: "Inter Rapidísimo platforms" },
         role: { es: "Diseñador UX/UI", en: "UX/UI Designer" },
         year: "2022",
         tags: ["Design System", "UI", "Componentes"],
+        // Publicado en Behance; historia nativa en construcción.
+        // Para migrar: escribe challenge/process/… y cambia storyStatus a "native".
+        storyStatus: "behance",
+        behanceUrl:
+          "https://www.behance.net/gallery/132482261/Design-System-UI-KIT-Inter-Rapidisimo",
         challenge: {
           es: "Inconsistencias entre plataformas y componentes duplicados. Reemplaza por el desafío real.",
           en: "Inconsistencies across platforms and duplicated components. Replace with the real challenge.",
@@ -788,7 +823,9 @@ export const companies: Company[] = [
           { label: "Tiempo", value: "-30%", note: { es: "Entrega de pantallas", en: "Screen delivery" } },
         ],
         featured: true,
-        image: "/imagenes/inter-rapidisimo/trabajo-1.webp",
+        // Portada del caso en Behance (puedes reemplazarla por una WebP local en /public).
+        image:
+          "https://mir-s3-cdn-cf.behance.net/projects/404/1bc14c132482261.Y3JvcCw4MTIsNjM1LDAsMg.png",
         product: "Inter Rapidísimo",
         category: { es: "Design System", en: "Design System" },
         highlight: { es: "diseño", en: "system" },
@@ -1252,6 +1289,46 @@ export const companies: Company[] = [
         },
         focus: { es: "Marketing digital", en: "Digital marketing" },
       },
+      {
+        // Cliente de Brain Media. Publicado en Behance; historia nativa en construcción.
+        slug: "saviesa",
+        name: { es: "Saviesa", en: "Saviesa" },
+        client: { es: "Saviesa — cliente Brain Media", en: "Saviesa — Brain Media client" },
+        role: { es: "Director de producción", en: "Production Director" },
+        year: "2022", // ⚠️ verificar
+        tags: ["Branding", "Web"],
+        storyStatus: "behance",
+        behanceUrl: "https://www.behance.net/gallery/135655805/Saviesa",
+        featured: true,
+        image:
+          "https://mir-s3-cdn-cf.behance.net/projects/404/ae1c23135655805.Y3JvcCw4MTIsNjM1LDAsMg.png",
+        product: "Brain Media",
+        category: { es: "Branding", en: "Branding" },
+        cardSummary: {
+          es: "Identidad y web para Saviesa. Caso publicado en Behance.",
+          en: "Brand identity and website for Saviesa. Case published on Behance.",
+        },
+      },
+      {
+        // Cliente de Brain Media. Publicado en Behance; historia nativa en construcción.
+        slug: "ciprogress-greenlife",
+        name: { es: "Ciprogress GreenLife", en: "Ciprogress GreenLife" },
+        client: { es: "Ciprogress GreenLife — cliente Brain Media", en: "Ciprogress GreenLife — Brain Media client" },
+        role: { es: "Director de producción", en: "Production Director" },
+        year: "2022", // ⚠️ verificar
+        tags: ["Branding", "Web"],
+        storyStatus: "behance",
+        behanceUrl: "https://www.behance.net/gallery/135655229/Ciprogress-GreenLife",
+        featured: true,
+        image:
+          "https://mir-s3-cdn-cf.behance.net/projects/404/47dbed135655229.Y3JvcCw4MTIsNjM1LDAsMg.png",
+        product: "Brain Media",
+        category: { es: "Branding", en: "Branding" },
+        cardSummary: {
+          es: "Identidad y web para Ciprogress GreenLife. Caso publicado en Behance.",
+          en: "Brand identity and website for Ciprogress GreenLife. Case published on Behance.",
+        },
+      },
     ],
   },
   {
@@ -1460,6 +1537,191 @@ export const companies: Company[] = [
       },
     ],
   },
+  // ============================================================
+  //  FREELANCE / INDEPENDIENTE
+  //  Grupo especial: NO es una empresa formal (no aparece en /experiencia).
+  //  Sirve para mostrar en el Portafolio (/trayectoria) proyectos freelance
+  //  con la etiqueta "Freelance" en la esquina de la tarjeta y como opción
+  //  de filtro. Cada proyecto usa el puente Behance hasta tener historia nativa.
+  //  ⚠️ AÑOS ESTIMADOS por Alexander — verificar/ajustar.
+  // ============================================================
+  {
+    slug: "freelance",
+    name: "Freelance",
+    initials: "FL",
+    role: { es: "Diseñador freelance", en: "Freelance designer" },
+    roleShort: { es: "Freelance", en: "Freelance" },
+    area: { es: "Proyectos independientes", en: "Independent projects" },
+    period: "2018 — 2023",
+    team: { es: "Independiente", en: "Independent" },
+    industry: {
+      es: "Producto digital, marca y web · Proyectos independientes",
+      en: "Digital product, branding & web · Independent projects",
+    },
+    clients: ["Producto", "Marca", "Web", "UX/UI"],
+    projectsIntro: {
+      es: "Proyectos freelance e independientes de producto, marca y web. Cada caso está publicado en Behance mientras preparo su historia completa aquí.",
+      en: "Freelance and independent product, branding and web projects. Each case is published on Behance while I prepare its full story here.",
+    },
+    story: {
+      es: "Trabajo independiente de diseño de producto, identidad de marca y sitios web para distintos clientes y proyectos personales.",
+      en: "Independent work in product design, brand identity and websites for various clients and personal projects.",
+    },
+    profile: {
+      es: "Como freelance cubro el ciclo completo: concepto, UX/UI, identidad y entrega.",
+      en: "As a freelancer I cover the full cycle: concept, UX/UI, identity and delivery.",
+    },
+    challenges: {
+      es: "Adaptarme a distintos rubros y entregar soluciones claras con recursos acotados.",
+      en: "Adapting to different industries and delivering clear solutions with limited resources.",
+    },
+    projects: [
+      {
+        slug: "buddy",
+        name: { es: "Buddy", en: "Buddy" },
+        client: { es: "Proyecto independiente", en: "Independent project" },
+        role: { es: "Diseñador de producto", en: "Product Designer" },
+        year: "2020", // ⚠️ verificar
+        tags: ["UX/UI", "Producto"],
+        storyStatus: "behance",
+        behanceUrl: "https://www.behance.net/gallery/107330925/Buddy",
+        featured: true,
+        image:
+          "https://mir-s3-cdn-cf.behance.net/projects/404/2751d0107330925.Y3JvcCw4MTIsNjM1LDAsMg.png",
+        category: { es: "Producto", en: "Product" },
+        cardSummary: {
+          es: "Caso Buddy publicado en Behance. Historia completa en construcción.",
+          en: "Buddy case published on Behance. Full story in progress.",
+        },
+      },
+      {
+        slug: "alcarrito",
+        name: { es: "alcarrito", en: "alcarrito" },
+        client: { es: "Proyecto independiente", en: "Independent project" },
+        role: { es: "Diseñador UX/UI", en: "UX/UI Designer" },
+        year: "2022", // ⚠️ verificar
+        tags: ["UX/UI", "E-commerce"],
+        storyStatus: "behance",
+        behanceUrl: "https://www.behance.net/gallery/132495171/alcarrito",
+        featured: true,
+        image:
+          "https://mir-s3-cdn-cf.behance.net/projects/404/d72f85132495171.Y3JvcCw4MTIsNjM1LDAsMg.png",
+        category: { es: "E-commerce", en: "E-commerce" },
+        cardSummary: {
+          es: "Caso alcarrito publicado en Behance. Historia completa en construcción.",
+          en: "alcarrito case published on Behance. Full story in progress.",
+        },
+      },
+      {
+        slug: "recuerdalo",
+        name: { es: "Recuérdalo", en: "Recuérdalo" },
+        client: { es: "Proyecto independiente", en: "Independent project" },
+        role: { es: "Diseñador de producto", en: "Product Designer" },
+        year: "2022", // ⚠️ verificar
+        tags: ["UX/UI", "Producto"],
+        storyStatus: "behance",
+        behanceUrl: "https://www.behance.net/gallery/135853245/Recuerdalo",
+        featured: true,
+        image:
+          "https://mir-s3-cdn-cf.behance.net/projects/404/1dbddb135853245.Y3JvcCw4MTIsNjM1LDAsMg.png",
+        category: { es: "Producto", en: "Product" },
+        cardSummary: {
+          es: "Caso Recuérdalo publicado en Behance. Historia completa en construcción.",
+          en: "Recuérdalo case published on Behance. Full story in progress.",
+        },
+      },
+      {
+        slug: "diseno-de-marca-y-web",
+        name: { es: "Diseño de marca y web", en: "Brand & web design" },
+        client: { es: "Proyecto independiente", en: "Independent project" },
+        role: { es: "Diseñador de marca", en: "Brand Designer" },
+        year: "2022", // ⚠️ verificar
+        tags: ["Branding", "Web"],
+        storyStatus: "behance",
+        behanceUrl: "https://www.behance.net/gallery/135654699/Diseno-de-marca-y-web",
+        featured: true,
+        image:
+          "https://mir-s3-cdn-cf.behance.net/projects/404/9363ca135654699.Y3JvcCw4MTIsNjM1LDAsMg.png",
+        category: { es: "Branding", en: "Branding" },
+        cardSummary: {
+          es: "Identidad de marca y sitio web. Caso publicado en Behance.",
+          en: "Brand identity and website. Case published on Behance.",
+        },
+      },
+      {
+        slug: "eco-reto",
+        name: { es: "Eco-Reto", en: "Eco-Reto" },
+        client: { es: "Proyecto independiente", en: "Independent project" },
+        role: { es: "Diseñador web", en: "Web Designer" },
+        year: "2018", // ⚠️ verificar
+        tags: ["Web", "Diseño"],
+        storyStatus: "behance",
+        behanceUrl: "https://www.behance.net/gallery/48941387/Eco-Reto-website-project",
+        featured: true,
+        image:
+          "https://mir-s3-cdn-cf.behance.net/projects/404/9a3c5848941387.Y3JvcCw4MTIsNjM1LDAsMg.png",
+        category: { es: "Web", en: "Web" },
+        cardSummary: {
+          es: "Sitio web Eco-Reto. Caso publicado en Behance.",
+          en: "Eco-Reto website. Case published on Behance.",
+        },
+      },
+      {
+        slug: "comfama",
+        name: { es: "Comfama", en: "Comfama" },
+        client: { es: "Proyecto freelance", en: "Freelance project" },
+        role: { es: "Diseñador UX/UI", en: "UX/UI Designer" },
+        year: "2021", // ⚠️ verificar
+        tags: ["UX/UI", "Web"],
+        storyStatus: "behance",
+        behanceUrl: "https://www.behance.net/gallery/111169433/Comfama",
+        featured: true,
+        image:
+          "https://mir-s3-cdn-cf.behance.net/projects/404/b84c45111169433.Y3JvcCw4MTIsNjM1LDAsMg.png",
+        category: { es: "UX/UI", en: "UX/UI" },
+        cardSummary: {
+          es: "Caso Comfama publicado en Behance. Historia completa en construcción.",
+          en: "Comfama case published on Behance. Full story in progress.",
+        },
+      },
+      {
+        slug: "tarjeta-avvillas",
+        name: { es: "Tarjeta AV Villas", en: "AV Villas card" },
+        client: { es: "Proyecto freelance", en: "Freelance project" },
+        role: { es: "Diseñador UX/UI", en: "UX/UI Designer" },
+        year: "2022", // ⚠️ verificar
+        tags: ["UX/UI", "Banca"],
+        storyStatus: "behance",
+        behanceUrl: "https://www.behance.net/gallery/135656679/Tarjeta-AvVillas",
+        featured: true,
+        image:
+          "https://mir-s3-cdn-cf.behance.net/projects/404/ca9b17135656679.Y3JvcCw4MTIsNjM1LDAsMg.png",
+        category: { es: "Banca", en: "Banking" },
+        cardSummary: {
+          es: "Caso Tarjeta AV Villas publicado en Behance. Historia completa en construcción.",
+          en: "AV Villas card case published on Behance. Full story in progress.",
+        },
+      },
+      {
+        slug: "etb-flujo-comercial",
+        name: { es: "ETB — Flujo comercial", en: "ETB — Commercial flow" },
+        client: { es: "Proyecto freelance", en: "Freelance project" },
+        role: { es: "Diseñador UX/UI", en: "UX/UI Designer" },
+        year: "2022", // ⚠️ verificar
+        tags: ["UX/UI", "Flujo"],
+        storyStatus: "behance",
+        behanceUrl: "https://www.behance.net/gallery/132504509/Etb-Flujo-comercial",
+        featured: true,
+        image:
+          "https://mir-s3-cdn-cf.behance.net/projects/404/ae8da0132504509.Y3JvcCw4MTIsNjM1LDAsMg.png",
+        category: { es: "UX/UI", en: "UX/UI" },
+        cardSummary: {
+          es: "Caso ETB (flujo comercial) publicado en Behance. Historia completa en construcción.",
+          en: "ETB commercial flow case published on Behance. Full story in progress.",
+        },
+      },
+    ],
+  },
 ];
 
 // ---------------- LABORATORIO ----------------
@@ -1633,6 +1895,13 @@ export const ui = {
     solution: { es: "La solución", en: "The solution" },
     metrics: { es: "Datos de medición", en: "Measurement data" },
     back: { es: "Volver", en: "Back" },
+    viewOnBehance: { es: "Ver caso completo en Behance", en: "View full case on Behance" },
+    behanceEyebrow: { es: "Caso publicado", en: "Published case" },
+    behanceNote: {
+      es: "Este proyecto ya está publicado en Behance. Estoy preparando su historia completa aquí; mientras tanto puedes ver el caso en detalle en Behance.",
+      en: "This project is already published on Behance. I'm preparing its full story here; meanwhile you can view the detailed case on Behance.",
+    },
+    badgeBehance: { es: "Behance", en: "Behance" },
   },
   lab: {
     title: { es: "Laboratorio", en: "Lab" },

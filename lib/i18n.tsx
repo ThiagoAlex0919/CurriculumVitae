@@ -9,7 +9,7 @@ export type Localized = { es: string; en: string };
 type I18nContextValue = {
   locale: Locale;
   setLocale: (l: Locale) => void;
-  t: (value: Localized) => string;
+  t: (value?: Localized) => string;
 };
 
 const I18nContext = createContext<I18nContextValue | null>(null);
@@ -30,7 +30,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     } catch {}
   };
 
-  const t = (value: Localized) => (value ? value[locale] : "");
+  const t = (value?: Localized) => (value ? value[locale] : "");
 
   return (
     <I18nContext.Provider value={{ locale, setLocale, t }}>

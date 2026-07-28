@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
 import { findProject, ui } from "@/lib/content";
+import BehanceCase from "@/components/BehanceCase";
 
 export default function ProjectPage() {
   const { t } = useI18n();
@@ -11,6 +12,8 @@ export default function ProjectPage() {
   const { company, project } = findProject(params.empresa, params.proyecto);
 
   if (!company || !project) return notFound();
+
+  const isBehance = project.storyStatus === "behance";
 
   return (
     <>
@@ -46,53 +49,69 @@ export default function ProjectPage() {
             </div>
           </div>
 
-          <div className="prose-block module">
-            <h2>{t(ui.project.challenge)}</h2>
-            <p>{t(project.challenge)}</p>
-          </div>
-
-          <div className="prose-block module">
-            <h2>{t(ui.project.process)}</h2>
-            <p>{t(project.process)}</p>
-          </div>
-
-          <div style={{ maxWidth: 900 }}>
-            <h2 style={{ fontSize: 26, marginBottom: 16 }}>
-              {t(ui.project.beforeAfter)}
-            </h2>
-            <div className="ba-grid">
-              <div className="ba-cell">
-                <div className="k">{t(ui.project.before)}</div>
-                <p>{t(project.before)}</p>
-              </div>
-              <div className="ba-cell">
-                <div className="k">{t(ui.project.after)}</div>
-                <p>{t(project.after)}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="prose-block module">
-            <h2>{t(ui.project.solution)}</h2>
-            <p className="lead-serif" style={{ margin: "8px 0 0" }}>
-              {t(project.solution)}
-            </p>
-          </div>
-
-          <div style={{ maxWidth: 900, marginBottom: 40 }}>
-            <h2 style={{ fontSize: 26, marginBottom: 16 }}>
-              {t(ui.project.metrics)}
-            </h2>
-            <div className="metric-grid">
-              {project.metrics.map((m, i) => (
-                <div className="metric" key={i}>
-                  <div className="label">{m.label}</div>
-                  <div className="value">{m.value}</div>
-                  <div className="note">{t(m.note)}</div>
+          {isBehance ? (
+            <BehanceCase project={project} />
+          ) : (
+            <>
+              {project.challenge && (
+                <div className="prose-block module">
+                  <h2>{t(ui.project.challenge)}</h2>
+                  <p>{t(project.challenge)}</p>
                 </div>
-              ))}
-            </div>
-          </div>
+              )}
+
+              {project.process && (
+                <div className="prose-block module">
+                  <h2>{t(ui.project.process)}</h2>
+                  <p>{t(project.process)}</p>
+                </div>
+              )}
+
+              {(project.before || project.after) && (
+                <div style={{ maxWidth: 900 }}>
+                  <h2 style={{ fontSize: 26, marginBottom: 16 }}>
+                    {t(ui.project.beforeAfter)}
+                  </h2>
+                  <div className="ba-grid">
+                    <div className="ba-cell">
+                      <div className="k">{t(ui.project.before)}</div>
+                      <p>{t(project.before)}</p>
+                    </div>
+                    <div className="ba-cell">
+                      <div className="k">{t(ui.project.after)}</div>
+                      <p>{t(project.after)}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {project.solution && (
+                <div className="prose-block module">
+                  <h2>{t(ui.project.solution)}</h2>
+                  <p className="lead-serif" style={{ margin: "8px 0 0" }}>
+                    {t(project.solution)}
+                  </p>
+                </div>
+              )}
+
+              {project.metrics && project.metrics.length > 0 && (
+                <div style={{ maxWidth: 900, marginBottom: 40 }}>
+                  <h2 style={{ fontSize: 26, marginBottom: 16 }}>
+                    {t(ui.project.metrics)}
+                  </h2>
+                  <div className="metric-grid">
+                    {project.metrics.map((m, i) => (
+                      <div className="metric" key={i}>
+                        <div className="label">{m.label}</div>
+                        <div className="value">{m.value}</div>
+                        <div className="note">{t(m.note)}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </section>
     </>

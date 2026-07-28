@@ -155,7 +155,14 @@ export default function TrayectoriaPage() {
               <div className="work-card-inner">
                 <div className="work-card-head">
                   <span className="work-card-company">{c.name}</span>
-                  <span className="work-card-year">{p.year}</span>
+                  <span className="work-card-head-right">
+                    {p.storyStatus === "behance" && (
+                      <span className="work-card-badge">
+                        {t(ui.project.badgeBehance)}
+                      </span>
+                    )}
+                    <span className="work-card-year">{p.year}</span>
+                  </span>
                 </div>
                 <div className="work-card-body">
                   <h3 className="work-card-title">{t(p.name)}</h3>
