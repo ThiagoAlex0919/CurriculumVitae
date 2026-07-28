@@ -40,8 +40,9 @@ export default function RootLayout({
   return (
     <html lang="es" className={poppins.variable}>
       <head>
-        {/* Iconos Phosphor: se abre la conexión pronto y la hoja se
-            carga sin bloquear el render (truco media=print → all). */}
+        {/* Iconos Phosphor (UI crítica: nav y botones). Se cargan de
+            forma normal y fiable; el preconnect acelera la conexión.
+            Solo la hoja "regular" — la "bold" no se usa. */}
         <link
           rel="preconnect"
           href="https://unpkg.com"
@@ -49,22 +50,8 @@ export default function RootLayout({
         />
         <link
           rel="stylesheet"
-          id="ph-icons"
           href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"
-          media="print"
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(){var l=document.getElementById('ph-icons');if(!l)return;l.addEventListener('load',function(){l.media='all';});if(l.sheet){l.media='all';}})();",
-          }}
-        />
-        <noscript>
-          <link
-            rel="stylesheet"
-            href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css"
-          />
-        </noscript>
         {/* Tema inicial antes de pintar para evitar parpadeo (FOUC). */}
         <script
           dangerouslySetInnerHTML={{
