@@ -213,7 +213,7 @@ const SCENES: Layer[][] = [
       cls: "free",
       speed: -0.08,
       /* full-bleed: los bordes del lienzo quedan fuera de la escena */
-      style: { bottom: "-14%", left: "-2%", width: "104%", zIndex: 3 },
+      style: { bottom: "-12%", right: "-1%", width: "88%", zIndex: 3 },
     },
     {
       src: `${ART}/estrellas.webp`,
@@ -293,7 +293,7 @@ const SCENES: Layer[][] = [
       cls: "free",
       speed: -0.08,
       /* protagonista grande como la luna de Bizagi (full-bleed) */
-      style: { bottom: "-10%", left: "-2%", width: "104%", zIndex: 3 },
+      style: { bottom: "-10%", right: "-1%", width: "88%", zIndex: 3 },
     },
     {
       src: `${ART}/estrellas.webp`,
