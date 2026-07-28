@@ -15,6 +15,8 @@ export default function ProjectPage() {
   if (!company || !project) return notFound();
 
   const isBehance = project.storyStatus === "behance";
+  const cs = project.caseStudy;
+  const L = ui.project.cs;
 
   return (
     <div className="proj-page">
@@ -22,7 +24,7 @@ export default function ProjectPage() {
         <span aria-hidden>←</span> {t(ui.project.back)} · {company.name}
       </Link>
 
-      {/* Hero: info (izq) + imagen (der) */}
+      {/* Hero */}
       <section className="proj-hero">
         <div className="proj-hero-info">
           <div className="proj-brand">
@@ -59,39 +61,148 @@ export default function ProjectPage() {
 
       {isBehance ? (
         <BehanceCase project={project} />
-      ) : (
-        <div className="cs">
-          {/* Overview / Acerca de */}
-          {project.about && project.about.length > 0 && (
-            <section className="cs-section cs-overview">
-              <p className="cs-eyebrow">{t(ui.project.about)}</p>
-              <ul className="cs-list">
-                {project.about.map((item, i) => (
-                  <li key={i}>{t(item)}</li>
-                ))}
-              </ul>
-            </section>
-          )}
+      ) : cs ? (
+        <article className="cs">
+          {/* Overview */}
+          <section className="cs-section">
+            <p className="cs-eyebrow">{t(L.overview)}</p>
+            {cs.overview.map((p, i) => (
+              <p className="cs-text" key={i}>
+                {t(p)}
+              </p>
+            ))}
+          </section>
 
-          {/* El desafío */}
+          {/* About the project — meta */}
+          <section className="cs-section">
+            <h2 className="cs-title">{t(L.about)}</h2>
+            <div className="cs-meta">
+              {cs.meta.map((m, i) => (
+                <div className="cs-meta-item" key={i}>
+                  <div className="cs-meta-label">{t(m.label)}</div>
+                  <div className="cs-meta-value">{t(m.value)}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* The Challenge + Objectives */}
+          <section className="cs-section">
+            <h2 className="cs-title">{t(L.challenge)}</h2>
+            {cs.challenge.map((p, i) => (
+              <p className="cs-text" key={i}>
+                {t(p)}
+              </p>
+            ))}
+            <p className="cs-eyebrow cs-sublabel">{t(L.objectives)}</p>
+            <ul className="cs-list cs-check">
+              {cs.objectives.map((o, i) => (
+                <li key={i}>{t(o)}</li>
+              ))}
+            </ul>
+          </section>
+
+          {/* My Role */}
+          <section className="cs-section">
+            <h2 className="cs-title">{t(L.role)}</h2>
+            <p className="cs-text">{t(cs.roleIntro)}</p>
+            <div className="cs-chips">
+              {cs.responsibilities.map((r, i) => (
+                <span className="cs-chip" key={i}>
+                  {t(r)}
+                </span>
+              ))}
+            </div>
+          </section>
+
+          {/* Understanding the Problem */}
+          <section className="cs-section">
+            <h2 className="cs-title">{t(L.problem)}</h2>
+            <p className="cs-text">{t(cs.problemIntro)}</p>
+            <div className="cs-cards">
+              {cs.painPoints.map((p, i) => (
+                <div className="cs-card" key={i}>
+                  <div className="cs-card-num">{String(i + 1).padStart(2, "0")}</div>
+                  <h3 className="cs-card-title">{t(p.title)}</h3>
+                  <p className="cs-card-text">{t(p.text)}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Design Approach */}
+          <section className="cs-section">
+            <h2 className="cs-title">{t(L.approach)}</h2>
+            <p className="cs-text">{t(cs.approachIntro)}</p>
+            <ul className="cs-list">
+              {cs.designDecisions.map((d, i) => (
+                <li key={i}>{t(d)}</li>
+              ))}
+            </ul>
+            {cs.approachClosing && (
+              <p className="cs-text">{t(cs.approachClosing)}</p>
+            )}
+          </section>
+
+          {/* Solution */}
+          <section className="cs-section">
+            <h2 className="cs-title">{t(L.solution)}</h2>
+            <p className="cs-text">{t(cs.solutionIntro)}</p>
+            <ul className="cs-list cs-check">
+              {cs.solutionPoints.map((s, i) => (
+                <li key={i}>{t(s)}</li>
+              ))}
+            </ul>
+            {cs.solutionClosing && (
+              <p className="cs-text cs-lead">{t(cs.solutionClosing)}</p>
+            )}
+          </section>
+
+          {/* UX Outcomes */}
+          <section className="cs-section">
+            <h2 className="cs-title">{t(L.outcomes)}</h2>
+            {cs.outcomesIntro && <p className="cs-text">{t(cs.outcomesIntro)}</p>}
+            <ul className="cs-list cs-check">
+              {cs.outcomes.map((o, i) => (
+                <li key={i}>{t(o)}</li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Experience Indicators */}
+          <section className="cs-section">
+            <h2 className="cs-title">{t(L.indicators)}</h2>
+            {cs.indicatorsNote && (
+              <p className="cs-note">{t(cs.indicatorsNote)}</p>
+            )}
+            <div className="cs-table">
+              <div className="cs-tr cs-th">
+                <span>{t(L.metricCol)}</span>
+                <span>{t(L.objectiveCol)}</span>
+              </div>
+              {cs.indicators.map((ind, i) => (
+                <div className="cs-tr" key={i}>
+                  <span className="cs-metric-name">{t(ind.metric)}</span>
+                  <span>{t(ind.objective)}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        </article>
+      ) : (
+        <article className="cs">
           <section className="cs-section">
             <p className="cs-eyebrow">{t(ui.project.challenge)}</p>
             <p className="cs-text">{t(project.challenge)}</p>
           </section>
-
-          {/* Proceso */}
           <section className="cs-section">
             <p className="cs-eyebrow">{t(ui.project.process)}</p>
             <p className="cs-text">{t(project.process)}</p>
           </section>
-
-          {/* La solución */}
           <section className="cs-section">
             <p className="cs-eyebrow">{t(ui.project.solution)}</p>
             <p className="cs-text cs-lead">{t(project.solution)}</p>
           </section>
-
-          {/* Cifras */}
           {project.metrics && project.metrics.length > 0 && (
             <section className="cs-section">
               <p className="cs-eyebrow">{t(ui.project.metrics)}</p>
@@ -106,7 +217,7 @@ export default function ProjectPage() {
               </div>
             </section>
           )}
-        </div>
+        </article>
       )}
     </div>
   );

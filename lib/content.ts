@@ -45,6 +45,28 @@ export type Project = {
   heroImage?: string; // imagen grande del landing (ej. orchestration-home.png)
   figmaUrl?: string; // enlace "Open in Figma"
   about?: Localized[]; // puntos de la sección "About"
+  caseStudy?: CaseStudy; // historia completa (si existe, reemplaza el layout simple)
+};
+
+export type CaseStudy = {
+  overview: Localized[];
+  meta: { label: Localized; value: Localized }[];
+  challenge: Localized[];
+  objectives: Localized[];
+  roleIntro: Localized;
+  responsibilities: Localized[];
+  problemIntro: Localized;
+  painPoints: { title: Localized; text: Localized }[];
+  approachIntro: Localized;
+  designDecisions: Localized[];
+  approachClosing?: Localized;
+  solutionIntro: Localized;
+  solutionPoints: Localized[];
+  solutionClosing?: Localized;
+  outcomesIntro?: Localized;
+  outcomes: Localized[];
+  indicatorsNote?: Localized;
+  indicators: { metric: Localized; objective: Localized }[];
 };
 
 export type Company = {
@@ -728,6 +750,153 @@ export const companies: Company[] = [
             en: "Edit core stages (Stage Base) so changes automatically propagate to every Case Solution that uses them.",
           },
         ],
+        caseStudy: {
+          overview: [
+            {
+              es: "Orchestration Manager es una nueva capacidad dentro de Bizagi Studio que permite a los usuarios de negocio diseñar, organizar y gestionar las etapas de proceso de los Case Solutions mediante un modelo de orquestación centralizado y reutilizable.",
+              en: "Orchestration Manager is a new capability within Bizagi Studio that enables business users to design, organize and manage process stages for Case Solutions through a centralized and reusable orchestration model.",
+            },
+            {
+              es: "En lugar de crear etapas de forma independiente para cada Case Solution, ahora los usuarios pueden reutilizar definiciones de etapas compartidas en múltiples escenarios de negocio, reduciendo la duplicación, mejorando la gobernanza y simplificando el mantenimiento a largo plazo.",
+              en: "Instead of creating stages independently for every Case Solution, users can now reuse shared stage definitions across multiple business scenarios, reducing duplication, improving governance and simplifying long-term maintenance.",
+            },
+          ],
+          meta: [
+            { label: { es: "Producto", en: "Product" }, value: { es: "Bizagi Studio", en: "Bizagi Studio" } },
+            { label: { es: "Área", en: "Area" }, value: { es: "Producto", en: "Product" } },
+            { label: { es: "Rol", en: "Role" }, value: { es: "Senior UX Designer", en: "Senior UX Designer" } },
+            { label: { es: "Año", en: "Year" }, value: { es: "2026", en: "2026" } },
+            { label: { es: "Plataforma", en: "Platform" }, value: { es: "Escritorio", en: "Desktop" } },
+            { label: { es: "Tipo de proyecto", en: "Project type" }, value: { es: "Nueva funcionalidad", en: "New Feature" } },
+            {
+              label: { es: "Usuarios objetivo", en: "Target users" },
+              value: {
+                es: "Analistas de negocio · Arquitectos de solución · Desarrolladores · Administradores",
+                en: "Business Analysts · Solution Architects · Developers · Administrators",
+              },
+            },
+          ],
+          challenge: [
+            {
+              es: "Diseñar Case Solutions obligaba a los usuarios a recrear cada etapa de proceso desde cero o a clonar las existentes. Aunque funcional, este enfoque introducía duplicación innecesaria, configuraciones inconsistentes y una carga de mantenimiento creciente a medida que los proyectos evolucionaban.",
+              en: "Designing Case Solutions required users to recreate every process stage from scratch or clone existing ones. Although functional, this approach introduced unnecessary duplication, inconsistent configurations and a growing maintenance burden as projects evolved.",
+            },
+            {
+              es: "El producto carecía de una forma centralizada de organizar etapas de proceso reutilizables, lo que dificultaba escalar soluciones empresariales donde varios Case Solutions compartían la misma lógica de negocio.",
+              en: "The product lacked a centralized way to organize reusable process stages, making it difficult to scale enterprise solutions where multiple Case Solutions shared the same business logic.",
+            },
+            {
+              es: "El reto no era simplemente crear otra pantalla de configuración, sino repensar cómo debía funcionar la orquestación en toda la experiencia de Case Management.",
+              en: "The challenge was not simply creating another configuration screen—it was rethinking how orchestration should work across the entire Case Management experience.",
+            },
+          ],
+          objectives: [
+            { es: "Eliminar las definiciones de etapas duplicadas.", en: "Eliminate duplicated stage definitions." },
+            { es: "Habilitar una orquestación reutilizable entre Case Solutions.", en: "Enable reusable orchestration across Case Solutions." },
+            { es: "Simplificar la gestión de etapas con una experiencia centralizada.", en: "Simplify stage management through a centralized experience." },
+            { es: "Mejorar la escalabilidad para implementaciones empresariales.", en: "Improve scalability for enterprise implementations." },
+            { es: "Reducir el esfuerzo de mantenimiento conservando la flexibilidad.", en: "Reduce maintenance effort while preserving flexibility." },
+            { es: "Crear un flujo intuitivo para configurar orquestaciones de proceso complejas.", en: "Create an intuitive workflow for configuring complex process orchestration." },
+          ],
+          roleIntro: {
+            es: "Como diseñador UX responsable de esta iniciativa, colaboré estrechamente con Product Managers e ingenieros para traducir una arquitectura técnica compleja en una experiencia comprensible para usuarios de negocio.",
+            en: "As the UX Designer responsible for this initiative, I collaborated closely with Product Managers and Engineers to translate a complex technical architecture into an experience understandable for business users.",
+          },
+          responsibilities: [
+            { es: "Product Discovery", en: "Product Discovery" },
+            { es: "Análisis UX", en: "UX Analysis" },
+            { es: "Flujos de usuario", en: "User Flows" },
+            { es: "Arquitectura de información", en: "Information Architecture" },
+            { es: "Diseño de interacción", en: "Interaction Design" },
+            { es: "Wireframing", en: "Wireframing" },
+            { es: "UI de alta fidelidad", en: "High-Fidelity UI" },
+            { es: "Validación de prototipos", en: "Prototype Validation" },
+            { es: "Handoff a desarrollo", en: "Developer Handoff" },
+          ],
+          problemIntro: {
+            es: "Antes de proponer soluciones, trabajé con ingeniería para entender la arquitectura subyacente e identificar dónde experimentaban los usuarios la mayor complejidad. El análisis reveló tres puntos de dolor principales:",
+            en: "Before proposing solutions, I worked with engineering to understand the underlying architecture and identify where users experienced the greatest complexity. The analysis revealed three major pain points:",
+          },
+          painPoints: [
+            {
+              title: { es: "Duplicación de etapas", en: "Stage Duplication" },
+              text: {
+                es: "Cada nuevo Case Solution requería recrear etapas, incluso cuando ya existían configuraciones idénticas.",
+                en: "Every new Case Solution required recreating stages, even when identical configurations already existed.",
+              },
+            },
+            {
+              title: { es: "Alto costo de mantenimiento", en: "High Maintenance Cost" },
+              text: {
+                es: "Actualizar un proceso de negocio compartido implicaba editar manualmente múltiples etapas duplicadas en distintos Case Solutions.",
+                en: "Updating a shared business process meant manually editing multiple duplicated stages across different Case Solutions.",
+              },
+            },
+            {
+              title: { es: "Escalabilidad limitada", en: "Limited Scalability" },
+              text: {
+                es: "A medida que los proyectos empresariales crecían, mantener la consistencia entre las definiciones de proceso se volvía cada vez más difícil.",
+                en: "As enterprise projects grew, maintaining consistency between process definitions became increasingly difficult.",
+              },
+            },
+          ],
+          approachIntro: {
+            es: "La solución se centró en transformar la gestión de etapas de configuraciones aisladas a un modelo de orquestación reutilizable. Las decisiones de diseño clave incluyeron:",
+            en: "The solution focused on transforming stage management from isolated configurations into a reusable orchestration model. Key design decisions included:",
+          },
+          designDecisions: [
+            { es: "Centralizar la gestión de etapas.", en: "Centralizing stage management." },
+            { es: "Soportar Stage References reutilizables.", en: "Supporting reusable Stage References." },
+            { es: "Organizar las etapas visualmente por rutas Main y Parallel.", en: "Organizing stages visually by Main and Parallel paths." },
+            { es: "Permitir reordenar con arrastrar y soltar.", en: "Allowing drag-and-drop reordering." },
+            { es: "Soportar creación y edición en línea.", en: "Supporting inline creation and editing." },
+            { es: "Ofrecer acciones contextuales sin salir del flujo.", en: "Providing contextual actions without leaving the workflow." },
+            { es: "Resaltar las etapas reutilizables con indicadores visuales claros.", en: "Surfacing reusable stages through clear visual indicators." },
+          ],
+          approachClosing: {
+            es: "La experiencia se diseñó para reducir la carga cognitiva y exponer las capacidades avanzadas solo cuando se necesitan.",
+            en: "The experience was designed to reduce cognitive load while exposing advanced capabilities only when needed.",
+          },
+          solutionIntro: {
+            es: "La experiencia final introdujo un Orchestration Manager centralizado donde los usuarios pueden:",
+            en: "The final experience introduced a centralized Orchestration Manager where users can:",
+          },
+          solutionPoints: [
+            { es: "Crear y organizar etapas de proceso.", en: "Create and organize process stages." },
+            { es: "Separar rutas Main y Parallel.", en: "Separate Main and Parallel paths." },
+            { es: "Reutilizar definiciones de etapas existentes.", en: "Reuse existing stage definitions." },
+            { es: "Crear nuevas etapas reutilizables directamente desde la interfaz.", en: "Create new reusable stages directly from the interface." },
+            { es: "Reordenar etapas con arrastrar y soltar.", en: "Reorder stages using drag and drop." },
+            { es: "Configurar hitos y acciones desde cada etapa.", en: "Configure milestones and actions from each stage." },
+            { es: "Gestionar la orquestación sin navegar por múltiples pantallas.", en: "Manage the orchestration without navigating across multiple screens." },
+          ],
+          solutionClosing: {
+            es: "El resultado es un flujo más limpio y escalable, alineado con la arquitectura de Case Management de Bizagi a largo plazo.",
+            en: "The result is a cleaner, more scalable workflow that aligns with Bizagi's long-term Case Management architecture.",
+          },
+          outcomesIntro: {
+            es: "La experiencia de orquestación rediseñada ayudó a alcanzar varios objetivos de producto:",
+            en: "The redesigned orchestration experience helped achieve several product goals:",
+          },
+          outcomes: [
+            { es: "Menos creación de etapas duplicadas.", en: "Reduced duplicated stage creation." },
+            { es: "Mejor descubrimiento de etapas reutilizables.", en: "Improved discoverability of reusable stages." },
+            { es: "Configuración más simple para Case Solutions complejos.", en: "Simplified configuration for complex Case Solutions." },
+            { es: "Mayor consistencia entre proyectos empresariales.", en: "Increased consistency across enterprise projects." },
+            { es: "Una base escalable para futuras capacidades de orquestación.", en: "Established a scalable foundation for future orchestration capabilities." },
+          ],
+          indicatorsNote: {
+            es: "Reemplazar con valores medidos después del lanzamiento.",
+            en: "Replace with measured values after release.",
+          },
+          indicators: [
+            { metric: { es: "CES", en: "CES" }, objective: { es: "Reducir el esfuerzo de configuración al montar un Case Solution.", en: "Reduce configuration effort during Case Solution setup." } },
+            { metric: { es: "CSAT", en: "CSAT" }, objective: { es: "Mejorar la satisfacción con los flujos de gestión de etapas.", en: "Improve satisfaction with stage management workflows." } },
+            { metric: { es: "NPS", en: "NPS" }, objective: { es: "Aumentar la confianza al configurar Case Solutions empresariales.", en: "Increase confidence in configuring enterprise Case Solutions." } },
+            { metric: { es: "Tasa de éxito de tarea", en: "Task Success Rate" }, objective: { es: "Crear y configurar etapas reutilizables con éxito.", en: "Successfully create and configure reusable stages." } },
+            { metric: { es: "Tiempo por tarea", en: "Time on Task" }, objective: { es: "Reducir el tiempo necesario para construir orquestaciones complejas.", en: "Reduce the time required to build complex orchestrations." } },
+          ],
+        },
       },
       {
         slug: "asistente-ia",
@@ -1928,6 +2097,20 @@ export const ui = {
     openFigma: { es: "Abrir en Figma", en: "Open in Figma" },
     productLabel: { es: "Producto", en: "Product" },
     yearLabel: { es: "Año", en: "Year" },
+    cs: {
+      overview: { es: "Resumen", en: "Overview" },
+      about: { es: "Sobre el proyecto", en: "About the project" },
+      challenge: { es: "El desafío", en: "The Challenge" },
+      objectives: { es: "Objetivos", en: "Objectives" },
+      role: { es: "Mi rol", en: "My Role" },
+      problem: { es: "Entender el problema", en: "Understanding the Problem" },
+      approach: { es: "Enfoque de diseño", en: "Design Approach" },
+      solution: { es: "La solución", en: "Solution" },
+      outcomes: { es: "Resultados UX", en: "UX Outcomes" },
+      indicators: { es: "Indicadores de experiencia", en: "Experience Indicators" },
+      metricCol: { es: "Métrica", en: "Metric" },
+      objectiveCol: { es: "Objetivo", en: "Objective" },
+    },
     viewOnBehance: { es: "Ver caso completo en Behance", en: "View full case on Behance" },
     behanceEyebrow: { es: "Caso publicado", en: "Published case" },
     behanceNote: {
