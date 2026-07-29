@@ -193,29 +193,15 @@ export default function ProjectPage() {
             <div className="cs-split-text">
               <p className="cs-h">{t(L.approach)}</p>
               <p className="cs-text">{t(cs.approachIntro)}</p>
-              <ul className="cs-list">
+              <ul className="cs-list cs-check">
                 {cs.designDecisions.map((d, i) => (
                   <li key={i}>{t(d)}</li>
                 ))}
               </ul>
               {cs.approachClosing && (
-                <p className="cs-text">{t(cs.approachClosing)}</p>
+                <p className="cs-text cs-lead">{t(cs.approachClosing)}</p>
               )}
             </div>
-          </section>
-
-          {/* Solution (una columna, panel) */}
-          <section className="cs-section cs-panel">
-            <p className="cs-h">{t(L.solution)}</p>
-            <p className="cs-text">{t(cs.solutionIntro)}</p>
-            <ul className="cs-list cs-check">
-              {cs.solutionPoints.map((s, i) => (
-                <li key={i}>{t(s)}</li>
-              ))}
-            </ul>
-            {cs.solutionClosing && (
-              <p className="cs-text cs-lead">{t(cs.solutionClosing)}</p>
-            )}
           </section>
 
           {/* Resultados + Indicadores (destacados) */}
