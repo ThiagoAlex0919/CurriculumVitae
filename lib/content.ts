@@ -2111,6 +2111,8 @@ export const ui = {
       valueCol: { es: "Valor", en: "Value" },
       viewAll: { es: "Ver todos", en: "View all" },
       viewLess: { es: "Ver menos", en: "View less" },
+      zoom: { es: "Ampliar imagen", en: "Zoom image" },
+      closeZoom: { es: "Cerrar", en: "Close" },
     },
     viewOnBehance: { es: "Ver caso completo en Behance", en: "View full case on Behance" },
     behanceEyebrow: { es: "Caso publicado", en: "Published case" },

@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
@@ -11,6 +13,15 @@ export default function ProjectPage() {
   const { t } = useI18n();
   const params = useParams<{ empresa: string; proyecto: string }>();
   const { company, project } = findProject(params.empresa, params.proyecto);
+  const [zoom, setZoom] = useState<string | null>(null);
+
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setZoom(null);
+    };
+    document.addEventListener("keydown", onEsc);
+    return () => document.removeEventListener("keydown", onEsc);
+  }, []);
 
   if (!company || !project) return notFound();
 
@@ -99,10 +110,21 @@ export default function ProjectPage() {
               ))}
             </div>
             {cs.challengeImage && (
-              <div className="cs-split-media">
+              <button
+                type="button"
+                className="cs-split-media cs-zoom"
+                onClick={() => setZoom(cs.challengeImage!)}
+                aria-label={t(L.zoom)}
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={cs.challengeImage} alt="" />
-              </div>
+                <img
+                  src={cs.challengeImage}
+                  alt={`${t(project.name)} — ${t(L.challenge)}`}
+                />
+                <span className="cs-zoom-badge" aria-hidden>
+                  <Icon name="plus" size={16} />
+                </span>
+              </button>
             )}
           </section>
 
@@ -136,10 +158,21 @@ export default function ProjectPage() {
           {/* imagen | Design Approach */}
           <section className="cs-split cs-split--media-first">
             {cs.approachImage && (
-              <div className="cs-split-media">
+              <button
+                type="button"
+                className="cs-split-media cs-zoom"
+                onClick={() => setZoom(cs.approachImage!)}
+                aria-label={t(L.zoom)}
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={cs.approachImage} alt="" />
-              </div>
+                <img
+                  src={cs.approachImage}
+                  alt={`${t(project.name)} — ${t(L.approach)}`}
+                />
+                <span className="cs-zoom-badge" aria-hidden>
+                  <Icon name="plus" size={16} />
+                </span>
+              </button>
             )}
             <div className="cs-split-text">
               <p className="cs-h">{t(L.approach)}</p>
@@ -247,6 +280,28 @@ export default function ProjectPage() {
           )}
         </article>
       )}
+
+      {zoom &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            className="cs-lightbox"
+            onClick={() => setZoom(null)}
+            role="dialog"
+            aria-modal="true"
+          >
+            <button
+              className="cs-lightbox-close"
+              onClick={() => setZoom(null)}
+              aria-label={t(L.closeZoom)}
+            >
+              <Icon name="x" size={22} />
+            </button>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={zoom} alt="" onClick={(e) => e.stopPropagation()} />
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

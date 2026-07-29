@@ -1692,6 +1692,78 @@ p {
   height: auto;
   display: block;
 }
+/* Mockups ampliables (lightbox) */
+.cs-zoom {
+  position: relative;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  width: 100%;
+  display: block;
+  cursor: zoom-in;
+  transition: transform 0.2s ease;
+}
+.cs-zoom:hover {
+  transform: translateY(-3px);
+}
+.cs-zoom-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(2, 20, 30, 0.55);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.cs-zoom:hover .cs-zoom-badge,
+.cs-zoom:focus-visible .cs-zoom-badge {
+  opacity: 1;
+}
+.cs-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: rgba(4, 12, 20, 0.85);
+  backdrop-filter: blur(4px);
+  cursor: zoom-out;
+}
+.cs-lightbox img {
+  max-width: 94vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  cursor: default;
+  filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.5));
+}
+.cs-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.cs-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
 @media (max-width: 760px) {
   .cs-split {
     grid-template-columns: 1fr;
