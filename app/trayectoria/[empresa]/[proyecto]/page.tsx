@@ -272,13 +272,6 @@ export default function ProjectPage() {
             </section>
           )}
 
-          {cs.footerImage && (
-            <div className="cs-footer">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={cs.footerImage} alt="" />
-            </div>
-          )}
-
           {/* Más de estos diseños */}
           {cs.more && cs.more.length > 0 && (
             <section className="cs-section cs-more">
@@ -318,6 +311,13 @@ export default function ProjectPage() {
                 })}
               </div>
             </section>
+          )}
+
+          {cs.footerImage && (
+            <div className="cs-footer">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={cs.footerImage} alt="" />
+            </div>
           )}
           </article>
         </div>
