@@ -103,7 +103,13 @@ export default function ProjectPage() {
         <BehanceCase project={project} />
       ) : cs ? (
         <div className="cs-shell">
-          <CaseNav items={navItems} />
+          <CaseNav
+            items={navItems}
+            role={{
+              label: t(ui.project.cs.role),
+              items: cs.responsibilities.map((r) => t(r)),
+            }}
+          />
           <article className="cs">
           {/* Overview */}
           <section className="cs-section" id="cs-overview">
@@ -198,11 +204,12 @@ export default function ProjectPage() {
                   <li key={i}>{t(d)}</li>
                 ))}
               </ul>
-              {cs.approachClosing && (
-                <p className="cs-text cs-lead">{t(cs.approachClosing)}</p>
-              )}
             </div>
           </section>
+
+          {cs.approachClosing && (
+            <p className="cs-callout">{t(cs.approachClosing)}</p>
+          )}
 
           {/* Resultados + Indicadores (destacados) */}
           <section className="cs-results" id="cs-results">

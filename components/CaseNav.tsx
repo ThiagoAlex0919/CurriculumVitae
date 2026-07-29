@@ -3,16 +3,19 @@
 import { useEffect, useState } from "react";
 
 /**
- * Índice lateral sticky + fade-in de las secciones del caso de estudio.
+ * Índice lateral sticky + fade-in de las secciones del caso de estudio,
+ * con un bloque opcional de "rol / tags" debajo.
  * Para QUITAR esta mejora: borra la línea <CaseNav ... /> en la página.
- * Sin este componente, las secciones se muestran normalmente (sin animación).
  */
 export default function CaseNav({
   items,
+  role,
 }: {
   items: { id: string; label: string }[];
+  role?: { label: string; items: string[] };
 }) {
   const [active, setActive] = useState(items[0]?.id ?? "");
+  const [roleOpen, setRoleOpen] = useState(false);
 
   useEffect(() => {
     const cs = document.querySelector(".cs");
@@ -59,21 +62,48 @@ export default function CaseNav({
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  const roleItems = role?.items ?? [];
+  const visibleRole = roleOpen ? roleItems : roleItems.slice(0, 4);
+
   return (
-    <nav className="cs-nav" aria-label="Índice del caso">
-      <ul>
-        {items.map((it) => (
-          <li key={it.id}>
-            <a
-              href={`#${it.id}`}
-              className={active === it.id ? "on" : ""}
-              onClick={(e) => go(e, it.id)}
-            >
-              {it.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <aside className="cs-rail">
+      <nav className="cs-nav" aria-label="Índice del caso">
+        <ul>
+          {items.map((it) => (
+            <li key={it.id}>
+              <a
+                href={`#${it.id}`}
+                className={active === it.id ? "on" : ""}
+                onClick={(e) => go(e, it.id)}
+              >
+                {it.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {role && roleItems.length > 0 && (
+        <div className="cs-role">
+          <p className="cs-role-h">{role.label}</p>
+          <div className="cs-role-tags">
+            {visibleRole.map((r, i) => (
+              <span className="cs-role-tag" key={i}>
+                {r}
+              </span>
+            ))}
+            {roleItems.length > 4 && (
+              <button
+                type="button"
+                className="cs-role-tag cs-role-more"
+                onClick={() => setRoleOpen((o) => !o)}
+              >
+                {roleOpen ? "−" : `+${roleItems.length - 4}`}
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+    </aside>
   );
 }

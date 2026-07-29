@@ -1328,11 +1328,18 @@ p {
   flex: 1 1 auto;
   min-width: 0;
 }
-.cs-nav {
+/* el título de la sección debe quedar bajo el índice, no pegado al tope */
+.cs > [id] {
+  scroll-margin-top: 104px;
+}
+.cs-rail {
   position: sticky;
-  top: 90px;
-  flex: 0 0 172px;
-  width: 172px;
+  top: 96px;
+  flex: 0 0 184px;
+  width: 184px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
 }
 .cs-nav ul {
   list-style: none;
@@ -1360,11 +1367,44 @@ p {
   border-left-color: var(--accent);
   font-weight: 500;
 }
+/* Bloque de rol / tags bajo el índice */
+.cs-role-h {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin: 0 0 10px;
+}
+.cs-role-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.cs-role-tag {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent-dark);
+  background: var(--accent-tint);
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+.cs-role-more {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: border-color 0.15s ease;
+}
+.cs-role-more:hover {
+  border-color: var(--accent);
+}
 @media (max-width: 1080px) {
   .cs-shell {
     display: block;
   }
-  .cs-nav {
+  .cs-rail {
     display: none;
   }
 }
@@ -1409,6 +1449,19 @@ p {
   font-size: 17px;
   line-height: 1.6;
   color: var(--ink);
+}
+/* Frase de cierre destacada (callout) */
+.cs-callout {
+  font-family: var(--serif);
+  font-size: clamp(19px, 2vw, 24px);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+  background: var(--accent-tint);
+  border-radius: 18px;
+  padding: 26px 30px;
+  margin: 0;
+  max-width: 900px;
 }
 .cs-list {
   margin: 0;
@@ -1848,12 +1901,13 @@ p {
 
 /* Imagen de cierre (footer del caso) — pegada a Resultados, sin sombra */
 .cs-footer {
-  margin-top: -34px;
-  border-radius: 20px;
-  overflow: hidden;
+  margin-top: -18px;
+  display: flex;
+  justify-content: center;
 }
 .cs-footer img {
   width: 100%;
+  max-width: 560px;
   height: auto;
   display: block;
 }
