@@ -1317,6 +1317,75 @@ p {
   gap: 46px;
   max-width: 1120px;
 }
+
+/* Shell con índice lateral sticky (fácil de quitar: borra <CaseNav/>) */
+.cs-shell {
+  display: flex;
+  align-items: flex-start;
+  gap: 46px;
+}
+.cs-shell .cs {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.cs-nav {
+  position: sticky;
+  top: 90px;
+  flex: 0 0 172px;
+  width: 172px;
+}
+.cs-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--line);
+}
+.cs-nav a {
+  display: block;
+  padding: 8px 0 8px 16px;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--ink-mute);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.cs-nav a:hover {
+  color: var(--ink);
+}
+.cs-nav a.on {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 500;
+}
+@media (max-width: 1080px) {
+  .cs-shell {
+    display: block;
+  }
+  .cs-nav {
+    display: none;
+  }
+}
+
+/* Fade-in de secciones (solo activo con la clase .cs-anim que agrega CaseNav) */
+.cs-anim > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.cs-anim > .is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-anim > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none;
+  }
+}
 .cs-section {
   display: flex;
   flex-direction: column;

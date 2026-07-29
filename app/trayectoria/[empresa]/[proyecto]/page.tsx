@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
@@ -8,12 +8,26 @@ import { useI18n } from "@/lib/i18n";
 import { findProject, ui } from "@/lib/content";
 import Icon from "@/components/Icon";
 import BehanceCase from "@/components/BehanceCase";
+import CaseNav from "@/components/CaseNav";
 
 export default function ProjectPage() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const params = useParams<{ empresa: string; proyecto: string }>();
   const { company, project } = findProject(params.empresa, params.proyecto);
   const [zoom, setZoom] = useState<string | null>(null);
+
+  // Índice del caso (memoizado por idioma para no reiniciar la animación)
+  const navItems = useMemo(
+    () => [
+      { id: "cs-overview", label: t(ui.project.cs.overview) },
+      { id: "cs-challenge", label: t(ui.project.cs.challenge) },
+      { id: "cs-problem", label: t(ui.project.cs.problem) },
+      { id: "cs-approach", label: t(ui.project.cs.approach) },
+      { id: "cs-results", label: t(ui.project.cs.outcomes) },
+    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [locale]
+  );
 
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => {
@@ -88,9 +102,11 @@ export default function ProjectPage() {
       {isBehance ? (
         <BehanceCase project={project} />
       ) : cs ? (
-        <article className="cs">
+        <div className="cs-shell">
+          <CaseNav items={navItems} />
+          <article className="cs">
           {/* Overview */}
-          <section className="cs-section">
+          <section className="cs-section" id="cs-overview">
             <p className="cs-h">{t(L.overview)}</p>
             {cs.overview.map((p, i) => (
               <p className="cs-text" key={i}>
@@ -100,7 +116,7 @@ export default function ProjectPage() {
           </section>
 
           {/* The Challenge | imagen */}
-          <section className="cs-split">
+          <section className="cs-split" id="cs-challenge">
             <div className="cs-split-text">
               <p className="cs-h">{t(L.challenge)}</p>
               {cs.challenge.map((p, i) => (
@@ -139,7 +155,7 @@ export default function ProjectPage() {
           </section>
 
           {/* Understanding the Problem — panel oscuro */}
-          <section className="cs-dark">
+          <section className="cs-dark" id="cs-problem">
             <p className="cs-h cs-h--light">{t(L.problem)}</p>
             <p className="cs-dark-intro">{t(cs.problemIntro)}</p>
             <div className="cs-cards">
@@ -156,7 +172,7 @@ export default function ProjectPage() {
           </section>
 
           {/* imagen | Design Approach */}
-          <section className="cs-split cs-split--media-first">
+          <section className="cs-split cs-split--media-first" id="cs-approach">
             {cs.approachImage && (
               <button
                 type="button"
@@ -203,7 +219,7 @@ export default function ProjectPage() {
           </section>
 
           {/* Resultados + Indicadores (destacados) */}
-          <section className="cs-results">
+          <section className="cs-results" id="cs-results">
             <div className="cs-results-block">
               <p className="cs-h">{t(L.outcomes)}</p>
               {cs.outcomesIntro && (
@@ -249,7 +265,8 @@ export default function ProjectPage() {
               <img src={cs.footerImage} alt="" />
             </div>
           )}
-        </article>
+          </article>
+        </div>
       ) : (
         <article className="cs">
           <section className="cs-section">
