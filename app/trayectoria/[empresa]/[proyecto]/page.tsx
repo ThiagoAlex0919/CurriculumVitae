@@ -20,57 +20,59 @@ export default function ProjectPage() {
 
   return (
     <div className="proj-page">
-      <Link href={`/trayectoria/${company.slug}`} className="proj-back">
-        <span aria-hidden>←</span> {t(ui.project.back)} · {company.name}
-      </Link>
+      {/* Header agrupado: back + info + ilustración + meta bar */}
+      <div className="proj-hero-card">
+        <Link href={`/trayectoria/${company.slug}`} className="proj-back">
+          <span aria-hidden>←</span> {t(ui.project.back)} · {company.name}
+        </Link>
 
-      {/* Hero */}
-      <section className="proj-hero">
-        <div className="proj-hero-info">
-          <div className="proj-brand">
-            {company.logoColor && (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img src={company.logoColor} alt={company.name} />
-            )}
-            <span>{company.studio ?? company.name}</span>
-          </div>
-          <h1 className="proj-title">{t(project.name)}</h1>
-          <p className="proj-meta">
-            {t(ui.project.productLabel)}: {project.product ?? company.name}
-            {"   ·   "}
-            {t(ui.project.yearLabel)}: {project.year}
-          </p>
-
-          {project.figmaUrl && (
-            <a
-              className="proj-figma"
-              href={project.figmaUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {t(ui.project.openFigma)} <Icon name="arrow" size={16} />
-            </a>
-          )}
-        </div>
-        <div className="proj-hero-media">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={project.heroImage ?? project.image} alt={t(project.name)} />
-        </div>
-      </section>
-
-      {/* Meta bar horizontal */}
-      {cs ? (
-        <div className="proj-metabar">
-          {cs.meta.map((m, i) => (
-            <div className="proj-metabar-item" key={i}>
-              <div className="proj-metabar-label">{t(m.label)}</div>
-              <div className="proj-metabar-value">{t(m.value)}</div>
+        <section className="proj-hero">
+          <div className="proj-hero-info">
+            <div className="proj-brand">
+              {company.logoColor && (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={company.logoColor} alt={company.name} />
+              )}
+              <span>{company.studio ?? company.name}</span>
             </div>
-          ))}
-        </div>
-      ) : (
-        <hr className="proj-divider" />
-      )}
+            <h1 className="proj-title">{t(project.name)}</h1>
+            <p className="proj-meta">
+              {t(ui.project.productLabel)}: {project.product ?? company.name}
+              {"   ·   "}
+              {t(ui.project.yearLabel)}: {project.year}
+            </p>
+
+            {project.figmaUrl && (
+              <a
+                className="proj-figma"
+                href={project.figmaUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t(ui.project.openFigma)} <Icon name="arrow" size={16} />
+              </a>
+            )}
+          </div>
+          <div className="proj-hero-media">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={project.heroImage ?? project.image}
+              alt={t(project.name)}
+            />
+          </div>
+        </section>
+
+        {cs && (
+          <div className="proj-metabar">
+            {cs.meta.map((m, i) => (
+              <div className="proj-metabar-item" key={i}>
+                <div className="proj-metabar-label">{t(m.label)}</div>
+                <div className="proj-metabar-value">{t(m.value)}</div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       {isBehance ? (
         <BehanceCase project={project} />
@@ -86,7 +88,7 @@ export default function ProjectPage() {
             ))}
           </section>
 
-          {/* The Challenge + Objectives | imagen */}
+          {/* The Challenge | imagen */}
           <section className="cs-split cs-accent cs-accent-left">
             <div className="cs-split-text">
               <p className="cs-h">{t(L.challenge)}</p>
@@ -95,12 +97,6 @@ export default function ProjectPage() {
                   {t(p)}
                 </p>
               ))}
-              <p className="cs-h cs-sublabel">{t(L.objectives)}</p>
-              <ul className="cs-list cs-check">
-                {cs.objectives.map((o, i) => (
-                  <li key={i}>{t(o)}</li>
-                ))}
-              </ul>
             </div>
             {cs.challengeImage && (
               <div className="cs-split-media">
@@ -108,6 +104,16 @@ export default function ProjectPage() {
                 <img src={cs.challengeImage} alt="" />
               </div>
             )}
+          </section>
+
+          {/* Objectives (una columna) */}
+          <section className="cs-section">
+            <p className="cs-h">{t(L.objectives)}</p>
+            <ul className="cs-list cs-check">
+              {cs.objectives.map((o, i) => (
+                <li key={i}>{t(o)}</li>
+              ))}
+            </ul>
           </section>
 
           {/* Understanding the Problem — panel oscuro */}
@@ -127,7 +133,7 @@ export default function ProjectPage() {
             </div>
           </section>
 
-          {/* imagen | Design Approach + Solution */}
+          {/* imagen | Design Approach */}
           <section className="cs-split cs-split--media-first cs-accent cs-accent-right">
             {cs.approachImage && (
               <div className="cs-split-media">
@@ -146,18 +152,21 @@ export default function ProjectPage() {
               {cs.approachClosing && (
                 <p className="cs-text">{t(cs.approachClosing)}</p>
               )}
-
-              <p className="cs-h cs-sublabel">{t(L.solution)}</p>
-              <p className="cs-text">{t(cs.solutionIntro)}</p>
-              <ul className="cs-list cs-check">
-                {cs.solutionPoints.map((s, i) => (
-                  <li key={i}>{t(s)}</li>
-                ))}
-              </ul>
-              {cs.solutionClosing && (
-                <p className="cs-text cs-lead">{t(cs.solutionClosing)}</p>
-              )}
             </div>
+          </section>
+
+          {/* Solution (una columna) */}
+          <section className="cs-section">
+            <p className="cs-h">{t(L.solution)}</p>
+            <p className="cs-text">{t(cs.solutionIntro)}</p>
+            <ul className="cs-list cs-check">
+              {cs.solutionPoints.map((s, i) => (
+                <li key={i}>{t(s)}</li>
+              ))}
+            </ul>
+            {cs.solutionClosing && (
+              <p className="cs-text cs-lead">{t(cs.solutionClosing)}</p>
+            )}
           </section>
 
           {/* Resultados + Indicadores (destacados) */}
