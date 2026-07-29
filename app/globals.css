@@ -1641,6 +1641,74 @@ p {
   margin-top: 1px;
 }
 
+/* Etiqueta de sección (uppercase) */
+.cs-h {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+.cs-h--light {
+  color: #fff;
+}
+
+/* Split: texto + mockup del producto */
+.cs-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 52px;
+  align-items: center;
+}
+.cs-split-text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+.cs-split-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media (max-width: 760px) {
+  .cs-split {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .cs-split--media-first .cs-split-text {
+    order: -1;
+  }
+}
+
+/* Panel oscuro: entender el problema */
+.cs-dark {
+  background: #0b2a43;
+  border-radius: 22px;
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cs-dark-intro {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0 0 8px;
+  max-width: 820px;
+}
+.cs-dark .cs-cards {
+  margin-top: 6px;
+}
+.cs-dark .cs-card {
+  background: #fff;
+  border-color: transparent;
+}
+.cs-dark .cs-card-num {
+  color: var(--accent);
+}
+
 /* Modal "Sobre el proyecto" */
 .about-overlay {
   position: fixed;

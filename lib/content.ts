@@ -51,6 +51,8 @@ export type Project = {
 export type CaseStudy = {
   overview: Localized[];
   meta: { label: Localized; value: Localized }[];
+  challengeImage?: string; // mockup junto al desafío
+  approachImage?: string; // mockup junto al enfoque de diseño
   challenge: Localized[];
   objectives: Localized[];
   roleIntro: Localized;
@@ -768,6 +770,8 @@ export const companies: Company[] = [
             { label: { es: "Plataforma", en: "Platform" }, value: { es: "Escritorio", en: "Desktop" } },
             { label: { es: "Tipo", en: "Type" }, value: { es: "Nueva funcionalidad", en: "New Feature" } },
           ],
+          challengeImage: "/imagenes/bizagi/reto-macbook.webp",
+          approachImage: "/imagenes/bizagi/enfoque-imac.webp",
           challenge: [
             {
               es: "Diseñar Case Solutions obligaba a los usuarios a recrear cada etapa de proceso desde cero o a clonar las existentes. Aunque funcional, este enfoque introducía duplicación innecesaria, configuraciones inconsistentes y una carga de mantenimiento creciente a medida que los proyectos evolucionaban.",

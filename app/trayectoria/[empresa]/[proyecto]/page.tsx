@@ -76,7 +76,7 @@ export default function ProjectPage() {
         </div>
       </section>
 
-      {/* Meta bar horizontal (Producto, Rol, Año, Plataforma, Tipo) */}
+      {/* Meta bar horizontal */}
       {cs ? (
         <div className="proj-metabar">
           {cs.meta.map((m, i) => (
@@ -96,7 +96,7 @@ export default function ProjectPage() {
         <article className="cs">
           {/* Overview */}
           <section className="cs-section">
-            <p className="cs-eyebrow">{t(L.overview)}</p>
+            <p className="cs-h">{t(L.overview)}</p>
             {cs.overview.map((p, i) => (
               <p className="cs-text" key={i}>
                 {t(p)}
@@ -104,32 +104,34 @@ export default function ProjectPage() {
             ))}
           </section>
 
-          {/* The Challenge + Objectives (dos columnas) */}
-          <section className="cs-section">
-            <div className="cs-two">
-              <div>
-                <h2 className="cs-title">{t(L.challenge)}</h2>
-                {cs.challenge.map((p, i) => (
-                  <p className="cs-text" key={i}>
-                    {t(p)}
-                  </p>
+          {/* The Challenge + Objectives | imagen */}
+          <section className="cs-split">
+            <div className="cs-split-text">
+              <p className="cs-h">{t(L.challenge)}</p>
+              {cs.challenge.map((p, i) => (
+                <p className="cs-text" key={i}>
+                  {t(p)}
+                </p>
+              ))}
+              <p className="cs-h cs-sublabel">{t(L.objectives)}</p>
+              <ul className="cs-list cs-check">
+                {cs.objectives.map((o, i) => (
+                  <li key={i}>{t(o)}</li>
                 ))}
-              </div>
-              <div>
-                <p className="cs-eyebrow">{t(L.objectives)}</p>
-                <ul className="cs-list cs-check">
-                  {cs.objectives.map((o, i) => (
-                    <li key={i}>{t(o)}</li>
-                  ))}
-                </ul>
-              </div>
+              </ul>
             </div>
+            {cs.challengeImage && (
+              <div className="cs-split-media">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={cs.challengeImage} alt="" />
+              </div>
+            )}
           </section>
 
-          {/* Understanding the Problem */}
-          <section className="cs-section">
-            <h2 className="cs-title">{t(L.problem)}</h2>
-            <p className="cs-text">{t(cs.problemIntro)}</p>
+          {/* Understanding the Problem — panel oscuro */}
+          <section className="cs-dark">
+            <p className="cs-h cs-h--light">{t(L.problem)}</p>
+            <p className="cs-dark-intro">{t(cs.problemIntro)}</p>
             <div className="cs-cards">
               {cs.painPoints.map((p, i) => (
                 <div className="cs-card" key={i}>
@@ -143,32 +145,37 @@ export default function ProjectPage() {
             </div>
           </section>
 
-          {/* Design Approach */}
-          <section className="cs-section">
-            <h2 className="cs-title">{t(L.approach)}</h2>
-            <p className="cs-text">{t(cs.approachIntro)}</p>
-            <ul className="cs-list">
-              {cs.designDecisions.map((d, i) => (
-                <li key={i}>{t(d)}</li>
-              ))}
-            </ul>
-            {cs.approachClosing && (
-              <p className="cs-text">{t(cs.approachClosing)}</p>
+          {/* imagen | Design Approach + Solution */}
+          <section className="cs-split cs-split--media-first">
+            {cs.approachImage && (
+              <div className="cs-split-media">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={cs.approachImage} alt="" />
+              </div>
             )}
-          </section>
+            <div className="cs-split-text">
+              <p className="cs-h">{t(L.approach)}</p>
+              <p className="cs-text">{t(cs.approachIntro)}</p>
+              <ul className="cs-list">
+                {cs.designDecisions.map((d, i) => (
+                  <li key={i}>{t(d)}</li>
+                ))}
+              </ul>
+              {cs.approachClosing && (
+                <p className="cs-text">{t(cs.approachClosing)}</p>
+              )}
 
-          {/* Solution */}
-          <section className="cs-section">
-            <h2 className="cs-title">{t(L.solution)}</h2>
-            <p className="cs-text">{t(cs.solutionIntro)}</p>
-            <ul className="cs-list cs-check">
-              {cs.solutionPoints.map((s, i) => (
-                <li key={i}>{t(s)}</li>
-              ))}
-            </ul>
-            {cs.solutionClosing && (
-              <p className="cs-text cs-lead">{t(cs.solutionClosing)}</p>
-            )}
+              <p className="cs-h cs-sublabel">{t(L.solution)}</p>
+              <p className="cs-text">{t(cs.solutionIntro)}</p>
+              <ul className="cs-list cs-check">
+                {cs.solutionPoints.map((s, i) => (
+                  <li key={i}>{t(s)}</li>
+                ))}
+              </ul>
+              {cs.solutionClosing && (
+                <p className="cs-text cs-lead">{t(cs.solutionClosing)}</p>
+              )}
+            </div>
           </section>
 
           {/* Resultados + Indicadores (destacados) */}
@@ -215,20 +222,20 @@ export default function ProjectPage() {
       ) : (
         <article className="cs">
           <section className="cs-section">
-            <p className="cs-eyebrow">{t(ui.project.challenge)}</p>
+            <p className="cs-h">{t(ui.project.challenge)}</p>
             <p className="cs-text">{t(project.challenge)}</p>
           </section>
           <section className="cs-section">
-            <p className="cs-eyebrow">{t(ui.project.process)}</p>
+            <p className="cs-h">{t(ui.project.process)}</p>
             <p className="cs-text">{t(project.process)}</p>
           </section>
           <section className="cs-section">
-            <p className="cs-eyebrow">{t(ui.project.solution)}</p>
+            <p className="cs-h">{t(ui.project.solution)}</p>
             <p className="cs-text cs-lead">{t(project.solution)}</p>
           </section>
           {project.metrics && project.metrics.length > 0 && (
             <section className="cs-section">
-              <p className="cs-eyebrow">{t(ui.project.metrics)}</p>
+              <p className="cs-h">{t(ui.project.metrics)}</p>
               <div className="cs-metrics">
                 {project.metrics.map((m, i) => (
                   <div className="cs-metric" key={i}>
