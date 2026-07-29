@@ -106,8 +106,8 @@ export default function ProjectPage() {
             )}
           </section>
 
-          {/* Objectives (una columna) */}
-          <section className="cs-section">
+          {/* Objectives (una columna, panel) */}
+          <section className="cs-section cs-panel">
             <p className="cs-h">{t(L.objectives)}</p>
             <ul className="cs-list cs-check">
               {cs.objectives.map((o, i) => (
@@ -155,8 +155,8 @@ export default function ProjectPage() {
             </div>
           </section>
 
-          {/* Solution (una columna) */}
-          <section className="cs-section">
+          {/* Solution (una columna, panel) */}
+          <section className="cs-section cs-panel">
             <p className="cs-h">{t(L.solution)}</p>
             <p className="cs-text">{t(cs.solutionIntro)}</p>
             <ul className="cs-list cs-check">
@@ -172,7 +172,7 @@ export default function ProjectPage() {
           {/* Resultados + Indicadores (destacados) */}
           <section className="cs-results">
             <div className="cs-results-block">
-              <h2 className="cs-title">{t(L.outcomes)}</h2>
+              <p className="cs-h">{t(L.outcomes)}</p>
               {cs.outcomesIntro && (
                 <p className="cs-text">{t(cs.outcomesIntro)}</p>
               )}
@@ -189,7 +189,7 @@ export default function ProjectPage() {
             </div>
 
             <div className="cs-results-block">
-              <h2 className="cs-title">{t(L.indicators)}</h2>
+              <p className="cs-h">{t(L.indicators)}</p>
               {cs.indicatorsNote && (
                 <p className="cs-note">{t(cs.indicatorsNote)}</p>
               )}

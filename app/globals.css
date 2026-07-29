@@ -1276,9 +1276,9 @@ p {
 .proj-hero-media img {
   width: 100%;
   height: auto;
-  border-radius: 16px;
   display: block;
-  box-shadow: var(--shadow);
+  /* drop-shadow respeta las esquinas redondeadas del thumbnail; muy tenue */
+  filter: drop-shadow(0 6px 16px rgba(1, 30, 43, 0.1));
 }
 .proj-divider {
   border: 0;
@@ -1510,7 +1510,7 @@ p {
 .cs-metric-target {
   font-weight: 600;
   color: var(--accent);
-  text-align: right;
+  text-align: left;
 }
 .cs-tr:first-child {
   border-top: 0;
@@ -1608,6 +1608,14 @@ p {
     grid-template-columns: 1fr;
     gap: 22px;
   }
+}
+
+/* Panel (mismo fondo que Resultados) para Objetivos y Solución */
+.cs-panel {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 28px 32px;
 }
 
 /* Resultados + Indicadores destacados */
