@@ -1692,28 +1692,6 @@ p {
   height: auto;
   display: block;
 }
-/* Barras de acento en los bordes (detalle de diseño) */
-.cs-accent::before {
-  content: "";
-  position: absolute;
-  top: 14%;
-  bottom: 14%;
-  width: 10px;
-  background: #0b2a43;
-}
-.cs-accent-left::before {
-  left: -28px;
-  border-radius: 0 6px 6px 0;
-}
-.cs-accent-right::before {
-  right: -28px;
-  border-radius: 6px 0 0 6px;
-}
-@media (max-width: 1000px) {
-  .cs-accent::before {
-    display: none;
-  }
-}
 @media (max-width: 760px) {
   .cs-split {
     grid-template-columns: 1fr;

@@ -89,7 +89,7 @@ export default function ProjectPage() {
           </section>
 
           {/* The Challenge | imagen */}
-          <section className="cs-split cs-accent cs-accent-left">
+          <section className="cs-split">
             <div className="cs-split-text">
               <p className="cs-h">{t(L.challenge)}</p>
               {cs.challenge.map((p, i) => (
@@ -134,7 +134,7 @@ export default function ProjectPage() {
           </section>
 
           {/* imagen | Design Approach */}
-          <section className="cs-split cs-split--media-first cs-accent cs-accent-right">
+          <section className="cs-split cs-split--media-first">
             {cs.approachImage && (
               <div className="cs-split-media">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
