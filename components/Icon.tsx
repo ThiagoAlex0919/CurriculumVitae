@@ -34,6 +34,7 @@ const map: Record<string, string> = {
   plus: "ph-plus",
   minus: "ph-minus",
   print: "ph-printer",
+  sketch: "ph-sketch-logo",
 };
 
 export default function Icon({ name, size = 20, weight = "regular" }: IconProps) {

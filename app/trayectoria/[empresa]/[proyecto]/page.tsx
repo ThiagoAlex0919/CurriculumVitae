@@ -213,7 +213,12 @@ export default function ProjectPage() {
           </section>
 
           {cs.approachClosing && (
-            <p className="cs-callout">{t(cs.approachClosing)}</p>
+            <div className="cs-callout">
+              <span className="cs-callout-ic" aria-hidden>
+                <Icon name="sketch" size={24} />
+              </span>
+              <p>{t(cs.approachClosing)}</p>
+            </div>
           )}
 
           {/* Resultados + Indicadores (destacados) */}
