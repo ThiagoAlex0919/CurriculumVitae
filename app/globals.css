@@ -1654,12 +1654,16 @@ p {
   color: #fff;
 }
 
-/* Split: texto + mockup del producto */
+/* Split: texto + mockup del producto (la imagen toma más protagonismo) */
 .cs-split {
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px 52px;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 40px 56px;
   align-items: center;
+}
+.cs-split--media-first {
+  grid-template-columns: 1.2fr 0.8fr;
 }
 .cs-split-text {
   display: flex;
@@ -1672,14 +1676,52 @@ p {
   height: auto;
   display: block;
 }
+/* Barras de acento en los bordes (detalle de diseño) */
+.cs-accent::before {
+  content: "";
+  position: absolute;
+  top: 14%;
+  bottom: 14%;
+  width: 10px;
+  background: #0b2a43;
+}
+.cs-accent-left::before {
+  left: -28px;
+  border-radius: 0 6px 6px 0;
+}
+.cs-accent-right::before {
+  right: -28px;
+  border-radius: 6px 0 0 6px;
+}
+@media (max-width: 1000px) {
+  .cs-accent::before {
+    display: none;
+  }
+}
 @media (max-width: 760px) {
   .cs-split {
     grid-template-columns: 1fr;
     gap: 24px;
   }
+  .cs-split--media-first {
+    grid-template-columns: 1fr;
+  }
   .cs-split--media-first .cs-split-text {
     order: -1;
   }
+}
+
+/* Imagen de cierre (footer del caso) */
+.cs-footer {
+  margin-top: 6px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.cs-footer img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Panel oscuro: entender el problema */

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
@@ -12,16 +11,12 @@ export default function ProjectPage() {
   const { t } = useI18n();
   const params = useParams<{ empresa: string; proyecto: string }>();
   const { company, project } = findProject(params.empresa, params.proyecto);
-  const [tagsOpen, setTagsOpen] = useState(false);
 
   if (!company || !project) return notFound();
 
   const isBehance = project.storyStatus === "behance";
   const cs = project.caseStudy;
   const L = ui.project.cs;
-
-  const resp = cs?.responsibilities ?? [];
-  const visibleTags = tagsOpen ? resp : resp.slice(0, 3);
 
   return (
     <div className="proj-page">
@@ -40,24 +35,11 @@ export default function ProjectPage() {
             <span>{company.studio ?? company.name}</span>
           </div>
           <h1 className="proj-title">{t(project.name)}</h1>
-
-          {resp.length > 0 && (
-            <div className="proj-tags">
-              {visibleTags.map((r, i) => (
-                <span className="proj-tag" key={i}>
-                  {t(r)}
-                </span>
-              ))}
-              {resp.length > 3 && (
-                <button
-                  className="proj-tag proj-tag-more"
-                  onClick={() => setTagsOpen((o) => !o)}
-                >
-                  {tagsOpen ? t(L.viewLess) : `+${resp.length - 3}`}
-                </button>
-              )}
-            </div>
-          )}
+          <p className="proj-meta">
+            {t(ui.project.productLabel)}: {project.product ?? company.name}
+            {"   ·   "}
+            {t(ui.project.yearLabel)}: {project.year}
+          </p>
 
           {project.figmaUrl && (
             <a
@@ -105,7 +87,7 @@ export default function ProjectPage() {
           </section>
 
           {/* The Challenge + Objectives | imagen */}
-          <section className="cs-split">
+          <section className="cs-split cs-accent cs-accent-left">
             <div className="cs-split-text">
               <p className="cs-h">{t(L.challenge)}</p>
               {cs.challenge.map((p, i) => (
@@ -146,7 +128,7 @@ export default function ProjectPage() {
           </section>
 
           {/* imagen | Design Approach + Solution */}
-          <section className="cs-split cs-split--media-first">
+          <section className="cs-split cs-split--media-first cs-accent cs-accent-right">
             {cs.approachImage && (
               <div className="cs-split-media">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -218,6 +200,13 @@ export default function ProjectPage() {
               </div>
             </div>
           </section>
+
+          {cs.footerImage && (
+            <div className="cs-footer">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={cs.footerImage} alt="" />
+            </div>
+          )}
         </article>
       ) : (
         <article className="cs">
