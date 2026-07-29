@@ -70,6 +70,8 @@ export type CaseStudy = {
   outcomes: Localized[];
   indicatorsNote?: Localized;
   indicators: { metric: Localized; objective: Localized; value: Localized }[];
+  // "Más de estos diseños": tarjetas al cierre (slug opcional si ya existe el caso)
+  more?: { title: string; category?: Localized; slug?: string }[];
 };
 
 export type Company = {
@@ -769,7 +771,7 @@ export const companies: Company[] = [
           ],
           challengeImage: "/imagenes/bizagi/reto-macbook.webp",
           approachImage: "/imagenes/bizagi/enfoque-imac.webp",
-          footerImage: "/imagenes/bizagi/studio-inicio.webp",
+          footerImage: "/imagenes/bizagi/studio-cierre.webp",
           challenge: [
             {
               es: "Diseñar Case Solutions obligaba a recrear cada etapa desde cero o a clonarlas. El resultado: duplicación, configuraciones inconsistentes y una carga de mantenimiento que crecía con cada proyecto.",
@@ -864,6 +866,11 @@ export const companies: Company[] = [
             { metric: { es: "NPS", en: "NPS" }, objective: { es: "Aumentar la confianza al configurar Case Solutions empresariales.", en: "Increase confidence in configuring enterprise Case Solutions." }, value: { es: "+46", en: "+46" } },
             { metric: { es: "Tasa de éxito de tarea", en: "Task Success Rate" }, objective: { es: "Crear y configurar etapas reutilizables con éxito.", en: "Successfully create and configure reusable stages." }, value: { es: "96%", en: "96%" } },
             { metric: { es: "Tiempo por tarea", en: "Time on Task" }, objective: { es: "Reducir el tiempo necesario para construir orquestaciones complejas.", en: "Reduce the time required to build complex orchestrations." }, value: { es: "−43%", en: "−43%" } },
+          ],
+          more: [
+            { title: "AI Worker", category: { es: "AI Workers", en: "AI Workers" } },
+            { title: "AI Advisor", category: { es: "Inteligencia Artificial", en: "Artificial Intelligence" } },
+            { title: "Actions Matrix", category: { es: "Case Management", en: "Case Management" } },
           ],
         },
       },
@@ -2084,6 +2091,9 @@ export const ui = {
       viewLess: { es: "Ver menos", en: "View less" },
       zoom: { es: "Ampliar imagen", en: "Zoom image" },
       closeZoom: { es: "Cerrar", en: "Close" },
+      figmaTitle: { es: "Explora el archivo", en: "Explore the file" },
+      moreTitle: { es: "Más de estos diseños", en: "More of these designs" },
+      soon: { es: "Próximamente", en: "Coming soon" },
     },
     viewOnBehance: { es: "Ver caso completo en Behance", en: "View full case on Behance" },
     behanceEyebrow: { es: "Caso publicado", en: "Published case" },

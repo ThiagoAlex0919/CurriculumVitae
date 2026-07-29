@@ -42,6 +42,11 @@ export default function ProjectPage() {
   const isBehance = project.storyStatus === "behance";
   const cs = project.caseStudy;
   const L = ui.project.cs;
+  const figmaEmbed = project.figmaUrl
+    ? `https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(
+        project.figmaUrl
+      )}`
+    : null;
 
   return (
     <div className="proj-page">
@@ -252,11 +257,67 @@ export default function ProjectPage() {
             </div>
           </section>
 
+          {/* Preview del archivo de Figma */}
+          {figmaEmbed && (
+            <section className="cs-section">
+              <p className="cs-h">{t(L.figmaTitle)}</p>
+              <div className="cs-figma-frame">
+                <iframe
+                  src={figmaEmbed}
+                  title="Figma"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
+            </section>
+          )}
+
           {cs.footerImage && (
             <div className="cs-footer">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={cs.footerImage} alt="" />
             </div>
+          )}
+
+          {/* Más de estos diseños */}
+          {cs.more && cs.more.length > 0 && (
+            <section className="cs-section cs-more">
+              <p className="cs-h">{t(L.moreTitle)}</p>
+              <div className="cs-more-grid">
+                {cs.more.map((m, i) => {
+                  const inner = (
+                    <>
+                      {m.category && (
+                        <span className="cs-more-cat">{t(m.category)}</span>
+                      )}
+                      <h3 className="cs-more-title">{m.title}</h3>
+                      <span className="cs-more-tag">
+                        {m.slug ? (
+                          <>
+                            {t(ui.company.viewCase)} →
+                          </>
+                        ) : (
+                          t(L.soon)
+                        )}
+                      </span>
+                    </>
+                  );
+                  return m.slug ? (
+                    <Link
+                      key={i}
+                      href={`/trayectoria/${company.slug}/${m.slug}`}
+                      className="cs-more-card is-link"
+                    >
+                      {inner}
+                    </Link>
+                  ) : (
+                    <div key={i} className="cs-more-card" aria-disabled>
+                      {inner}
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
           )}
           </article>
         </div>
