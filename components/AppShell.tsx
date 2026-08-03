@@ -38,10 +38,15 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="app-shell" data-collapsed={collapsed} data-ready={ready}>
+      <a href="#contenido" className="skip-link">
+        {t({ es: "Saltar al contenido", en: "Skip to content" })}
+      </a>
       <Sidebar collapsed={collapsed} onToggle={toggle} />
       <MobileNav />
       <div className="app-main">
-        <main>{children}</main>
+        <main id="contenido" tabIndex={-1}>
+          {children}
+        </main>
         <p className="mobile-credits">
           © {new Date().getFullYear()} {profile.name}. {t(ui.footer.rights)}
         </p>
