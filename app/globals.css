@@ -996,7 +996,7 @@ p {
   backdrop-filter: blur(18px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(1, 30, 43, 0.12);
+  box-shadow: none;
   align-items: center;
   justify-content: space-around;
   padding: 0 6px;
@@ -1005,7 +1005,6 @@ p {
 [data-theme="dark"] .mobile-nav {
   background: rgba(27, 34, 42, 0.52);
   border-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 .mnav-item {
   flex: 1;
