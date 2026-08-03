@@ -231,6 +231,7 @@ export default function Home() {
               text={t(profile.summary)}
               limit={240}
               className="lead-serif"
+              openOnDesktop
             />
             <button
               type="button"
