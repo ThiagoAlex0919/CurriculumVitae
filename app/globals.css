@@ -991,13 +991,21 @@ p {
   left: 12px;
   right: 12px;
   height: 66px;
-  background: var(--card);
+  background: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 18px;
-  box-shadow: 0 2px 6px rgba(20, 21, 26, 0.06), 0 -2px 20px rgba(20, 21, 26, 0.08);
+  box-shadow: 0 10px 30px rgba(1, 30, 43, 0.12);
   align-items: center;
   justify-content: space-around;
   padding: 0 6px;
   z-index: 95;
+}
+[data-theme="dark"] .mobile-nav {
+  background: rgba(27, 34, 42, 0.52);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 .mnav-item {
   flex: 1;
@@ -1047,12 +1055,25 @@ p {
   bottom: 12px;
   right: 12px;
   width: min(360px, 82vw);
-  background: var(--card);
-  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 20px;
-  box-shadow: var(--shadow-hover);
+  box-shadow: 0 12px 34px rgba(1, 30, 43, 0.14);
   padding: 2px 18px;
   z-index: 96;
+}
+[data-theme="dark"] .mnav-sheet {
+  background: rgba(27, 34, 42, 0.68);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+}
+/* En móvil, sin fade inferior para que el glass muestre el contenido real */
+@media (max-width: 720px) {
+  .app-shell::after {
+    display: none;
+  }
 }
 .mnav-row {
   display: flex;
