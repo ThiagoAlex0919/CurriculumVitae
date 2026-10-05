@@ -1975,6 +1975,22 @@ export const ui = {
     cta: { es: "Ver hoja de vida", en: "View resume" },
     close: { es: "Cerrar", en: "Close" },
   },
+  /* Modal de bienvenida (temporal mientras el sitio está en construcción).
+     Se activa/desactiva en components/WelcomeModal.tsx → WELCOME_ENABLED. */
+  welcome: {
+    badge: { es: "En construcción", en: "Under construction" },
+    title: { es: "¡Bienvenido a bordo!", en: "Welcome aboard!" },
+    body: {
+      es: "Este portafolio aún está en construcción. Algunas secciones y casos de estudio todavía se están completando, así que es posible que encuentres contenido en proceso.",
+      en: "This portfolio is still under construction. Some sections and case studies are being completed, so you may find content in progress.",
+    },
+    note: {
+      es: "Gracias por tu visita y tu paciencia mientras termino el despegue.",
+      en: "Thanks for visiting and for your patience while I finish the launch.",
+    },
+    cta: { es: "Entendido, explorar", en: "Got it, explore" },
+    close: { es: "Cerrar", en: "Close" },
+  },
   home: {
     aboutTitle: { es: "Perfil profesional", en: "Professional profile" },
     skillsTitle: { es: "Skills y conocimiento", en: "Skills & knowledge" },

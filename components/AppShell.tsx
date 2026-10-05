@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Sidebar from "./Sidebar";
 import MobileNav from "./MobileNav";
+import WelcomeModal from "./WelcomeModal";
 import { useI18n } from "@/lib/i18n";
 import { profile, ui } from "@/lib/content";
 
@@ -51,6 +52,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           © {new Date().getFullYear()} {profile.name}. {t(ui.footer.rights)}
         </p>
       </div>
+      {/* Temporal: aviso de sitio en construcción */}
+      <WelcomeModal />
     </div>
   );
 }
